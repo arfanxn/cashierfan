@@ -16,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::inertia("/", 'Dashboard')->name("/");
 
-Route::inertia("/", 'Dashboard');
+Route::inertia("/test", 'Test')->name("test");
