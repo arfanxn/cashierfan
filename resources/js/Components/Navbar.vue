@@ -22,7 +22,7 @@
                         <li>
                             <Link href="#" class="block px-4 py-2 hover:bg-gray-200 ">Settings</Link>
                         </li>
-                        <li class="border-t">
+                        <li class="border-t-2">
                             <Link href="#" class="block px-4 py-2 hover:bg-gray-200 ">Logout</Link>
                         </li>
                     </ul>

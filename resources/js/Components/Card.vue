@@ -1,5 +1,5 @@
 <template>
-    <div :class="`before:${accentColor} ${accentColor}`"
+    <div :class="`before:${colorAccent} ${colorAccent}`"
         class="overflow-hidden border shadow rounded-xl before:pt-2 before:rounded-t before:block ">
         <header class="flex items-center px-5 py-2 space-x-2 border-b rounded-t-lg bg-neutral-100">
             <slot name="title">
@@ -18,16 +18,16 @@
 <script>
 export default new class {
     props = {
-        accentColor: {
+        colorAccent: {
             required: true,
             type: String,
             default: "bg-indigo-900"
         }
     };
 
-    setup({ accentColor }) {
+    setup({ colorAccent }) {
 
-        return { accentColor }
+        return { colorAccent }
     }
 }
 </script>
