@@ -19,7 +19,7 @@
 export default new class {
     props = {
         colorAccent: {
-            required: true,
+            required: false,
             type: String,
             default: "bg-indigo-900"
         }
