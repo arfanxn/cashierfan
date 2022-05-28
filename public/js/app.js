@@ -34675,7 +34675,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.$emit('onClick');
     }),
-    "class": "text-white transition duration-300 bg-indigo-900 hover:bg-indigo-900/90 hover:text-white focus:outline-none focus:ring focus:ring-indigo-900/25 focus:bg-indigo-900/90"
+    "class": "text-white transition duration-300 bg-indigo-900 hover:bg-indigo-900/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-indigo-900/25 focus:bg-indigo-900/90"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default", {}, function () {
     return [_hoisted_1];
   })]);
@@ -35016,7 +35016,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "w-full px-2 py-1 border placeholder:italic focus:outline-none focus:outline-indigo-900 focus:outline-1 focus:outline-offset-0",
+  "class": "w-full px-2 py-1 border placeholder:italic focus:outline-none focus:outline-indigo-900/25 focus:outline-4 focus:outline-offset-0",
   type: "text"
 };
 function render(_ctx, _cache) {
