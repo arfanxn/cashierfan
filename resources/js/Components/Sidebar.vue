@@ -1,13 +1,15 @@
 <template>
-    <main class="flex">
+    <main id="sidebar-bg"
+        class="fixed top-0 bottom-0 left-0 right-0 z-50 transition duration-500 ease-in-out transform -translate-x-full bg-black/50"
+        @click.self="toggleSidebar('hide')">
 
-        <nav id="sidebar" @mouseover="toggleSidebar(`show`)" @mouseleave="toggleSidebar(`hide`)"
-            class="fixed z-50 w-64 h-full text-white transition duration-500 ease-in-out transform -translate-x-full bg-slate-700 ">
-            <header class="flex items-center justify-center bg-indigo-900 py-2.5 ">
-                <h1 class="text-xl font-bold text-white">Arf-Market</h1>
+        <nav @mouseover="toggleSidebar('show')" @mouseleave="toggleSidebar('hide')" id="sidebar"
+            class="w-8/12 h-full text-white lg:w-64 bg-slate-700">
+            <header class="flex items-center justify-center bg-indigo-900 py-2.5">
+                <h1 class="text-base font-bold text-white lg:text-xl">Arf-Market</h1>
             </header>
 
-            <section class="h-full overflow-y-auto text-white text-md text-semibold">
+            <section class="h-full overflow-y-auto text-white lg:text-md text-semibold">
                 <Link href="/" class="flex px-4 items-center py-2.5 space-x-2 hover:bg-slate-800/50">
                 <font-awesome-icon class="fas fa-gauge" />
                 <h1>Dashboard</h1>
@@ -86,18 +88,12 @@
                     </Link>
                 </div>
 
-            </section>
 
-            <div @mouseover="toggleSidebar(`show`)"
-                class="absolute px-2.5 py-5 my-auto rounded-l-none rounded-r-xl bg-inherit -right-7 top-1/2 -z-10">
-                <font-awesome-icon icon="fas fa-bars" />
-            </div>
+
+            </section>
         </nav>
 
-        <div id="sidebar-wrapper" class="h-screen transition-all duration-500 ease-in-out shrink-0 ">
-        </div>
-
-        <div class="flex-grow ">
+        <div id="content" class="w-full transition-all duration-500 ease-in-out">
             <slot>
             </slot>
         </div>
@@ -106,23 +102,32 @@
 
 </template>
 
-<script setup>
+<script>
+import { storeToRefs } from 'pinia'
+import { useNavigation } from "../Stores/NavigationStore";
+import { watch, toRefs } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3'
-import { defineComponent } from "vue";
-const components = defineComponent({ Link })
 
+export default {
+    components: { Link },
 
-function toggleSidebar(action) {
-    const sidebar = document.querySelector(`#sidebar`);
-    const sidebarWrap = document.querySelector('#sidebar-wrapper');
+    setup(props) {
+        const NavigationStore = useNavigation();
 
-    if (sidebar.classList.contains(`-translate-x-full`) && action == "show") {
-        sidebar.classList.remove(`-translate-x-full`);
-        sidebarWrap.classList.add(`ml-64`);
+        function toggleSidebar(action) {
+            const sidebar = document.querySelector(`#sidebar-bg`);
+            if (sidebar.classList.contains(`-translate-x-full`) && action == "show") {
+                sidebar.classList.remove(`-translate-x-full`);
+            } else if (!sidebar.classList.contains(`-translate-x-full`) && action == "hide") {
+                sidebar.classList.add(`-translate-x-full`);
+            }
+        }
 
-    } else if (!sidebar.classList.contains(`-translate-x-full`) && action == "hide") {
-        sidebar.classList.add(`-translate-x-full`);
-        sidebarWrap.classList.remove(`ml-64`);
+        NavigationStore.$subscribe((mutation, state) => {
+            toggleSidebar('show')
+        })
+
+        return { toggleSidebar }
     }
-} 
+}
 </script>

@@ -1,17 +1,21 @@
 <template>
-    <nav class="flex  items-center py-2.5 w-full bg-white border-b shadow-sm justify-between px-8 space-x-2">
+    <nav
+        class="fixed flex items-center py-1 lg:py-2.5 w-full bg-white border-b shadow-sm justify-between px-4 lg:px-8 space-x-2  z-40">
         <section>
-            <h2 class="font-semibold text-gray-900/90">{{ now }}</h2>
+            <button @click="showSidebar()" @mouseover="showSidebar()">
+                <font-awesome-icon icon="fas fa-bars" />
+            </button>
         </section>
 
         <section class="flex items-center">
             <div class="p-1 space-x-1 rounded-full hover:bg-gray-200">
                 <font-awesome-icon icon="fas fa-user-circle" class="text-teal-700" size="xl"></font-awesome-icon>
-                <span class="font-semibold text-gray-900/90">{{ `Muhammad Arfan`.substring(0, 25) }}</span>
+                <span class="hidden font-semibold lg:inline text-gray-900/90">{{ `Muhammad Arfan`.substring(0, 25)
+                }}</span>
             </div>
 
-            <button @mouseover="toggleNavbarDropdown(`show`)" @mouseleave="toggleNavbarDropdown(`hide`)"
-                class="relative w-8 h-8 rounded-full hover:bg-gray-200">
+            <button @mouseover="toggleNavbarDropdown(`show`)" @click="toggleNavbarDropdown(`show`)"
+                @mouseleave="toggleNavbarDropdown(`hide`)" class="relative w-8 h-8 rounded-full hover:bg-gray-200">
                 <font-awesome-icon icon="fas fa-caret-down" size="lg"></font-awesome-icon>
 
                 <div id="navbar-dropdown" class="hidden bg-gray-200 rounded shadow top-8 -left-12 ">
@@ -34,27 +38,13 @@
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3'
-import { ref } from "vue";
+import { useNavigation } from "../Stores/NavigationStore";
 
 export default {
     components: { Link },
 
     setup() {
-        //  live clock and date
-        const now = ref(
-            new Date().toLocaleDateString('en-US', {
-                weekday: "long", year: "numeric", month: "short", day:
-                    "numeric", hour: "numeric", minute: "numeric", hour12: false, second: "numeric"
-            }));
-        setInterval(() => {
-            now.value = new Date().toLocaleDateString('en-US', {
-                weekday: "long", year: "numeric", month: "short", day:
-                    "numeric", hour: "numeric", minute: "numeric", hour12: false, second: "numeric"
-            });
-        }, 1000);
-        //  end of live clock and date
-
-
+        const NavigationStore = useNavigation();
 
         function toggleNavbarDropdown(action) {
             const nvbrDropdowd = document.querySelector(`#navbar-dropdown`);
@@ -67,9 +57,13 @@ export default {
             }
         }
 
+        function showSidebar() {
+            NavigationStore.$patch({
+                showSidebar: Date.now(),
+            })
+        }
 
-
-        return { toggleNavbarDropdown, now };
+        return { toggleNavbarDropdown, showSidebar };
     }
 }
 </script>
