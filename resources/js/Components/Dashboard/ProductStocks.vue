@@ -9,8 +9,8 @@
             <div class="flex">
                 <Input placeholder="Search products" class="rounded-l" type="text" />
 
-                <Button class="px-2 rounded-r">
-                    <font-awesome-icon icon="fas fa-magnifying-glass"></font-awesome-icon>
+                <Button class="flex px-2 rounded-r">
+                    <font-awesome-icon icon="fas fa-magnifying-glass" class="self-center"></font-awesome-icon>
                 </Button>
             </div>
 

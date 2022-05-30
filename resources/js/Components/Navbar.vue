@@ -10,7 +10,7 @@
         <section class="flex items-center">
             <div class="p-1 space-x-1 rounded-full hover:bg-gray-200">
                 <font-awesome-icon icon="fas fa-user-circle" class="text-teal-700" size="xl"></font-awesome-icon>
-                <span class="hidden font-semibold lg:inline text-gray-900/90">{{ `Muhammad Arfan`.substring(0, 25)
+                <span class="hidden font-semibold lg:inline text-slate-700">{{ `Muhammad Arfan`.substring(0, 25)
                 }}</span>
             </div>
 

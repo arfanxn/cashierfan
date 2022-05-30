@@ -30,4 +30,5 @@ createInertiaApp({
             })
             .mount(el);
     },
+    title : title => `${title || 'default'} | Arf-Market` , 
 });

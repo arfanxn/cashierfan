@@ -1,4 +1,10 @@
 <template>
+
+    <Head>
+        <title>Dashboard</title>
+        <meta name="Dashboard" content="Dashboard of point of sales" />
+    </Head>
+
     <AuthLayout>
         <div class="grid grid-cols-1 gap-4 lg:grid-cols-4">
             <SalesChart class="lg:col-span-3" />
@@ -40,6 +46,7 @@
 </template>
 
 <script>
+import { Head } from '@inertiajs/inertia-vue3'
 import BestSellingProducts from "../Components/Dashboard/BestSellingProducts.vue"
 import ProductStocks from "../Components/Dashboard/ProductStocks.vue"
 import SalesChart from "../Components/Dashboard/SalesChart.vue"
@@ -61,7 +68,8 @@ export default {
         Input,
         ProductStocks,
         SalesChart,
-        BestSellingProducts
+        BestSellingProducts,
+        Head
     },
 
     setup() {
