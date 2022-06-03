@@ -5,6 +5,7 @@
 /public/css/app.css
 /storage/*.key
 /vendor
+/docker
 .env
 .env.backup
 .phpunit.result.cache

@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  database:
+    image: postgres:14.3-alpine
+    container_name: "cashierfan-pgsql"
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: arfan2173
+      POSTGRES_PASSWORD: arfan2173
+      POSTGRES_DB: cashierfan
+    volumes:
+      - ./docker/pgsql/:/var/lib/postgresql/data/
+    networks:
+      - cashierfan-network
+
+networks:
+  cashierfan-network:
+    driver: bridge
