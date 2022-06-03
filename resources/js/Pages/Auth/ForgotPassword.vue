@@ -7,7 +7,7 @@
 
             <div class="text-center text-indigo-900">
                 <font-awesome-icon icon="fas fa-shop" class="text-5xl lg:text-8xl" />
-                <h1 class="text-xl font-bold lg:text-2xl">Arf-Market</h1>
+                <h1 class="text-xl font-bold lg:text-2xl">Cashierfan</h1>
             </div>
             <Card class="w-full lg:w-4/12">
                 <section class="py-2 space-y-4 ">
@@ -38,7 +38,7 @@ import GuestLayout from "../../Layouts/GuestLayout.vue";
 import Card from "../../Components/Card.vue";
 import Button from "../../Components/Button.vue";
 import Input from "../../Components/Input.vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link, Head } from "@inertiajs/inertia-vue3";
 
 
 

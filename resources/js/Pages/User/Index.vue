@@ -12,21 +12,24 @@
                 <h1 class="text-lg font-semibold">USERS</h1>
             </template>
 
-            <main class="py-2">
+            <main class="py-2 space-y-1 md:space-y-2 lg:space-y-3">
                 <div class="flex">
                     <ButtonLink :href="route(`users.create`)" class="flex items-center px-2 space-x-1 rounded-l">
                         <font-awesome-icon icon="fas fa-circle-plus"></font-awesome-icon>
                         <span class="hidden lg:inline-block">NEW</span>
                     </ButtonLink>
-                    <Input placeholder="Search users" type="text" class="placeholder:italic" />
-                    <Button class="flex px-2 rounded-r">
+                    <Input @onInput="({ value }) => (searchKeyword = value)" :value="searchKeyword"
+                        @keyup.enter="(event) => searchUser(event.target.value)"
+                        @blur="(event) => searchUser(event.target.value)" placeholder="Search users" type="text"
+                        class="placeholder:italic" />
+                    <Button class="flex px-2 rounded-r" @click="(event) => searchUser()">
                         <font-awesome-icon icon="fas fa-magnifying-glass" class="self-center"></font-awesome-icon>
                     </Button>
                 </div>
 
+                <Alert type="success" :message="$page.props?.flash?.message" />
 
-
-                <div class="relative mt-4 overflow-x-auto shadow">
+                <div class="relative overflow-x-auto shadow">
                     <table class="w-full text-sm text-left text-black border border-collapse border-gray-500 ">
                         <thead class="text-xs text-white uppercase bg-indigo-900">
                             <tr>
@@ -59,45 +62,58 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in [1, 2, 3, 4, 5, 6, 7]" :key="index"
+                            <tr v-for="(user, index) in props.users.data" :key="index"
                                 class="border-b even:bg-gray-100 odd:bg-white hover:bg-slate-300">
                                 <td class="w-16 h-16 text-gray-900 align-top border border-slate-500">
-                                    <img class="w-full h-full bg-center bg-no-repeat bg-cover aspect-square"
-                                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                                        alt="">
+                                    <ImgOrRandColor class="flex justify-center" :payload="user.details.avatar">
+                                        <span class="self-center font-bold text-white">{{
+                                                tap(user.name, name => name.match(/\b(\w)/g).join(``).substring(0
+                                                    , 2).toUpperCase()/**/)
+                                        }}</span>
+                                    </ImgOrRandColor>
                                 </td>
                                 <td class="px-4 py-4 text-gray-900 align-top border border-slate-500 whitespace-nowrap">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing.
+                                    <div>{{ user.name }}
+                                        <small v-if="$page.props.auth.user.id == user.id"
+                                            class="px-2 py-1 mx-1 text-xs text-white uppercase bg-indigo-900 rounded-lg ">
+                                            YOUR ACCOUNT
+                                        </small>
+                                    </div>
                                 </td>
                                 <td class="px-4 py-4 text-gray-900 align-top border border-slate-500">
-                                    Loremipsum.@gm.com
+                                    {{ user.email }}
                                 </td>
                                 <td class="px-4 py-4 align-top border border-slate-500 whitespace-nowrap">
-                                    {{ randInt(10000000000, 999999999999) }}
+                                    {{ user.details.phone_number }}
                                 </td>
                                 <td class="px-4 py-4 font-medium text-gray-900 align-top border border-slate-500">
-                                    <p v-show="showUserAddress" class="break-words">Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit.
-                                        Ullam nisi, quidem animi
-                                        non deleniti temporibus eaque. Aperiam quos nihil culpa aliquid, vitae hic fuga
-                                        quo
-                                        accusantium molestiae sit corporis similique.</p>
+                                    <p v-show="showUserAddress" class="break-words">
+                                        {{ user.details.address }}</p>
                                 </td>
                                 <td class="px-4 py-4 align-top border border-slate-500 whitespace-nowrap">
-                                    Member
+                                    {{ user.roles[0]['name'] }}
                                 </td>
                                 <td
-                                    class=" py-4 px-2 space-x-1  border lg:space-x-1.5 border-slate-500 text-center whitespace-nowrap align-top">
-                                    <Link :href="route(`users.edit`, 1)"
-                                        class="px-2 py-1 space-x-1 text-white transition duration-300 bg-blue-600 rounded hover:bg-blue-600/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-600/25 focus:bg-blue-600/90">
-                                    <font-awesome-icon icon="fas fa-pencil"></font-awesome-icon>
-                                    <span class="hidden lg:inline-block">EDIT</span>
-                                    </Link>
-                                    <Link
-                                        class="px-2 py-1 space-x-1 text-white transition duration-300 bg-red-600 rounded hover:bg-red-600/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-600/25 focus:bg-red-600/90">
-                                    <font-awesome-icon icon="fas fa-trash-can"></font-awesome-icon>
-                                    <span class="hidden lg:inline-block">DELETE</span>
-                                    </Link>
+                                    class=" py-4 px-2 border lg:space-x-1.5 border-slate-500 text-center whitespace-nowrap align-top">
+                                    <div v-if="$page.props.auth.user.id == user.id">
+                                        <ButtonLink :href="route(`users.edit`, user.id)"
+                                            class="px-2 py-1 space-x-1 text-white transition duration-300 rounded">
+                                            <font-awesome-icon icon="fas fa-gear"></font-awesome-icon>
+                                            <span class="hidden lg:inline-block">ACCOUNT SETTINGS</span>
+                                        </ButtonLink>
+                                    </div>
+                                    <div v-else class="space-x-1">
+                                        <ButtonLink :href="route(`users.edit`, user.id)"
+                                            class="px-2 py-1 space-x-1 text-white transition duration-300 bg-blue-600 rounded hover:bg-blue-600/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-600/25 focus:bg-blue-600/90">
+                                            <font-awesome-icon icon="fas fa-pencil"></font-awesome-icon>
+                                            <span class="hidden lg:inline-block">EDIT</span>
+                                        </ButtonLink>
+                                        <Button @click="deleteUser(user)"
+                                            class="px-2 py-1 space-x-1 text-white transition duration-300 bg-red-600 rounded hover:bg-red-600/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-600/25 focus:bg-red-600/90">
+                                            <font-awesome-icon icon="fas fa-trash-can"></font-awesome-icon>
+                                            <span class="hidden lg:inline-block">DELETE</span>
+                                        </Button>
+                                    </div>
 
                                 </td>
                             </tr>
@@ -105,8 +121,10 @@
                     </table>
                 </div>
 
-                <div class="flex flex-row-reverse w-full mt-4">
-                    <ButtonPagination class="basis-full lg:basis-3/12" :currentPage="1" />
+                <div class="flex flex-row-reverse w-full">
+                    <ButtonPagination class="basis-full lg:basis-3/12" :firstPageURL="props.users.first_page_url"
+                        :prevPageURL="props.users.prev_page_url" :nextPageURL="props.users.next_page_url"
+                        :currentPage="props.users.current_page" />
                 </div>
             </main>
         </Card>
@@ -115,14 +133,51 @@
 
 <script setup>
 import AuthLayout from "../../Layouts/AuthLayout.vue";
+import Alert from "../../Components/Alert.vue";
 import Card from "../../Components/Card.vue";
 import Button from "../../Components/Button.vue";
 import ButtonLink from "../../Components/ButtonLink.vue";
 import ButtonPagination from "../../Components/ButtonPagination.vue";
 import Input from "../../Components/Input.vue";
-import { Link, Head } from '@inertiajs/inertia-vue3'
-import { randInt } from "../../Helpers";
-import { ref } from "vue";
+import ImgOrRandColor from "../../Components/ImgOrRandColor.vue";
+import { Head } from '@inertiajs/inertia-vue3'
+import { tap, } from "../../Helpers";
+import { ref, defineProps, computed } from "vue";
+import { Inertia } from '@inertiajs/inertia'
+import { SwalTailwind } from "../../Mixins/Swal";
 
-const showUserAddress = ref(false); 
+const searchKeyword = ref(
+    tap(new URL(window.location.href), url => url.searchParams.get(`keyword`))
+);
+
+
+const showUserAddress = ref(false);
+
+const props = defineProps({
+    users: {
+        required: true,
+    },
+})
+
+function searchUser() {
+    Inertia.get(route('users.index'), {
+        "keyword": searchKeyword.value,
+    });
+}
+
+function deleteUser(user) {
+    SwalTailwind.fire({
+        title: `Delete confirmation`,
+        text: `Are you sure you want to delete user "${user.name}" ?`,
+        allowEnterKey: false,
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+        cancelButtonText: "Cancel",
+    }).then(result => {
+        if (result.isConfirmed) {
+            Inertia.delete(route('users.destroy', user.id));
+        }
+    });
+}
 </script>

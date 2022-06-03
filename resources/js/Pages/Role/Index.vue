@@ -91,6 +91,16 @@ import ButtonPagination from "../../Components/ButtonPagination.vue";
 import ButtonLink from "../../Components/ButtonLink.vue";
 import Input from "../../Components/Input.vue";
 import { Link, Head } from '@inertiajs/inertia-vue3'
+import { defineProps, onMounted } from 'vue';
 
+const props = defineProps({
+    roles: {
+        required: true,
+    },
+});
+
+onMounted(() => {
+    console.log(props.roles)
+})
 
 </script>
