@@ -30,5 +30,5 @@ createInertiaApp({
             })
             .mount(el);
     },
-    title : title => `${title || 'default'} | Arf-Market` , 
+    title : title => `${title || 'default'} | Cashierfan` , 
 });
