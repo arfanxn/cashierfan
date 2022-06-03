@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use App\Traits\UserExposePermissionsTrait;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
+    // use UserExposePermissionsTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -41,4 +45,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // protected $appends = ['permissions'];
+
+    // public function getPermissionsAttribute()
+    // {
+    //     return $this->roles->map(function ($role) {
+    //         return $role->permissions;
+    //     })->collapse()->pluck('name')->unique();
+    // }
+
+    public function details()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
 }

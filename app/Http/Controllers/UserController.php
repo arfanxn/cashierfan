@@ -2,20 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Str;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
+use Image;
 
 class UserController extends Controller
 {
+    public function __construct(Request $request, User $user)
+    {
+        $this->middleware('permission:users.index|users.create|users.edit|users.delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:users.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:users.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:users.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('User/Index');
+        $keyword = strtolower($request->get('keyword'));
+
+        $users = User::with(["details", "roles"]);
+
+        if ($keyword) {
+            $users = $users->where(function ($query) use ($keyword) {
+                $query->where(
+                    "name",
+                    "ILIKE",
+                    "%$keyword%"
+                )->orWhere(
+                    "email",
+                    "ILIKE",
+                    "%$keyword%"
+                );
+            });
+        }
+
+        $users = $users->orderBy("updated_at", "DESC")->simplePaginate(10);
+
+
+        return Inertia::render('User/Index', compact('users'));
     }
 
     /**
@@ -25,7 +62,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('User/Create');
+        $roles = Role::query()->whereNot('name', "Root")->get(['name'])->pluck('name');
+
+        return Inertia::render('User/Create', compact("roles"));
     }
 
     /**
@@ -34,9 +73,43 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $user = User::create(
+            collect($request->only([
+                'name', "email",
+            ]))->merge(["password" => bcrypt($request->password)])->toArray()
+        );
+
+        tap($request->file("avatar"), function ($avatar) use ($user, $request) {
+            if ($avatar) {   // check if user uploaded an avatar 
+                $avatarFileName = Str::random() . now()->timestamp . "." . $avatar->extension();
+                $avatarPath = "users/avatars";
+                Storage::putFileAs("public/" . $avatarPath, $avatar, $avatarFileName);
+
+                $user->details()->create(
+                    collect($request->only(["phone_number", "address",])/**/)
+                        ->merge(['avatar' => Storage::url($avatarPath . "/" . $avatarFileName)])->toArray()
+                );
+            } else
+                $user->details()->create(
+                    collect(
+                        $request->only(["phone_number", "address"])
+                    )->merge([
+                        "avatar" => "#" . Str::random(6, "0123456789ABCDEF")
+                    ])->toArray()
+                );
+        });
+
+        // give user role
+        $user->syncRoles($request->get('role'));
+
+        // give user permissions
+        $permissions = Role::whereName($request->get('role'))->first()->getPermissionNames() ?? [];
+        $user->syncPermissions($permissions);
+        // end of give user permissions
+
+        return redirect()->route("users.index")->with(['message' => "User created successfully"]);
     }
 
     /**
@@ -56,10 +129,21 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    // public function edit(User $user)
-    public function edit()
+    public function edit(User $user)
     {
-        return Inertia::render('User/Edit');
+        Gate::denyIf(
+            auth()->id() == $user->id,
+            "Cannot edit your own account, go to \"Account Settings\" to edit your account",
+            403
+        );
+
+        $user = $user->load("details");
+
+        $user = collect($user)->merge(["role" => $user->getRoleNames()->first()]);
+
+        $roles = Role::query()->whereNot('name', "Root")->get(['name'])->pluck('name');
+
+        return Inertia::render('User/Edit', compact("user", "roles"));
     }
 
     /**
@@ -69,9 +153,49 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        Gate::denyIf(
+            auth()->id() == $user->id,
+            "Cannot edit your own account, go to \"Account Settings\" to edit your account",
+            403
+        );
+
+        // update user credentials
+        $user->update(
+            $request->get("password") ?
+                collect($request->only(["name", "email",]))
+                ->merge(["password" => bcrypt($request->password)])->toArray()
+                : $request->only(["name", "email",])
+            /**/
+        );
+
+        tap($request->file("avatar"), function ($avatar) use ($user, $request) {
+            if ($avatar) {   // check if user uploaded an avatar 
+                $avatarFileName = Str::random() . now()->timestamp . "." . $avatar->extension();
+                $avatarPath = "users/avatars";
+                Storage::putFileAs("public/" . $avatarPath, $avatar, $avatarFileName);
+
+                $user->details()->update(
+                    collect($request->only(["phone_number", "address",])/**/)
+                        ->merge(['avatar' => Storage::url($avatarPath . "/" . $avatarFileName)])->toArray()
+                );
+            } else
+                $user->details()->update($request->only(["phone_number", "address"])/**/);
+        });
+
+        // update user role
+        $user->syncRoles($request->get('role'));
+
+        // update user permissions
+        $permissions = Role::whereName($request->get('role'))->first()->getPermissionNames() ?? [];
+        $user->syncPermissions($permissions);
+        // end of update user permissions
+
+        $user->touch(); // update the user updated_at column 
+
+        return redirect()->route("users.index")
+            ->with(["message" => 'User "' . $user->name . '" updated successfully']);
     }
 
     /**
@@ -82,6 +206,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        Gate::denyIf(auth()->id() == $user->id, "Cannot delete your own account", 403);
+
+        $user->delete(); // delete the user from database ;
+
+        return redirect()->route("users.index")
+            ->with(["message" => 'User "' . $user->name . '" deleted successfully']);
     }
 }
