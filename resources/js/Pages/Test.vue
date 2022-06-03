@@ -4,6 +4,8 @@
         <title>Test</title>
     </Head>
 
+    <div class="">{{ $page.props.auth.user }}</div>
+
     <!-- <main class="flex items-center justify-center w-screen h-screen bg-gray-200"> -->
     <!-- <InputImage @onInput="img"></InputImage> -->
 
