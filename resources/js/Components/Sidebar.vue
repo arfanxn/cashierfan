@@ -6,7 +6,7 @@
         <nav @mouseover="toggleSidebar('show')" @mouseleave="toggleSidebar('hide')" id="sidebar"
             class="w-8/12 h-full text-white lg:w-64 bg-slate-700 md:w-4/12">
             <header class="flex items-center justify-center bg-indigo-900 py-2.5">
-                <h1 class="text-base font-bold text-white lg:text-xl">Arf-Market</h1>
+                <h1 class="text-base font-bold text-white lg:text-xl">Cashierfan</h1>
             </header>
 
             <section class="h-full overflow-y-auto text-white lg:text-md text-semibold">

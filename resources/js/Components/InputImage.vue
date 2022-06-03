@@ -2,7 +2,7 @@
     <main class="block w-full h-full bg-center bg-no-repeat bg-cover" @click="selectImg"
         :style="{ backgroundImage: `url(${previewImgURL})` }">
         <!-- <img :src="previewImgURL" class="w-full h-full" v-show="previewImgURL" alt=""> -->
-        <button :class="{ 'invisible': previewImgURL }" class="w-full h-full" @click="selectImg">
+        <button type="button" :class="{ 'invisible': previewImgURL }" class="w-full h-full" @click="selectImg">
             <Input :class="{ 'hidden': hasSlot('default') }" :id="inputImgID" type="file" class="w-full h-full rounded"
                 @onInput="readImgNThrowEmit" />
 
@@ -23,7 +23,7 @@ const hasSlot = (name) => !!slots[name];
 
 const props = defineProps({
     previewImgURL: {
-        required: false, default: null, type: String
+        required: false, default: null
     }
 })
 const previewImgURL = ref(props.previewImgURL || null);
@@ -39,10 +39,9 @@ function selectImg() {
 }
 function readImgNThrowEmit({ files }) {
     // check file is exist and file type is image 
-    console.log(files);
 
     if (!files || !imgValidation(files[0]['name'])) {
-        return emit("onError", { message: "File is not a valid image!" });
+        return emit("onError", { message: "File is not an image!" });
     }
 
     // preview the image
