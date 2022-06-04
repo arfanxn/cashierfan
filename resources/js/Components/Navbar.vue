@@ -18,16 +18,19 @@
                 @mouseleave="toggleNavbarDropdown(`hide`)" class="relative w-8 h-8 rounded-full hover:bg-gray-200">
                 <font-awesome-icon icon="fas fa-caret-down" size="lg"></font-awesome-icon>
 
-                <div id="navbar-dropdown" class="hidden bg-gray-200 rounded shadow top-8 -left-12 ">
-                    <ul class="py-1 text-sm text-left text-black bg-white rounded ">
+                <div id="navbar-dropdown" class="hidden bg-gray-200 rounded shadow top-8 right-0 ">
+                    <ul class="py-1 text-sm text-left text-black bg-white rounded">
                         <li>
-                            <Link href="#" class="block px-4 py-2 hover:bg-gray-200 ">Profile</Link>
+                            <Link :href="route(`auth.profile.edit`)" class="block px-4 py-2 hover:bg-gray-200 ">Profile
+                            </Link>
                         </li>
                         <li>
-                            <Link href="#" class="block px-4 py-2 hover:bg-gray-200 ">Settings</Link>
+                            <Link :href="route(`auth.password.edit`)" class="block px-4 py-2 hover:bg-gray-200 ">
+                            Account&nbsp;Settings</Link>
                         </li>
                         <li class="border-t-2">
-                            <Link href="#" class="block px-4 py-2 hover:bg-gray-200 ">Logout</Link>
+                            <button @click="logout()" href="#"
+                                class="w-full text-left block px-4 py-2 hover:bg-gray-200 ">Logout</button>
                         </li>
                     </ul>
                 </div>
@@ -36,34 +39,32 @@
     </nav>
 </template>
 
-<script>
+<script setup>
 import { Link } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia';
 import { useNavigation } from "../Stores/NavigationStore";
 
-export default {
-    components: { Link },
+const NavigationStore = useNavigation();
 
-    setup() {
-        const NavigationStore = useNavigation();
-
-        function toggleNavbarDropdown(action) {
-            const nvbrDropdowd = document.querySelector(`#navbar-dropdown`);
-            if (nvbrDropdowd.classList.contains(`hidden`) && action == "show") {
-                nvbrDropdowd.classList.remove(`hidden`);
-                nvbrDropdowd.classList.add("absolute");
-            } else if (nvbrDropdowd.classList.contains(`absolute`) && action == "hide") {
-                nvbrDropdowd.classList.remove(`absolute`);
-                nvbrDropdowd.classList.add("hidden");
-            }
-        }
-
-        function showSidebar() {
-            NavigationStore.$patch({
-                showSidebar: Date.now(),
-            })
-        }
-
-        return { toggleNavbarDropdown, showSidebar };
+function toggleNavbarDropdown(action) {
+    const nvbrDropdowd = document.querySelector(`#navbar-dropdown`);
+    if (nvbrDropdowd.classList.contains(`hidden`) && action == "show") {
+        nvbrDropdowd.classList.remove(`hidden`);
+        nvbrDropdowd.classList.add("absolute");
+    } else if (nvbrDropdowd.classList.contains(`absolute`) && action == "hide") {
+        nvbrDropdowd.classList.remove(`absolute`);
+        nvbrDropdowd.classList.add("hidden");
     }
 }
+
+function logout() {
+    Inertia.delete(route("users.logout"));
+}
+
+function showSidebar() {
+    NavigationStore.$patch({
+        showSidebar: Date.now(),
+    })
+}
+
 </script>
