@@ -22,7 +22,7 @@
                         @onError="({ message }) => (form.errors.avatar = message)">
                         <div
                             class="flex items-center justify-center h-full text-xl font-semibold bg-gray-100 text-slate-700">
-                            <h1>UPDATE AVATAR</h1>
+                            <h1>ADD AVATAR</h1>
                         </div>
                     </InputImage>
                     <Alert :message="form.errors.avatar" />
@@ -69,7 +69,7 @@
                         <Input id="inpConfirmPassword" placeholder="Confirm Password" type="password"
                             class="rounded placeholder:text-slate-700 lg:col-span-1 "
                             @onInput="({ value }) => (form.confirm_password = value)" />
-                        <Alert :message="form.errors.password" />
+                        <Alert :message="form.errors.confirm_password" />
                     </div>
 
                 </div>
