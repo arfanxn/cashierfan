@@ -15,10 +15,7 @@ return new class extends Migration
     {
         Schema::create('verification_codes', function (Blueprint $table) {
             $table->id();
-
-            // $table->morphs("verifiable");
-
-            $table->string("verifiable", 100);
+            $table->string("verifiable", 100)->unique("verifiable");
 
             $table->string("code");
             $table->timestampTz("expired_at");
