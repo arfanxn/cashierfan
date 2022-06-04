@@ -75,6 +75,7 @@ import Input from "../../Components/Input.vue";
 import { isset } from "../../Helpers";
 import { fetchAsJSON } from "../../Mixins/Fetch";
 import { reactive, defineProps } from "vue";
+import { sendVerificationCode } from "../../Services/AuthService";
 
 const props = defineProps(['user']);
 
@@ -88,9 +89,9 @@ const alert = reactive({
     },
 })
 
-function sendCode() {
-    fetchAsJSON(route("auth.vc.send"), {
-        body: { email: form.email }
+async function sendCode() {
+    sendVerificationCode({
+        email: form.email
     }).then(({ response, json }) => {
         if (response.status == 429) { // if rate limit is reached
             const retryAfter = response.headers.get("retry-after");
@@ -109,8 +110,7 @@ function sendCode() {
                 email: isset(() => json.errors.email[0]),
             });
         }
-
-    })
+    });
 }
 
 </script>

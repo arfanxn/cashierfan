@@ -3,9 +3,9 @@
     <Head title="Login"></Head>
 
     <GuestLayout>
-        <main class=" flex items-center flex-col space-y-4 w-full">
+        <main class="flex flex-col items-center w-full space-y-4 ">
 
-            <div class=" text-indigo-900">
+            <div class="text-indigo-900 ">
                 <font-awesome-icon icon="fas fa-shop" class="text-5xl lg:text-8xl" />
                 <h1 class="text-xl font-bold lg:text-2xl">Cashierfan</h1>
             </div>
@@ -29,8 +29,10 @@
                             placeholder="Password" />
                     </div>
 
-                    <Alert type="error" :message="$page.props.errors.email ||
-                    $page.props.errors.password" />
+                    <Alert @onClose="form.clearErrors()" type="error"
+                        :message="form.errors.email || form.errors.password" />
+                    <Alert @onClose="$page.props.flash.message = null" type="info"
+                        :message="$page.props.flash.message" />
 
                     <div class="flex justify-end">
                         <Link :href="route('users.forgot-password-page')" class="text-blue-500 underline ">Forgot
