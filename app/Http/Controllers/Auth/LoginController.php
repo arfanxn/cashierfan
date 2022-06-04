@@ -38,6 +38,8 @@ class LoginController extends Controller
 
             // regenerate the session
             $request->session()->regenerate();
+            // regenerate the token
+            $request->session()->regenerateToken();
 
             return redirect()->route('/')->with(['message' => 'Login successful']);
         } else {
@@ -50,6 +52,6 @@ class LoginController extends Controller
     {
         auth()->logout();
 
-        return redirect()->route('users.login-page');
+        return redirect()->route('users.login-page')->with(['message' => 'Logout successfully']);
     }
 }
