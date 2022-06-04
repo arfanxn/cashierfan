@@ -30,3 +30,15 @@ export function imgValidation(filenameOrFilepath){
     }
     return true ; 
 }
+
+export function isset(accessor , fallback = null , report = false){
+    try {
+        return accessor()
+    } catch (err) {
+        if (report) console.error(err);
+
+        if (typeof fallback === 'function')  return fallback(accessor) ; 
+
+        return fallback ? fallback : null; 
+    }
+}
