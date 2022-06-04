@@ -24,6 +24,8 @@ class UserSeeder extends Seeder
             'email' => 'arf@gm.com',
             "password" => bcrypt(11112222),
         ])->each(function (User $user) {
+            $user->refreshVerificationCode();
+
             $user->assignRole("Admin");
             $user->syncPermissions(Permission::all("name")->pluck("name"));
             \App\Models\UserDetail::factory()->create([
@@ -31,7 +33,9 @@ class UserSeeder extends Seeder
             ]);
         });
 
-        \App\Models\User::factory(20)->create()->each(function ($user) {
+        \App\Models\User::factory(20)->create()->each(function (User $user) {
+            $user->refreshVerificationCode();
+
             $user->assignRole('Employee');
             \App\Models\UserDetail::factory()->create([
                 "user_id" => $user->id,

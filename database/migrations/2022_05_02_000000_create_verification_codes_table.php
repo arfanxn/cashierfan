@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('verification_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->timestamps();
+            $table->morphs("verifiable");
+            $table->string("code");
+            $table->timestampTz("expired_at");
+            $table->timestampsTz();
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('verification_codes');
     }
 };
