@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\StoreUserAvatarAction;
 use App\Helpers\Str;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -40,11 +41,15 @@ class UserController extends Controller
                 $query->where(
                     "name",
                     "ILIKE",
-                    "%$keyword%"
+                    "$keyword%"
                 )->orWhere(
                     "email",
                     "ILIKE",
-                    "%$keyword%"
+                    "$keyword%"
+                )->orWhere(
+                    "phone_number",
+                    "ILIKE",
+                    "$keyword%"
                 );
             });
         }
@@ -81,25 +86,13 @@ class UserController extends Controller
             ]))->merge(["password" => bcrypt($request->password)])->toArray()
         );
 
-        tap($request->file("avatar"), function ($avatar) use ($user, $request) {
-            if ($avatar) {   // check if user uploaded an avatar 
-                $avatarFileName = Str::random() . now()->timestamp . "." . $avatar->extension();
-                $avatarPath = "users/avatars";
-                Storage::putFileAs("public/" . $avatarPath, $avatar, $avatarFileName);
+        $user->details()->create(
+            array_merge($request->only(["phone_number", "address"]), [
+                "avatar" => "#" . Str::random(6, "0123456789ABCDEF")
+            ]/**/)
+        );
 
-                $user->details()->create(
-                    collect($request->only(["phone_number", "address",])/**/)
-                        ->merge(['avatar' => Storage::url($avatarPath . "/" . $avatarFileName)])->toArray()
-                );
-            } else
-                $user->details()->create(
-                    collect(
-                        $request->only(["phone_number", "address"])
-                    )->merge([
-                        "avatar" => "#" . Str::random(6, "0123456789ABCDEF")
-                    ])->toArray()
-                );
-        });
+        StoreUserAvatarAction::exec($user, $request->file("avatar"));
 
         // give user role
         $user->syncRoles($request->get('role'));
@@ -170,19 +163,9 @@ class UserController extends Controller
             /**/
         );
 
-        tap($request->file("avatar"), function ($avatar) use ($user, $request) {
-            if ($avatar) {   // check if user uploaded an avatar 
-                $avatarFileName = Str::random() . now()->timestamp . "." . $avatar->extension();
-                $avatarPath = "users/avatars";
-                Storage::putFileAs("public/" . $avatarPath, $avatar, $avatarFileName);
+        StoreUserAvatarAction::exec($user, $request->file("avatar"));
 
-                $user->details()->update(
-                    collect($request->only(["phone_number", "address",])/**/)
-                        ->merge(['avatar' => Storage::url($avatarPath . "/" . $avatarFileName)])->toArray()
-                );
-            } else
-                $user->details()->update($request->only(["phone_number", "address"])/**/);
-        });
+        $user->details()->update($request->only(["phone_number", "address"])/**/);
 
         // update user role
         $user->syncRoles($request->get('role'));
