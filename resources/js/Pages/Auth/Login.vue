@@ -3,9 +3,9 @@
     <Head title="Login"></Head>
 
     <GuestLayout>
-        <main class="flex flex-col items-center justify-center min-h-screen space-y-6">
+        <main class=" flex items-center flex-col space-y-4 w-full">
 
-            <div class="text-center text-indigo-900">
+            <div class=" text-indigo-900">
                 <font-awesome-icon icon="fas fa-shop" class="text-5xl lg:text-8xl" />
                 <h1 class="text-xl font-bold lg:text-2xl">Cashierfan</h1>
             </div>

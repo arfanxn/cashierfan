@@ -4,7 +4,7 @@
         <div class="w-full ">
             {{ alert.message }}
         </div>
-        <button type="button" @submit.prevent @click="close()">
+        <button type="button" @submit.prevent @click="close()" class="self-start ">
             <font-awesome-icon icon="fas fa-xmark" class="text-black"></font-awesome-icon>
         </button>
     </div>
