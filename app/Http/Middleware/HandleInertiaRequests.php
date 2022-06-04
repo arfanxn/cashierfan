@@ -45,7 +45,8 @@ class HandleInertiaRequests extends Middleware
                     return ([
                         "user" => collect(
                             collect($user->load([
-                                "roles" => fn ($q) => $q->select("name")
+                                "roles" => fn ($q) => $q->select("name"),
+                                "details", //=> fn ($q) => $q->only("avatar"),
                             ])/**/)->map(function ($value, $key) {
                                 if ($key === "roles") {
                                     return collect($value)->pluck("name");
