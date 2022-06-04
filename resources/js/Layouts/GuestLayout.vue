@@ -1,5 +1,5 @@
 <template>
-    <main class="p-2 lg:p-8 flex items-center justify-center h-screen w-full">
+    <main class="flex items-center justify-center w-full min-h-screen p-2 lg:p-8">
         <slot></slot>
     </main>
 </template>
