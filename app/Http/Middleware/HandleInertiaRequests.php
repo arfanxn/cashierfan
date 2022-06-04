@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $share = array_merge(parent::share($request), [
+            "csrf_token" => csrf_token(),
             "auth" => function () {
                 if (Auth::check()) {
                     $user = Auth::user();
@@ -45,7 +46,6 @@ class HandleInertiaRequests extends Middleware
                         "user" => collect(
                             collect($user->load([
                                 "roles" => fn ($q) => $q->select("name")
-                                // ->with(['permissions' => fn ($q) => $q->select("name")])
                             ])/**/)->map(function ($value, $key) {
                                 if ($key === "roles") {
                                     return collect($value)->pluck("name");
