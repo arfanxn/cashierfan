@@ -4,16 +4,19 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\Auth\EmailController as AuthEmailController;
+use App\Http\Controllers\Auth\PasswordController as AuthPasswordController;
+use App\Http\Controllers\Auth\VerificationCodeController;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +36,7 @@ use Spatie\Permission\Models\Permission;
 Route::prefix("users")->middleware(["guest"])->name("users.")->group(function () {
     Route::get("/login", [LoginController::class, 'create'])->name('login-page');
     Route::post("/login", [LoginController::class, 'store'])->middleware(['throttle:10,1'])->name('login');
-    Route::post("/logout", [LoginController::class, 'destroy'])
+    Route::delete("/logout", [LoginController::class, 'destroy'])
         ->withoutMiddleware(['guest'])->middleware(['auth'])->name('logout');
 
     Route::get("/forgot-password", [ForgotPasswordController::class, 'edit'])->name('forgot-password-page');
@@ -52,6 +55,23 @@ Route::middleware("auth")->group(function () {
     Route::resource("users", UserController::class)->except(['update']);
     Route::post("users/{user:id}/update", [UserController::class, "update"])->name("users.update");
 
+    Route::prefix("auth")->name("auth.")->group(function () {
+        Route::get("/profile/edit", [ProfileController::class, "edit"])->name("profile.edit");
+        Route::post("/profile/update", [ProfileController::class, "update"])->name("profile.update");
+
+        Route::get("/email/edit", [AuthEmailController::class, "edit"])->name("email.edit");
+        Route::patch("/email/update", [AuthEmailController::class, "update"])->middleware(['verify_vc'])
+            ->name("email.update");
+
+        Route::get("/password/edit", [AuthPasswordController::class, "edit"])->name("password.edit");
+        Route::patch("/password/update", [AuthPasswordController::class, "update"])->name("password.update");
+
+        Route::post("/verification-code/send", [VerificationCodeController::class, "send"])
+            ->middleware("throttle:1,1")
+            ->withoutMiddleware("auth")
+            ->name("vc.send");
+    });
+
     Route::resource("roles", RoleController::class);
     Route::get("permissions", PermissionController::class)->name("permissions.index");
 });
@@ -65,4 +85,5 @@ Route::get("/test", function (Request $request) {
     return inertia()->render('Test');
 });
 Route::post("/test", function (Request $request) {
-});
+    return response(["hello" => "world"]);
+})->middleware(['throttle:1,1']);
