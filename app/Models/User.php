@@ -14,8 +14,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-    // use UserExposePermissionsTrait;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -45,15 +43,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    // protected $appends = ['permissions'];
-
-    // public function getPermissionsAttribute()
-    // {
-    //     return $this->roles->map(function ($role) {
-    //         return $role->permissions;
-    //     })->collapse()->pluck('name')->unique();
-    // }
 
     public function details()
     {

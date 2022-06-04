@@ -618,6 +618,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .grid-cols-12 {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .flex-row-reverse {
   flex-direction: row-reverse;
 }
@@ -723,6 +726,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .rounded-b-xl {
   border-bottom-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
+}
+.rounded-t {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.rounded-t-2xl {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 .border {
   border-width: 1px;
@@ -841,6 +852,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-red-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+.bg-yellow-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(113 63 18 / var(--tw-bg-opacity));
+}
+.bg-yellow-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(202 138 4 / var(--tw-bg-opacity));
 }
 .bg-cover {
   background-size: cover;
@@ -1227,6 +1246,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:bg-red-700\/90:hover {
   background-color: rgb(185 28 28 / 0.9);
 }
+.hover\:bg-yellow-900\/90:hover {
+  background-color: rgb(113 63 18 / 0.9);
+}
+.hover\:bg-yellow-600\/90:hover {
+  background-color: rgb(202 138 4 / 0.9);
+}
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1269,6 +1294,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .focus\:bg-red-700\/90:focus {
   background-color: rgb(185 28 28 / 0.9);
 }
+.focus\:bg-yellow-900\/90:focus {
+  background-color: rgb(113 63 18 / 0.9);
+}
+.focus\:bg-yellow-600\/90:focus {
+  background-color: rgb(202 138 4 / 0.9);
+}
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1310,6 +1341,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .focus\:ring-red-700\/25:focus {
   --tw-ring-color: rgb(185 28 28 / 0.25);
+}
+.focus\:ring-yellow-900\/25:focus {
+  --tw-ring-color: rgb(113 63 18 / 0.25);
+}
+.focus\:ring-yellow-600\/25:focus {
+  --tw-ring-color: rgb(202 138 4 / 0.25);
 }
 .disabled\:bg-gray-200:disabled {
   --tw-bg-opacity: 1;

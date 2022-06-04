@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Services\VerificationCodeService;
 use Faker\Factory as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,7 +25,7 @@ class UserSeeder extends Seeder
             'email' => 'arf@gm.com',
             "password" => bcrypt(11112222),
         ])->each(function (User $user) {
-            $user->refreshVerificationCode();
+            VerificationCodeService::make($user->email)->fresh();
 
             $user->assignRole("Admin");
             $user->syncPermissions(Permission::all("name")->pluck("name"));
@@ -34,7 +35,7 @@ class UserSeeder extends Seeder
         });
 
         \App\Models\User::factory(20)->create()->each(function (User $user) {
-            $user->refreshVerificationCode();
+            VerificationCodeService::make($user->email)->fresh();
 
             $user->assignRole('Employee');
             \App\Models\UserDetail::factory()->create([
