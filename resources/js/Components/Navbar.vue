@@ -8,17 +8,29 @@
         </section>
 
         <section class="flex items-center">
-            <div class="p-1 space-x-1 rounded-full hover:bg-gray-200">
-                <font-awesome-icon icon="fas fa-user-circle" class="text-teal-700" size="xl"></font-awesome-icon>
-                <span class="hidden font-semibold lg:inline text-slate-700">{{ `Muhammad Arfan`.substring(0, 25)
+            <Link class="flex items-center h-8 p-1 space-x-1 rounded-full hover:bg-gray-200"
+                :href="route(`auth.profile.edit`)">
+            <div class="w-8 h-8 overflow-hidden rounded-full">
+                <ImgOrRandColor class="flex justify-center" :payload="$page.props?.auth?.user?.details?.avatar">
+                    <span class="self-center text-sm font-semibold text-white">{{
+                            tap($page.props?.auth?.user?.name, name => name.match(/\b(\w)/g).join(``).substring(0
+                                , 2).toUpperCase()/**/)
+                    }}</span>
+                </ImgOrRandColor>
+            </div>
+            <div class="">
+                <span class="hidden font-semibold lg:inline text-slate-700">{{
+                        $page.props?.auth?.user?.name?.substring(0,
+                            25)
                 }}</span>
             </div>
+            </Link>
 
             <button @mouseover="toggleNavbarDropdown(`show`)" @click="toggleNavbarDropdown(`show`)"
                 @mouseleave="toggleNavbarDropdown(`hide`)" class="relative w-8 h-8 rounded-full hover:bg-gray-200">
                 <font-awesome-icon icon="fas fa-caret-down" size="lg"></font-awesome-icon>
 
-                <div id="navbar-dropdown" class="hidden bg-gray-200 rounded shadow top-8 right-0 ">
+                <div id="navbar-dropdown" class="right-0 hidden bg-gray-200 rounded shadow top-8 ">
                     <ul class="py-1 text-sm text-left text-black bg-white rounded">
                         <li>
                             <Link :href="route(`auth.profile.edit`)" class="block px-4 py-2 hover:bg-gray-200 ">Profile
@@ -30,7 +42,7 @@
                         </li>
                         <li class="border-t-2">
                             <button @click="logout()" href="#"
-                                class="w-full text-left block px-4 py-2 hover:bg-gray-200 ">Logout</button>
+                                class="block w-full px-4 py-2 text-left hover:bg-gray-200 ">Logout</button>
                         </li>
                     </ul>
                 </div>
@@ -43,6 +55,9 @@
 import { Link } from '@inertiajs/inertia-vue3'
 import { Inertia } from '@inertiajs/inertia';
 import { useNavigation } from "../Stores/NavigationStore";
+import { SwalTailwind } from '../Mixins/Swal';
+import ImgOrRandColor from './ImgOrRandColor.vue';
+import { tap } from '../Helpers';
 
 const NavigationStore = useNavigation();
 
@@ -58,7 +73,17 @@ function toggleNavbarDropdown(action) {
 }
 
 function logout() {
-    Inertia.delete(route("users.logout"));
+    SwalTailwind.fire({
+        title: "Logout confirmation",
+        text: "Are you sure you want to logout ?",
+        showCancelButton: true,
+        confirmButtonText: "Logout",
+        showConfirmButton: true,
+    }).then(result => {
+        if (result.isConfirmed) {
+            Inertia.delete(route("users.logout"));
+        }
+    })
 }
 
 function showSidebar() {
