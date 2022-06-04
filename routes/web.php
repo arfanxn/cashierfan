@@ -40,7 +40,8 @@ Route::prefix("users")->middleware(["guest"])->name("users.")->group(function ()
         ->withoutMiddleware(['guest'])->middleware(['auth'])->name('logout');
 
     Route::get("/forgot-password", [ForgotPasswordController::class, 'edit'])->name('forgot-password-page');
-    Route::patch("/forgot-password", [ForgotPasswordController::class, 'update'])->name('forgot-password');
+    Route::patch("/forgot-password", [ForgotPasswordController::class, 'update'])
+        ->middleware(['verify_vc'])->name('forgot-password');
 });
 
 Route::middleware("auth")->group(function () {
