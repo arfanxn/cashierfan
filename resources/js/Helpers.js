@@ -1,6 +1,9 @@
-export function tap (variable , callback) {
-    if (typeof callback != 'function') 
+export function tap (variable , callback = null) {
+    if (typeof variable == 'function' && callback == null) {
+        return variable();
+    } else if (typeof variable != 'function' && typeof callback != 'function')  {
         throw new Error('callback must be a function');
+    }    
 
     return callback(variable) ;
 }
