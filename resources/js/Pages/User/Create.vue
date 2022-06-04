@@ -66,7 +66,7 @@
                         <Input id="inpConfirmPassword" placeholder="Confirm Password" type="password"
                             class="rounded placeholder:text-slate-700 lg:col-span-1 "
                             @onInput="({ value }) => (form.confirm_password = value)" />
-                        <Alert :message="form.errors.password" />
+                        <Alert :message="form.errors.confirm_password" />
                     </div>
 
                 </div>

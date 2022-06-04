@@ -42010,7 +42010,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
               return $setup.form.confirm_password = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
-            message: $setup.form.errors.password
+            message: $setup.form.errors.confirm_password
           }, null, 8
           /* PROPS */
           , ["message"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
