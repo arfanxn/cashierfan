@@ -73,7 +73,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::query()->whereNot('name', "Root")->get(['name'])->pluck('name');
+        $roles = Role::query()->whereNot('name', "Root")->orderBy("name", "ASC")->get(['name'])->pluck('name');
 
         return Inertia::render('User/Create', compact("roles"));
     }
@@ -140,7 +140,7 @@ class UserController extends Controller
 
         $user = collect($user)->merge(["role" => $user->getRoleNames()->first()]);
 
-        $roles = Role::query()->whereNot('name', "Root")->get(['name'])->pluck('name');
+        $roles = Role::query()->whereNot('name', "Root")->orderBy("name", "ASC")->get(['name'])->pluck('name');
 
         return Inertia::render('User/Edit', compact("user", "roles"));
     }
