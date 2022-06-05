@@ -29,7 +29,7 @@ class StoreUserRequest extends FormRequest
             "avatar" => $this->hasFile("avatar") ?
                 "required|image|mimes:jpg,jpeg,png,svg,gif,jfif|max:2048" : 'nullable',
             "name" => "required|min:2|max:100|string",
-            "email" => ["required", 'email', "string", 'max:100'],
+            "email" => ["required", 'email', "unique:users,email", "string", 'max:100'],
             "phone_number" => "required|max:20",
             "address" => "required|max:255",
             "password" => [
