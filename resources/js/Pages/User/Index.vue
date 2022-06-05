@@ -18,12 +18,11 @@
                         <font-awesome-icon icon="fas fa-circle-plus"></font-awesome-icon>
                         <span class="hidden lg:inline-block">NEW</span>
                     </ButtonLink>
-                    <Input @onInput="({ value }) => (searchKeyword = value)" :value="searchKeyword"
-                        @keyup.enter="(event) => searchUser(event.target.value)"
-                        @blur="(event) => searchUser(event.target.value)"
+                    <Input @onInput="({ value }) => (searchUserKeyword = value)" :value="searchUserKeyword"
+                        @keyup.enter="searchUser()" @blur="searchUser()"
                         placeholder="Search users by name, email ,phone number or role." type="text"
                         class="placeholder:italic" />
-                    <Button class="flex px-2 rounded-r" @click="(event) => searchUser()">
+                    <Button class="flex px-2 rounded-r" @click="searchUser()">
                         <font-awesome-icon icon="fas fa-magnifying-glass" class="self-center"></font-awesome-icon>
                     </Button>
                 </div>
@@ -147,7 +146,7 @@ import { ref, defineProps, computed } from "vue";
 import { Inertia } from '@inertiajs/inertia'
 import { SwalTailwind } from "../../Mixins/Swal";
 
-const searchKeyword = ref(
+const searchUserKeyword = ref(
     tap(new URL(window.location.href), url => url.searchParams.get(`keyword`))
 );
 
@@ -162,7 +161,7 @@ const props = defineProps({
 
 function searchUser() {
     Inertia.get(route('users.index'), {
-        "keyword": searchKeyword.value,
+        "keyword": searchUserKeyword.value,
     });
 }
 

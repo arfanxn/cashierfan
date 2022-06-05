@@ -35866,6 +35866,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_ButtonPagination_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Components/ButtonPagination.vue */ "./resources/js/Components/ButtonPagination.vue");
 /* harmony import */ var _Components_Input_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Components/Input.vue */ "./resources/js/Components/Input.vue");
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _Helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Helpers */ "./resources/js/Helpers.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+
+
+
 
 
 
@@ -35875,10 +35881,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PermissionIndex',
+  props: ['permissions'],
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
+    var props = __props;
+    var searchPermissionKeyword = (0,vue__WEBPACK_IMPORTED_MODULE_7__.ref)((0,_Helpers__WEBPACK_IMPORTED_MODULE_8__.tap)(new URL(window.location.href), function (url) {
+      return url.searchParams.get("keyword");
+    }));
+
+    function searchPermissions() {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_9__.Inertia.get(route('permissions.index'), {
+        "keyword": searchPermissionKeyword.value
+      });
+    }
+
     var __returned__ = {
+      props: props,
+      searchPermissionKeyword: searchPermissionKeyword,
+      searchPermissions: searchPermissions,
       AuthLayout: _Layouts_AuthLayout_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       Card: _Components_Card_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
       Button: _Components_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -35886,7 +35907,10 @@ __webpack_require__.r(__webpack_exports__);
       ButtonPagination: _Components_ButtonPagination_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
       Input: _Components_Input_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_6__.Link,
-      Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_6__.Head
+      Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_6__.Head,
+      ref: vue__WEBPACK_IMPORTED_MODULE_7__.ref,
+      tap: _Helpers__WEBPACK_IMPORTED_MODULE_8__.tap,
+      Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_9__.Inertia
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -36683,14 +36707,14 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var searchKeyword = (0,vue__WEBPACK_IMPORTED_MODULE_10__.ref)((0,_Helpers__WEBPACK_IMPORTED_MODULE_9__.tap)(new URL(window.location.href), function (url) {
+    var searchUserKeyword = (0,vue__WEBPACK_IMPORTED_MODULE_10__.ref)((0,_Helpers__WEBPACK_IMPORTED_MODULE_9__.tap)(new URL(window.location.href), function (url) {
       return url.searchParams.get("keyword");
     }));
     var showUserAddress = (0,vue__WEBPACK_IMPORTED_MODULE_10__.ref)(false);
 
     function searchUser() {
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_11__.Inertia.get(route('users.index'), {
-        "keyword": searchKeyword.value
+        "keyword": searchUserKeyword.value
       });
     }
 
@@ -36711,7 +36735,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     var __returned__ = {
-      searchKeyword: searchKeyword,
+      searchUserKeyword: searchUserKeyword,
       showUserAddress: showUserAddress,
       props: props,
       searchUser: searchUser,
@@ -39700,15 +39724,11 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+var _hoisted_9 = {
   "class": "px-4 py-4 text-gray-900 border border-slate-500 whitespace-nowrap"
-}, " HelloWorld ", -1
-/* HOISTED */
-);
-
-var _hoisted_10 = [_hoisted_9];
-var _hoisted_11 = {
-  "class": "flex flex-row-reverse w-full mt-4"
+};
+var _hoisted_10 = {
+  "class": "font-semibold text-slate-700 text-lg"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
@@ -39730,10 +39750,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Input"], {
-            placeholder: "Search permissions",
+            onOnInput: _cache[0] || (_cache[0] = function (_ref) {
+              var value = _ref.value;
+              return $setup.searchPermissionKeyword = value;
+            }),
+            value: $setup.searchPermissionKeyword,
+            onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function ($event) {
+              return $setup.searchPermissions();
+            }, ["enter"])),
+            onBlur: _cache[2] || (_cache[2] = function ($event) {
+              return $setup.searchPermissions();
+            }),
+            placeholder: "Search or filter permissions by name",
             type: "text",
             "class": "rounded-l placeholder:italic"
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
+          }, null, 8
+          /* PROPS */
+          , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
             "class": "flex px-2 rounded-r"
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -39745,17 +39778,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
             /* STABLE */
 
-          })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)([1, 2, 3, 4, 5, 6, 7], function (item, index) {
-            return (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", {
+          })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.props.permissions, function (permission, index) {
+            return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
               key: index,
               "class": "border-b even:bg-gray-100 odd:bg-white hover:bg-slate-300"
-            }, _hoisted_10);
-          }), 64
-          /* STABLE_FRAGMENT */
-          ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ButtonPagination"], {
-            "class": "basis-full lg:basis-3/12",
-            currentPage: 1
-          })])])];
+            }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(permission), 1
+            /* TEXT */
+            )])]);
+          }), 128
+          /* KEYED_FRAGMENT */
+          ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"flex flex-row-reverse w-full mt-4\">\r\n                    <ButtonPagination class=\"basis-full lg:basis-3/12\" :currentPage=\"1\" />\r\n                </div> ")])];
         }),
         _: 1
         /* STABLE */
@@ -42560,14 +42592,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Input"], {
             onOnInput: _cache[0] || (_cache[0] = function (_ref) {
               var value = _ref.value;
-              return $setup.searchKeyword = value;
+              return $setup.searchUserKeyword = value;
             }),
-            value: $setup.searchKeyword,
-            onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function (event) {
-              return $setup.searchUser(event.target.value);
+            value: $setup.searchUserKeyword,
+            onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function ($event) {
+              return $setup.searchUser();
             }, ["enter"])),
-            onBlur: _cache[2] || (_cache[2] = function (event) {
-              return $setup.searchUser(event.target.value);
+            onBlur: _cache[2] || (_cache[2] = function ($event) {
+              return $setup.searchUser();
             }),
             placeholder: "Search users by name, email ,phone number or role.",
             type: "text",
@@ -42576,7 +42608,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
             "class": "flex px-2 rounded-r",
-            onClick: _cache[3] || (_cache[3] = function (event) {
+            onClick: _cache[3] || (_cache[3] = function ($event) {
               return $setup.searchUser();
             })
           }, {
