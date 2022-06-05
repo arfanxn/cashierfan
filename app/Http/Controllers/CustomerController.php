@@ -13,9 +13,33 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Customer/Index');
+        $keyword = strtolower($request->get('keyword'));
+
+        $customers = Customer::query();
+
+        if ($keyword) {
+            $customers = $customers->where(function ($query) use ($keyword) {
+                return $query->where(
+                    "name",
+                    "ILIKE",
+                    "$keyword%"
+                )->orWhere(
+                    "phone_number",
+                    "ILIKE",
+                    "$keyword%"
+                )->orWhere(
+                    "address",
+                    "ILIKE",
+                    "$keyword%"
+                );;
+            });
+        }
+
+        $customers = $customers->orderBy("updated_at", "DESC")->simplePaginate(10);
+
+        return Inertia::render('Customer/Index', compact("customers"));
     }
 
     /**
@@ -36,7 +60,15 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "name" => "required|alpha|min:2|max:50|string",
+            "phone_number" => "nullable|max:20|string",
+            "address" => "nullable|max:255|string",
+        ]);
+
+        Customer::query()->create($request->validated());
+
+        return redirect()->route("customers.index")->with(['message' => "Customer created successfully"]);
     }
 
     /**
@@ -47,7 +79,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        // not implemented
     }
 
     /**
@@ -56,10 +88,9 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    // public function edit(Customer $customer)
-    public function edit()
+    public function edit(Customer $customer)
     {
-        return Inertia::render('Customer/Edit');
+        return Inertia::render('Customer/Edit', compact("customer"));
     }
 
     /**
@@ -71,7 +102,16 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $request->validate([
+            "name" => "required|alpha|min:2|max:50|string",
+            "phone_number" => "nullable|max:20|string",
+            "address" => "nullable|max:255|string",
+        ]);
+
+        $customer->update($request->validated());
+
+        return redirect()->route("customers.index")
+            ->with(["message" => 'Customer "' . $customer->name . '" updated successfully']);
     }
 
     /**
@@ -82,6 +122,8 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return redirect()->route("customers.index")
+            ->with(["message" => 'Customer "' . $customer->name . '" deleted successfully']);
     }
 }

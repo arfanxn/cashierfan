@@ -34,7 +34,7 @@ class UpdateUserRequest extends FormRequest
                 "required", "string", 'max:100', 'email',
                 "unique:users,email," . Auth::id()
             ],
-            "phone_number" => "required|max:20",
+            "phone_number" => "required|max:20|string",
             "address" => "required|max:255",
             "password" => [
                 'required', "max:50", "string",

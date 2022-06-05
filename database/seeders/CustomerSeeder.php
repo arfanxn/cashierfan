@@ -15,6 +15,7 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
+        Customer::factory()->count(1)->create(["name" => 'General']);
         Customer::factory()->count(100)->create();
     }
 }

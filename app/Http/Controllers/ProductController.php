@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\StoreProductImageAction;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,9 +16,29 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Product/Index');
+        $keyword = strtolower($request->get('keyword'));
+
+        $products = Product::query();
+
+        if ($keyword) {
+            $products = $products->where(function ($query) use ($keyword) {
+                return $query->where(
+                    "code",
+                    "ILIKE",
+                    "$keyword%"
+                )->orWhere(
+                    "name",
+                    "ILIKE",
+                    "$keyword%"
+                );
+            });
+        }
+
+        $products = $products->orderBy("updated_at", "DESC")->simplePaginate(10);
+
+        return Inertia::render('Product/Index', compact('products'));
     }
 
     /**
@@ -34,9 +57,21 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        //
+        $product = Product::query()->create($request->only([
+            "code",
+            "name",
+            "description",
+            "gross_price",
+            "net_price",
+            "profit",
+            "stock",
+        ]));
+
+        StoreProductImageAction::exec($product, $request->file("image"));
+
+        return redirect()->route("products.index")->with(['message' => "Product created successfully"]);
     }
 
     /**
@@ -47,7 +82,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        // not implemented
     }
 
     /**
@@ -56,10 +91,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    // public function edit(Product $product)
-    public function edit()
+    public function edit(Product $product)
     {
-        return Inertia::render('Product/Edit');
+        return Inertia::render('Product/Edit', compact('product'));
     }
 
     /**
@@ -69,9 +103,21 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update($request->only([
+            "code",
+            "name",
+            "description",
+            "gross_price",
+            "net_price",
+            "profit",
+            "stock",
+        ]));
+
+        StoreProductImageAction::exec($product, $request->file("image"));
+
+        return redirect()->route("products.index")->with(['message' => "Product updated successfully"]);
     }
 
     /**
@@ -82,6 +128,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route("products.index")->with(['message' => "Product deleted successfully"]);
     }
 }
