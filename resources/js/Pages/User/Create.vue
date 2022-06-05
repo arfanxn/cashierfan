@@ -130,10 +130,6 @@ const form = useForm({
 
 const selectedRole = computed(() => form.role);
 function selectRole(event) {
-    if (event.target.checked) {
-        form.role = event.target.value;
-    } else {
-        form.role = ``;
-    }
+    form.role = event.target.checked ? event.target.value : ``;
 }
 </script>

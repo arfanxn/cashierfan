@@ -36503,11 +36503,7 @@ __webpack_require__.r(__webpack_exports__);
     });
 
     function selectRole(event) {
-      if (event.target.checked) {
-        form.role = event.target.value;
-      } else {
-        form.role = "";
-      }
+      form.role = event.target.checked ? event.target.value : "";
     }
 
     var __returned__ = {

@@ -4,7 +4,14 @@
         <title>Test</title>
     </Head>
 
-    <div class="">{{ $page.props.auth.user }}</div>
+    <div class="">
+
+        <button @click="post()">
+            <ImgOrRandColor class="w-8 h-8" :payload="$page.props?.auth?.user?.details?.avatar" />
+        </button>
+
+        <h1>{{ $page.props.auth }}</h1>
+    </div>
 
     <!-- <main class="flex items-center justify-center w-screen h-screen bg-gray-200"> -->
     <!-- <InputImage @onInput="img"></InputImage> -->
@@ -24,16 +31,31 @@
 
 <script setup>
 import { Head } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
 import ButtonPagination from "../Components/ButtonPagination.vue";
 import InputImage from "../Components/InputImage.vue";
+import { fetchAsJSON } from "../Mixins/Fetch";
+import ImgOrRandColor from "../Components/ImgOrRandColor.vue";
 
 
 
 
 
 
-function img(data) {
-    console.log(data);
+
+
+function post() {
+    fetchAsJSON("/test", {
+        body: {}
+    }).then(({ json, response }) => {
+
+        console.log(response.status)
+
+        console.log(response.headers.get('retry-after'));
+
+        console.log(json);
+    });
+
 }
 
 </script>
