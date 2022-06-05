@@ -73,7 +73,7 @@ Route::middleware("auth")->group(function () {
             ->name("vc.send");
     });
 
-    Route::resource("roles", RoleController::class);
+    Route::resource("roles", RoleController::class)->except(['show']);
     Route::get("permissions", PermissionController::class)->name("permissions.index");
 });
 

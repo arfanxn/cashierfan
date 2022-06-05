@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class RoleController extends Controller
@@ -23,72 +25,102 @@ class RoleController extends Controller
 
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id', 'DESC')->paginate(10);
+        $keyword = strtolower($request->query('keyword'));
+
+        $perPage = 10;
+        $currentPage = $request->query("page", 1);
+        $offset = ($currentPage * $perPage) - $perPage;
+
+        $roles = Role::with([
+            "permissions" => fn ($q) => $q->select("name")->orderBy("name", "ASC")
+        ])->when($keyword, fn ($q) => $q->where("name", "ILIKE", "$keyword%"))
+            ->offset($offset)->limit($perPage)
+            ->orderBy('updated_at', 'DESC')->get();
+
+        $roles = collect($roles)->map(function ($role) {
+            return collect($role)->merge([
+                'permissions' => collect($role->permissions)->pluck("name")
+            ]);
+        });
+
+        $roles = new Paginator($roles, $perPage, $currentPage, [
+            'path' => $request->url(),
+            'query' => $request->query(),
+        ]);
+
         return Inertia::render('Role/Index', compact('roles'));
     }
 
     public function create()
     {
-        $permissions = Permission::get();
+        $permissions = Permission::orderBy("name", "ASC")->get("name")->pluck("name");
         return Inertia::render('Role/Create', compact('permissions'));
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+        $permissions = Permission::get("name")->pluck("name")->toArray();
+
+        $request->validate([
+            'name' => 'required|string|min:2|unique:roles,name',
+            'permissions' => [
+                "present", "distinct",
+            ],
         ]);
+
+        if (!empty($request->get("permissions", []))) {
+            collect($request->get("permissions"))->each(function ($permName)  use ($permissions) {
+                if (!in_array($permName, $permissions)) return redirect()->back()
+                    ->withErrors(['permissions' => ["The selected permissions is invalid."]/**/]);
+            });
+        }
 
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        $role->syncPermissions($request->permissions ?? []);
 
         return redirect()->route('roles.index')
-            ->with('success', 'Role created successfully');
+            ->with('message', 'Role created successfully');
     }
 
-    public function show($id)
+    public function edit(Request $request, Role $role)
     {
-        $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
-            ->where("role_has_permissions.role_id", $id)
-            ->get();
-
-        return Inertia::render('Role/Show', compact('role', 'rolePermissions'));
-    }
-
-    public function edit($id)
-    {
-        $role = Role::find($id);
-        $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
-            ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
-            ->all();
-
-        return Inertia::render('Role/Edit', compact('role', 'permission', 'rolePermissions'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'permission' => 'required',
+        $permissions = Permission::orderBy("name", "ASC")->get("name")->pluck("name");
+        $role = $role->load(["permissions" => fn ($q) => $q->select('name')]);
+        $role = collect($role)->merge([
+            'permissions' =>  collect($role->permissions)->pluck("name")
         ]);
 
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
-
-        $role->syncPermissions($request->input('permission'));
-
-        return redirect()->route('roles.index')
-            ->with('success', 'Role updated successfully');
+        return Inertia::render('Role/Edit', compact('role', 'permissions'));
     }
 
-    public function destroy($id)
+    public function update(Request $request, Role $role)
     {
-        DB::table("roles")->where('id', $id)->delete();
+        $permissions = Permission::get("name")->pluck("name")->toArray();
+
+        $request->validate([
+            'name' => 'required|string|min:2|unique:roles,name,' . $role->id,
+            'permissions' => [
+                "present", "distinct",
+            ],
+        ]);
+        if (!empty($request->get("permissions", []))) {
+            collect($request->get("permissions"))->each(function ($permName)  use ($permissions) {
+                if (!in_array($permName, $permissions)) return redirect()->back()
+                    ->withErrors(['permissions' => ["The selected permissions is invalid."]/**/]);
+            });
+        }
+
+        $role->update(['name' => $request->name]);
+        $role->syncPermissions($request->permissions ?? []);
+
         return redirect()->route('roles.index')
-            ->with('success', 'Role deleted successfully');
+            ->with('message', 'Role updated successfully');
+    }
+
+    public function destroy(Role $role)
+    {
+        $role->delete();
+        return redirect()->route('roles.index')
+            ->with('message', 'Role deleted successfully');
     }
 }

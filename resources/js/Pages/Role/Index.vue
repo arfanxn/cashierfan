@@ -12,7 +12,7 @@
                 <h1 class="text-lg font-semibold">ROLES</h1>
             </template>
 
-            <main class="py-2">
+            <main class="py-2 space-y-1 md:space-y-2 lg:space-y-3">
                 <div class="flex">
                     <ButtonLink :href="route(`roles.create`)" class="flex items-center px-2 space-x-1 rounded-l">
                         <font-awesome-icon icon="fas fa-circle-plus"></font-awesome-icon>
@@ -26,9 +26,9 @@
                     </Button>
                 </div>
 
+                <Alert type="success" :message="$page.props?.flash?.message" />
 
-
-                <div class="relative mt-4 overflow-x-auto shadow">
+                <div class="relative overflow-x-auto shadow">
                     <table class="w-full text-sm text-left text-black border border-collapse border-gray-500">
                         <thead class="text-xs text-white uppercase bg-indigo-900">
                             <tr>
@@ -63,16 +63,16 @@
                                 </td>
                                 <td
                                     class="py-4 px-2 space-x-1  border lg:space-x-1.5 border-slate-500 text-center whitespace-nowrap align-top w-16">
-                                    <Link :href="route(`roles.edit`, 1)"
+                                    <Link :href="route(`roles.edit`, role.id)"
                                         class="px-2 py-1 space-x-1 text-white transition duration-300 bg-blue-600 rounded hover:bg-blue-600/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-600/25 focus:bg-blue-600/90">
                                     <font-awesome-icon icon="fas fa-pencil"></font-awesome-icon>
                                     <span class="hidden lg:inline-block">EDIT</span>
                                     </Link>
-                                    <Link
+                                    <Button @onClick="deleteRole(role)"
                                         class="px-2 py-1 space-x-1 text-white transition duration-300 bg-red-600 rounded hover:bg-red-600/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-600/25 focus:bg-red-600/90">
-                                    <font-awesome-icon icon="fas fa-trash-can"></font-awesome-icon>
-                                    <span class="hidden lg:inline-block">DELETE</span>
-                                    </Link>
+                                        <font-awesome-icon icon="fas fa-trash-can"></font-awesome-icon>
+                                        <span class="hidden lg:inline-block">DELETE</span>
+                                    </Button>
 
                                 </td>
                             </tr>
@@ -80,7 +80,7 @@
                     </table>
                 </div>
 
-                <div class="flex flex-row-reverse w-full mt-4">
+                <div class="flex flex-row-reverse w-full ">
                     <ButtonPagination class="basis-full lg:basis-3/12" :currentPage="props.roles.current_page" />
                 </div>
             </main>
@@ -90,6 +90,7 @@
 
 <script setup>
 import AuthLayout from "../../Layouts/AuthLayout.vue";
+import Alert from "../../Components/Alert.vue";
 import Card from "../../Components/Card.vue";
 import Button from "../../Components/Button.vue";
 import ButtonPagination from "../../Components/ButtonPagination.vue";
@@ -99,6 +100,7 @@ import { Link, Head } from '@inertiajs/inertia-vue3'
 import { defineProps, ref } from 'vue';
 import { Inertia } from "@inertiajs/inertia";
 import { tap } from "../../Helpers";
+import { SwalTailwind } from "../../Mixins/Swal";
 
 const props = defineProps(['roles']);
 
@@ -112,4 +114,19 @@ function searchRoles() {
     });
 }
 
+function deleteRole(role) {
+    SwalTailwind.fire({
+        title: `Delete confirmation`,
+        text: `Are you sure you want to delete role "${role.name}" ?`,
+        allowEnterKey: false,
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+        cancelButtonText: "Cancel",
+    }).then(result => {
+        if (result.isConfirmed) {
+            Inertia.delete(route('roles.destroy', role.id));
+        }
+    });
+}
 </script>
