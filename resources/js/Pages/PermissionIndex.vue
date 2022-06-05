@@ -14,7 +14,10 @@
 
             <main class="py-2">
                 <div class="flex">
-                    <Input placeholder="Search permissions" type="text" class="rounded-l placeholder:italic" />
+                    <Input @onInput="({ value }) => (searchPermissionKeyword = value)" :value="searchPermissionKeyword"
+                        @keyup.enter="searchPermissions()" @blur="searchPermissions()"
+                        placeholder="Search or filter permissions by name" type="text"
+                        class="rounded-l placeholder:italic" />
                     <Button class="flex px-2 rounded-r">
                         <font-awesome-icon icon="fas fa-magnifying-glass" class="self-center"></font-awesome-icon>
                     </Button>
@@ -32,19 +35,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in [1, 2, 3, 4, 5, 6, 7]" :key="index"
+                            <tr v-for="(permission, index) in props.permissions" :key="index"
                                 class="border-b even:bg-gray-100 odd:bg-white hover:bg-slate-300">
                                 <td class="px-4 py-4 text-gray-900 border border-slate-500 whitespace-nowrap">
-                                    HelloWorld
+                                    <span class="font-semibold text-slate-700 text-lg">{{ permission }}</span>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="flex flex-row-reverse w-full mt-4">
+                <!-- <div class="flex flex-row-reverse w-full mt-4">
                     <ButtonPagination class="basis-full lg:basis-3/12" :currentPage="1" />
-                </div>
+                </div> -->
             </main>
         </Card>
     </AuthLayout>
@@ -58,5 +61,20 @@ import ButtonLink from "../Components/ButtonLink.vue";
 import ButtonPagination from "../Components/ButtonPagination.vue";
 import Input from "../Components/Input.vue";
 import { Link, Head } from '@inertiajs/inertia-vue3'
+import { defineProps, ref } from "vue";
+import { tap } from "../Helpers";
+import { Inertia } from "@inertiajs/inertia";
+
+const props = defineProps(['permissions']);
+
+const searchPermissionKeyword = ref(
+    tap(new URL(window.location.href), url => url.searchParams.get(`keyword`))
+);
+
+function searchPermissions() {
+    Inertia.get(route('permissions.index'), {
+        "keyword": searchPermissionKeyword.value,
+    });
+}
 
 </script>
