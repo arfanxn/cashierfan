@@ -46,6 +46,7 @@
 <script setup>
 import ButtonLink from "./ButtonLink.vue";
 import Button from "./Button.vue";
+import { setURIQueryString } from "../Helpers";
 import { defineProps, reactive, computed } from "vue";
 
 const props = defineProps({
@@ -63,10 +64,11 @@ const props = defineProps({
         required: true,
         type: Number
     },
-    // currentPageURL: {
-    //     required: true,
-    //     type: String
-    // },
+    currentPageURL: {
+        required: false,
+        type: String,
+        default: null
+    },
     nextPageURL: {
         required: false,
         type: String,
@@ -75,11 +77,20 @@ const props = defineProps({
 });
 
 const pagination = reactive({
-    firstPageURL: computed(() => props.firstPageURL),
-    prevPageURL: computed(() => props.prevPageURL),
+    firstPageURL: computed(() => props.firstPageURL || setURIQueryString(
+        props.currentPageURL || window.location.href, "page", 1) /**/),
+    prevPageURL: computed(() => {
+        if (props.currentPage > 1) {
+            return props.prevPageURL || setURIQueryString(
+                props.currentPageURL || window.location.href, "page",
+                props.currentPage - 1);
+        } else return null;
+    }),
     currentPage: computed(() => props.currentPage),
     // currentPageURL: computed(() => props.currentPageURL),
-    nextPageURL: computed(() => props.nextPageURL),
+    nextPageURL: computed(() => props.nextPageURL || setURIQueryString(
+        props.currentPageURL || window.location.href, "page",
+        props.currentPage + 1)),
 })
 
 </script>
