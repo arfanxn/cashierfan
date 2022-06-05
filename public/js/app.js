@@ -42569,7 +42569,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             onBlur: _cache[2] || (_cache[2] = function (event) {
               return $setup.searchUser(event.target.value);
             }),
-            placeholder: "Search users",
+            placeholder: "Search users by name, email ,phone number or role.",
             type: "text",
             "class": "placeholder:italic"
           }, null, 8

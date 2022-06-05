@@ -20,7 +20,8 @@
                     </ButtonLink>
                     <Input @onInput="({ value }) => (searchKeyword = value)" :value="searchKeyword"
                         @keyup.enter="(event) => searchUser(event.target.value)"
-                        @blur="(event) => searchUser(event.target.value)" placeholder="Search users" type="text"
+                        @blur="(event) => searchUser(event.target.value)"
+                        placeholder="Search users by name, email ,phone number or role." type="text"
                         class="placeholder:italic" />
                     <Button class="flex px-2 rounded-r" @click="(event) => searchUser()">
                         <font-awesome-icon icon="fas fa-magnifying-glass" class="self-center"></font-awesome-icon>

@@ -46,11 +46,17 @@ class UserController extends Controller
                     "email",
                     "ILIKE",
                     "$keyword%"
-                )->orWhere(
-                    "phone_number",
-                    "ILIKE",
-                    "$keyword%"
-                );
+                )->orWhereHas(
+                    "details",
+                    function ($query) use ($keyword) {
+                        return $query->where("phone_number", "ILIKE", "$keyword%");
+                    }
+                )->orWhereHas(
+                    "roles",
+                    function ($query) use ($keyword) {
+                        return $query->where("name", "ILIKE", "$keyword%");
+                    }
+                );;
             });
         }
 
