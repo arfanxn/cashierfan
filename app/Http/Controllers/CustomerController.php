@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Rules\PhoneNumberRule;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -70,7 +71,7 @@ class CustomerController extends Controller
     {
         $validated =  $request->validate([
             "name" => "required|string|min:2|max:50|string",
-            "phone_number" => "nullable|max:20|string",
+            "phone_number" => ["nullable", "max:20", new PhoneNumberRule],
             "address" => "nullable|max:255|string",
         ]);
 
@@ -112,7 +113,7 @@ class CustomerController extends Controller
     {
         $validated = $request->validate([
             "name" => "required|string|min:2|max:50|string",
-            "phone_number" => "nullable|max:20|string",
+            "phone_number" => ["nullable", "max:20", new PhoneNumberRule],
             "address" => "nullable|max:255|string",
         ]);
 

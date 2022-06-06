@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\PhoneNumberRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
@@ -34,7 +35,7 @@ class UpdateUserRequest extends FormRequest
                 "required", "string", 'max:100', 'email',
                 "unique:users,email," . $this->user->id
             ],
-            "phone_number" => "required|max:20|string",
+            "phone_number" => ["required", "max:20", new PhoneNumberRule],
             "address" => "required|max:255",
             "password" => [
                 'nullable', "max:50", "string",

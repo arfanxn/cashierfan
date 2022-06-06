@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Actions\StoreUserAvatarAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Rules\PhoneNumberRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -36,7 +37,7 @@ class ProfileController extends Controller
             "avatar" => $request->hasFile("avatar") ?
                 "required|image|mimes:jpg,jpeg,png,svg,gif,jfif|max:2048" : 'nullable',
             "name" => "required|min:2|max:100|string",
-            "phone_number" => "required|max:20",
+            "phone_number" => ["required", "max:20", new PhoneNumberRule],
             "address" => "required|max:255",
         ]);
 

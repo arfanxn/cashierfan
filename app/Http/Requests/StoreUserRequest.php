@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\PhoneNumberRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\RequiredIf;
 use Illuminate\Validation\Rules\Password;
@@ -30,7 +31,7 @@ class StoreUserRequest extends FormRequest
                 "required|image|mimes:jpg,jpeg,png,svg,gif,jfif|max:2048" : 'nullable',
             "name" => "required|min:2|max:100|string",
             "email" => ["required", 'email', "unique:users,email", "string", 'max:100'],
-            "phone_number" => "required|max:20|string",
+            "phone_number" => ["required", "max:20", new PhoneNumberRule],
             "address" => "required|max:255",
             "password" => [
                 'required', "max:50", "string",
