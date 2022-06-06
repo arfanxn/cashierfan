@@ -73,6 +73,7 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
 
         // Added by arfanxn
+        "role_has_permission" => \App\Http\Middleware\RoleHasPermissionMiddleware::class,
         "verify_vc" => \App\Http\Middleware\VerifyVerificationCode::class,
     ];
 }
