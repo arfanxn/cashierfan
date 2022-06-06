@@ -96,7 +96,7 @@
                                 <td
                                     class=" py-4 px-2 border lg:space-x-1.5 border-slate-500 text-center whitespace-nowrap align-top">
                                     <div v-if="$page.props.auth.user.id == user.id">
-                                        <ButtonLink :href="route(`users.edit`, user.id)"
+                                        <ButtonLink :href="route(`auth.password.edit`)"
                                             class="px-2 py-1 space-x-1 text-white transition duration-300 rounded">
                                             <font-awesome-icon icon="fas fa-gear"></font-awesome-icon>
                                             <span class="hidden lg:inline-block">ACCOUNT SETTINGS</span>
