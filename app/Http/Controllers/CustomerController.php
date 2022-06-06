@@ -10,10 +10,10 @@ class CustomerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:customers.index|customers.create|customers.edit|customers.delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:customers.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:customers.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:customers.delete', ['only' => ['destroy']]);
+        $this->middleware('role_has_permission:customers.index|customers.create|customers.edit|customers.delete', ['only' => ['index']]);
+        $this->middleware('role_has_permission:customers.create', ['only' => ['create', 'store']]);
+        $this->middleware('role_has_permission:customers.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('role_has_permission:customers.delete', ['only' => ['destroy']]);
     }
 
     /**

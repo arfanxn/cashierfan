@@ -13,10 +13,13 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:products.index|products.create|products.edit|products.delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:products.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:products.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:products.delete', ['only' => ['destroy']]);
+        $this->middleware(
+            'role_has_permission:products.index|products.create|products.edit|products.delete',
+            ['only' => ['index']]
+        );
+        $this->middleware('role_has_permission:products.create', ['only' => ['create', 'store']]);
+        $this->middleware('role_has_permission:products.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('role_has_permission:products.delete', ['only' => ['destroy']]);
     }
 
     /**

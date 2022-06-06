@@ -19,10 +19,10 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:users.index|users.create|users.edit|users.delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:users.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:users.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:users.delete', ['only' => ['destroy']]);
+        $this->middleware('role_has_permission:users.index|users.create|users.edit|users.delete', ['only' => ['index']]);
+        $this->middleware('role_has_permission:users.create', ['only' => ['create', 'store']]);
+        $this->middleware('role_has_permission:users.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('role_has_permission:users.delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -103,11 +103,6 @@ class UserController extends Controller
         // give user role
         $user->syncRoles($request->get('role'));
 
-        // give user permissions
-        $permissions = Role::whereName($request->get('role'))->first()->getPermissionNames() ?? [];
-        $user->syncPermissions($permissions);
-        // end of give user permissions
-
         return redirect()->route("users.index")->with(['message' => "User created successfully"]);
     }
 
@@ -175,11 +170,6 @@ class UserController extends Controller
 
         // update user role
         $user->syncRoles($request->get('role'));
-
-        // update user permissions
-        $permissions = Role::whereName($request->get('role'))->first()->getPermissionNames() ?? [];
-        $user->syncPermissions($permissions);
-        // end of update user permissions
 
         $user->touch(); // update the user updated_at column 
 
