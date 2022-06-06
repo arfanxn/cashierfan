@@ -58,23 +58,30 @@
                         <Alert :message="form.errors.address" />
                     </div>
 
-                    <div class="flex flex-col space-y-1 lg:col-span-1">
-                        <Input id="inpPassword" type="password" placeholder="Password"
-                            class="rounded placeholder:text-slate-700"
-                            @onInput="({ value }) => (form.password = value)" />
-                        <Alert :message="form.errors.password" />
+                    <div class="space-x-1 col-span-full">
+                        <input id="showPwEdit" type="checkbox" :checked="showPasswordEdit"
+                            @change="showPasswordEdit = !showPasswordEdit" />
+                        <label for="showPwEdit">Edit Password</label>
                     </div>
+                    <div v-if="showPasswordEdit" class="grid grid-cols-1 gap-4 lg:grid-cols-2 col-span-full">
+                        <div class="flex flex-col space-y-1 lg:col-span-1">
+                            <Input id="inpPassword" type="password" placeholder="Password"
+                                class="rounded placeholder:text-slate-700"
+                                @onInput="({ value }) => (form.password = value)" />
+                            <Alert :message="form.errors.password" />
+                        </div>
 
-                    <div class="flex flex-col space-y-1 lg:col-span-1">
-                        <Input id="inpConfirmPassword" placeholder="Confirm Password" type="password"
-                            class="rounded placeholder:text-slate-700 lg:col-span-1 "
-                            @onInput="({ value }) => (form.confirm_password = value)" />
-                        <Alert :message="form.errors.confirm_password" />
+                        <div class="flex flex-col space-y-1 lg:col-span-1">
+                            <Input id="inpConfirmPassword" placeholder="Confirm Password" type="password"
+                                class="rounded placeholder:text-slate-700 lg:col-span-1 "
+                                @onInput="({ value }) => (form.confirm_password = value)" />
+                            <Alert :message="form.errors.confirm_password" />
+                        </div>
                     </div>
 
                 </div>
 
-                <div class="grid grid-cols-1 col-span-full">
+                <div class="grid items-start grid-cols-1 col-span-full ">
                     <div class="flex flex-col space-y-1 ">
                         <h2 class="text-lg font-semibold text-slate-700">Roles</h2>
                         <Alert :message="form.errors.role" />
@@ -121,6 +128,8 @@ const props = defineProps({
         required: true, type: Array
     }
 });
+
+const showPasswordEdit = ref(false);
 
 const form = useForm({
     avatar: tap(props.user.details.avatar, avatar => avatar.length <= 7 ? null : avatar),
