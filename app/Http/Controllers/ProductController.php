@@ -11,6 +11,14 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:products.index|products.create|products.edit|products.delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:products.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:products.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:products.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +39,7 @@ class ProductController extends Controller
                 )->orWhere(
                     "name",
                     "ILIKE",
-                    "$keyword%"
+                    "%$keyword%"
                 );
             });
         }

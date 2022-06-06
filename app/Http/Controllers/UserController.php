@@ -17,7 +17,7 @@ use Image;
 
 class UserController extends Controller
 {
-    public function __construct(Request $request, User $user)
+    public function __construct()
     {
         $this->middleware('permission:users.index|users.create|users.edit|users.delete', ['only' => ['index', 'store']]);
         $this->middleware('permission:users.create', ['only' => ['create', 'store']]);
@@ -45,11 +45,11 @@ class UserController extends Controller
                 )->orWhere(
                     "email",
                     "ILIKE",
-                    "$keyword%"
+                    "%$keyword%"
                 )->orWhereHas(
                     "details",
                     function ($query) use ($keyword) {
-                        return $query->where("phone_number", "ILIKE", "$keyword%");
+                        return $query->where("phone_number", "ILIKE", "%$keyword%");
                     }
                 )->orWhereHas(
                     "roles",

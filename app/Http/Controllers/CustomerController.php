@@ -8,6 +8,14 @@ use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:customers.index|customers.create|customers.edit|customers.delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:customers.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:customers.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:customers.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,11 +36,11 @@ class CustomerController extends Controller
                 )->orWhere(
                     "phone_number",
                     "ILIKE",
-                    "$keyword%"
+                    "%$keyword%"
                 )->orWhere(
                     "address",
                     "ILIKE",
-                    "$keyword%"
+                    "%$keyword%"
                 );;
             });
         }
@@ -60,13 +68,13 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "name" => "required|alpha|min:2|max:50|string",
+        $validated =  $request->validate([
+            "name" => "required|string|min:2|max:50|string",
             "phone_number" => "nullable|max:20|string",
             "address" => "nullable|max:255|string",
         ]);
 
-        Customer::query()->create($request->validated());
+        Customer::query()->create($validated);
 
         return redirect()->route("customers.index")->with(['message' => "Customer created successfully"]);
     }
@@ -102,13 +110,13 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        $request->validate([
-            "name" => "required|alpha|min:2|max:50|string",
+        $validated = $request->validate([
+            "name" => "required|string|min:2|max:50|string",
             "phone_number" => "nullable|max:20|string",
             "address" => "nullable|max:255|string",
         ]);
 
-        $customer->update($request->validated());
+        $customer->update($validated);
 
         return redirect()->route("customers.index")
             ->with(["message" => 'Customer "' . $customer->name . '" updated successfully']);

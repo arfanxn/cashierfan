@@ -70,8 +70,10 @@ class RoleController extends Controller
 
         if (!empty($request->get("permissions", []))) {
             collect($request->get("permissions"))->each(function ($permName)  use ($permissions) {
-                if (!in_array($permName, $permissions)) return redirect()->back()
-                    ->withErrors(['permissions' => ["The selected permissions is invalid."]/**/]);
+                if (!in_array($permName, $permissions))
+                    return redirect()->back()
+                        ->withErrors(['permissions' => ["The selected permissions is invalid."]/**/])
+                        ->throwResponse();
             });
         }
 
@@ -105,8 +107,10 @@ class RoleController extends Controller
         ]);
         if (!empty($request->get("permissions", []))) {
             collect($request->get("permissions"))->each(function ($permName)  use ($permissions) {
-                if (!in_array($permName, $permissions)) return redirect()->back()
-                    ->withErrors(['permissions' => ["The selected permissions is invalid."]/**/]);
+                if (!in_array($permName, $permissions))
+                    return redirect()->back()
+                        ->withErrors(['permissions' => ["The selected permissions is invalid."]/**/])
+                        ->throwResponse();
             });
         }
 
