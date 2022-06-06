@@ -32,12 +32,12 @@ class UpdateUserRequest extends FormRequest
             "name" => "required|min:2|max:100|string",
             "email" => [
                 "required", "string", 'max:100', 'email',
-                "unique:users,email," . Auth::id()
+                "unique:users,email," . $this->user->id
             ],
             "phone_number" => "required|max:20|string",
             "address" => "required|max:255",
             "password" => [
-                'required', "max:50", "string",
+                'nullable', "max:50", "string",
                 Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised()
             ],
             "confirm_password" => [
