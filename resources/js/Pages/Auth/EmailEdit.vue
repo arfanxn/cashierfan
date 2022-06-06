@@ -74,14 +74,11 @@ import Button from "../../Components/Button.vue";
 import ButtonLink from "../../Components/ButtonLink.vue";
 import Input from "../../Components/Input.vue";
 import { isset } from "../../Helpers";
-import { fetchAsJSON } from "../../Mixins/Fetch";
-import { reactive, defineProps } from "vue";
+import { reactive } from "vue";
 import { sendVerificationCode } from "../../Services/AuthService";
 
-const props = defineProps(['user']);
-
 const form = useForm({
-    email: props.user.email, verification_code: ``,
+    email: '', verification_code: ``,
 });
 
 const alert = reactive({

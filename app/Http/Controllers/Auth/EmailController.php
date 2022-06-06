@@ -18,7 +18,7 @@ class EmailController extends Controller
      */
     public function edit()
     {
-        return Inertia::render("Auth/EmailEdit", ['user' => Auth::user()]);
+        return Inertia::render("Auth/EmailEdit");
     }
 
     /**

@@ -49,8 +49,7 @@
                             <Textarea :value="props.user.details.address" id="inpAddress" placeholder="Address"
                                 class="rounded placeholder:text-slate-700"
                                 @onChange="({ value }) => (form.address = value)" />
-                            <Alert @onClose="form.errors.address = null" :message="form.errors.address"
-                                @onClose="form.errors.address = null" />
+                            <Alert @onClose="form.errors.address = null" :message="form.errors.address" />
                             <Alert @onClose="$page.props.flash.message = null" type="success"
                                 :message="$page.props.flash.message" />
                         </div>
