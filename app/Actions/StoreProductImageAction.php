@@ -18,9 +18,8 @@ class StoreProductImageAction
 
         Storage::putFileAs("public/" . static::FILEPATH, $file, $fileName);
 
-        return
-            $product->update([
-                'image' => Storage::url(static::FILEPATH . "/" . $fileName)
-            ]);
+        $product->image = Storage::url(static::FILEPATH . "/" . $fileName);
+
+        return $product->save();
     }
 }

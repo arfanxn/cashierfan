@@ -25,7 +25,7 @@ class ProductController extends Controller
         if ($keyword) {
             $products = $products->where(function ($query) use ($keyword) {
                 return $query->where(
-                    "code",
+                    "barcode",
                     "ILIKE",
                     "$keyword%"
                 )->orWhere(
@@ -59,8 +59,8 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $product = Product::query()->create($request->only([
-            "code",
+        $product = new Product($request->only([
+            "barcode",
             "name",
             "description",
             "gross_price",
@@ -105,8 +105,13 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $isDuplicate = Product::query()->where("barcode", $request->get("barcode"))->whereNot("id", $product->id)
+            ->count();
+        if ($isDuplicate)
+            return redirect()->back()->withErrors(['barcode' => "The specified barcode already inserted"]);
+
         $product->update($request->only([
-            "code",
+            "barcode",
             "name",
             "description",
             "gross_price",

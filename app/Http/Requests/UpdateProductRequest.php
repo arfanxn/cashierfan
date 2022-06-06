@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -24,14 +26,18 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            "code" => "required|string|min:4|max:50|unique:products,code,code," . $this->code,
-            "image" => "required|image|mimes:jpg,jpeg,png,svg,gif,jfif|max:10240",
-            "name" => "required|min:2|max:100|string|unique:products,name,name," . $this->name,
-            "description" => "nullable|string|max:255",
-            "gross_price" => "required|numeric",
-            "net_price" => "required|numeric",
-            "profit" => "required|numeric",
-            "stock" => "required|numeric",
+            "barcode" => [
+                "required", "string", "min:4", "max:50", "unique:products,barcode," . $this->product->id
+            ],
+            "image" => $this->hasFile("image") ? [
+                "image", "mimes:jpg,jpeg,png,svg,gif,jfif", "max:10240"
+            ] : ["nullable"],
+            "name" => ["required", "string", "min:2", "max:100", "unique:products,name," . $this->product->id],
+            "description" => ["nullable", "string", "max:255"],
+            "gross_price" => ["required", "numeric"],
+            "net_price" => ["required", "numeric", "gt:gross_price"],
+            "profit" => ["required", "numeric"],
+            "stock" => ["required", "numeric"],
         ];
     }
 }
