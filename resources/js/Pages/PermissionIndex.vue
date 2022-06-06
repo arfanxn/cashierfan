@@ -8,7 +8,7 @@
     <AuthLayout>
         <Card>
             <template v-slot:title>
-                <font-awesome-icon icon="fas fa-shield" />
+                <font-awesome-icon icon="fas fa-key" />
                 <h1 class="text-lg font-semibold">Permissions</h1>
             </template>
 
@@ -38,7 +38,7 @@
                             <tr v-for="(permission, index) in props.permissions" :key="index"
                                 class="border-b even:bg-gray-100 odd:bg-white hover:bg-slate-300">
                                 <td class="px-4 py-4 text-gray-900 border border-slate-500 whitespace-nowrap">
-                                    <span class="font-semibold text-slate-700 text-lg">{{ permission }}</span>
+                                    <span class="text-lg font-semibold text-slate-700">{{ permission }}</span>
                                 </td>
                             </tr>
                         </tbody>

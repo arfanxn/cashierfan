@@ -35532,78 +35532,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=script&setup=true&lang=js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=script&setup=true&lang=js ***!
-  \****************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
-/* harmony import */ var _Layouts_AuthLayout_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Layouts/AuthLayout.vue */ "./resources/js/Layouts/AuthLayout.vue");
-/* harmony import */ var _Components_Alert_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/Alert.vue */ "./resources/js/Components/Alert.vue");
-/* harmony import */ var _Components_Card_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Components/Card.vue */ "./resources/js/Components/Card.vue");
-/* harmony import */ var _Components_Button_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/Button.vue */ "./resources/js/Components/Button.vue");
-/* harmony import */ var _Components_ButtonLink_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Components/ButtonLink.vue */ "./resources/js/Components/ButtonLink.vue");
-/* harmony import */ var _Components_Textarea_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Components/Textarea.vue */ "./resources/js/Components/Textarea.vue");
-/* harmony import */ var _Components_InputImage_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Components/InputImage.vue */ "./resources/js/Components/InputImage.vue");
-/* harmony import */ var _Components_Input_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Components/Input.vue */ "./resources/js/Components/Input.vue");
-/* harmony import */ var _Helpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../Helpers */ "./resources/js/Helpers.js");
-
-
-
-
-
-
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'ProfileEdit',
-  props: ["user"],
-  setup: function setup(__props, _ref) {
-    var expose = _ref.expose;
-    expose();
-    var props = __props;
-    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)({
-      avatar: (0,_Helpers__WEBPACK_IMPORTED_MODULE_9__.tap)(props.user.details.avatar, function (avatar) {
-        return avatar.length <= 7 ? null : avatar;
-      }),
-      name: props.user.name,
-      phone_number: props.user.details.phone_number,
-      address: props.user.details.address
-    });
-    var __returned__ = {
-      props: props,
-      form: form,
-      Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
-      useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm,
-      Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
-      AuthLayout: _Layouts_AuthLayout_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-      Alert: _Components_Alert_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-      Card: _Components_Card_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-      Button: _Components_Button_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-      ButtonLink: _Components_ButtonLink_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-      Textarea: _Components_Textarea_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-      InputImage: _Components_InputImage_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-      Input: _Components_Input_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-      tap: _Helpers__WEBPACK_IMPORTED_MODULE_9__.tap
-    };
-    Object.defineProperty(__returned__, '__isScriptSetup', {
-      enumerable: false,
-      value: true
-    });
-    return __returned__;
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Auth/Verify.vue?vue&type=script&setup=true&lang=js":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Auth/Verify.vue?vue&type=script&setup=true&lang=js ***!
@@ -38300,7 +38228,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-            onSubmit: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+            onSubmit: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
               return $setup.form.patch(_ctx.route("auth.email.update"));
             }, ["prevent"])),
             "class": "grid items-start grid-cols-1 gap-4"
@@ -38317,10 +38245,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[1] || (_cache[1] = function ($event) {
+              return $setup.form.errors.email = null;
+            }),
             message: $setup.form.errors.email
           }, null, 8
           /* PROPS */
           , ["message"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[2] || (_cache[2] = function ($event) {
+              return _ctx.$page.props.flash.message = null;
+            }),
             type: "success",
             message: _ctx.$page.props.flash.message
           }, null, 8
@@ -38330,13 +38264,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             type: "text",
             placeholder: "112233",
             "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[1] || (_cache[1] = function (_ref2) {
+            onOnInput: _cache[3] || (_cache[3] = function (_ref2) {
               var value = _ref2.value;
               return $setup.form.verification_code = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
             type: "button",
-            onClick: _cache[2] || (_cache[2] = function ($event) {
+            onClick: _cache[4] || (_cache[4] = function ($event) {
               return $setup.sendCode();
             }),
             "class": "px-2 py-1 uppercase rounded-r"
@@ -38348,7 +38282,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* STABLE */
 
           })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
-            onOnClose: _cache[3] || (_cache[3] = function ($event) {
+            onOnClose: _cache[5] || (_cache[5] = function ($event) {
               return $setup.form.errors.verification_code = null;
             }),
             message: $setup.form.errors.verification_code
@@ -38356,7 +38290,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           /* PROPS */
           , ["message"]), !$setup.form.errors.verification_code ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Alert"], {
             key: 0,
-            onOnClose: _cache[4] || (_cache[4] = function ($event) {
+            onOnClose: _cache[6] || (_cache[6] = function ($event) {
               return $setup.alert.verification_code.message = null;
             }),
             type: $setup.alert.verification_code.type,
@@ -38884,7 +38818,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
             autocomplete: "off",
-            onSubmit: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+            onSubmit: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
               return $setup.form.patch(_ctx.route("auth.password.update"));
             }, ["prevent"])),
             "class": "grid items-start grid-cols-1 col-span-4 gap-4 lg:grid-cols-4"
@@ -38921,6 +38855,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
               return $setup.form.password = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[3] || (_cache[3] = function ($event) {
+              return $setup.form.errors.password = null;
+            }),
             message: $setup.form.errors.password
           }, null, 8
           /* PROPS */
@@ -38929,11 +38866,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             placeholder: "********",
             type: "password",
             "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[3] || (_cache[3] = function (_ref3) {
+            onOnInput: _cache[4] || (_cache[4] = function (_ref3) {
               var value = _ref3.value;
               return $setup.form.confirm_password = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[5] || (_cache[5] = function ($event) {
+              return $setup.form.errors.confirm_password = null;
+            }),
             message: $setup.form.errors.confirm_password
           }, null, 8
           /* PROPS */
@@ -38965,219 +38905,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
               return [_hoisted_16];
-            }),
-            _: 1
-            /* STABLE */
-
-          }, 8
-          /* PROPS */
-          , ["href"])])], 32
-          /* HYDRATE_EVENTS */
-          )];
-        }),
-        _: 1
-        /* STABLE */
-
-      })])];
-    }),
-    _: 1
-    /* STABLE */
-
-  })], 64
-  /* STABLE_FRAGMENT */
-  );
-}
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=template&id=6e31b4f5":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=template&id=6e31b4f5 ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-
-
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("title", null, "Edit Profile", -1
-/* HOISTED */
-);
-
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("meta", {
-  name: "Edit Profile",
-  content: "Edit Profile"
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_3 = {
-  "class": ""
-};
-
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
-  "class": "text-lg font-semibold"
-}, "EDIT PROFILE", -1
-/* HOISTED */
-);
-
-var _hoisted_5 = {
-  "class": "flex flex-col space-y-1 lg:col-span-1"
-};
-
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "flex items-center justify-center h-full text-xl font-semibold bg-gray-100 text-slate-700"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "ADD AVATAR")], -1
-/* HOISTED */
-);
-
-var _hoisted_7 = {
-  "class": "grid items-start grid-cols-1 gap-4 lg:grid-cols-2 lg:col-span-3"
-};
-var _hoisted_8 = {
-  "class": "flex flex-col space-y-1 lg:col-span-1"
-};
-var _hoisted_9 = {
-  "class": "flex flex-col space-y-1 lg:col-span-1"
-};
-var _hoisted_10 = {
-  "class": "flex flex-col space-y-1 lg:col-span-2"
-};
-var _hoisted_11 = {
-  "class": "my-4 space-x-1 col-span-full"
-};
-
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("SAVE");
-
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" CANCEL");
-
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
-
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], null, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_1, _hoisted_2];
-    }),
-    _: 1
-    /* STABLE */
-
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["AuthLayout"], null, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], null, {
-        title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
-            "class": "fas fa-user"
-          }), _hoisted_4];
-        }),
-        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-            onSubmit: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
-              return $setup.form.post(_ctx.route("auth.profile.update"), {
-                forceFormData: true
-              });
-            }, ["prevent"])),
-            "class": "grid items-start grid-cols-1 gap-4 lg:grid-cols-4"
-          }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["InputImage"], {
-            "class": "border rounded h-52",
-            onOnInput: _cache[0] || (_cache[0] = function (_ref) {
-              var file = _ref.file;
-              return $setup.form.avatar = file;
-            }),
-            previewImgURL: $setup.form.avatar,
-            id: "inpUserImg",
-            onOnError: _cache[1] || (_cache[1] = function (_ref2) {
-              var message = _ref2.message;
-              return $setup.form.errors.avatar = message;
-            })
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_6];
-            }),
-            _: 1
-            /* STABLE */
-
-          }, 8
-          /* PROPS */
-          , ["previewImgURL"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
-            message: $setup.form.errors.avatar
-          }, null, 8
-          /* PROPS */
-          , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Input"], {
-            value: $setup.props.user.name,
-            id: "inpFullname",
-            placeholder: "Fullname",
-            "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[2] || (_cache[2] = function (_ref3) {
-              var value = _ref3.value;
-              return $setup.form.name = value;
-            })
-          }, null, 8
-          /* PROPS */
-          , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
-            message: $setup.form.errors.name
-          }, null, 8
-          /* PROPS */
-          , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Input"], {
-            value: $setup.props.user.details.phone_number,
-            id: "inpPhoneNum",
-            placeholder: "Phone Number (62XXXXxxxxXXXX)",
-            "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[3] || (_cache[3] = function (_ref4) {
-              var value = _ref4.value;
-              return $setup.form.phone_number = value;
-            })
-          }, null, 8
-          /* PROPS */
-          , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
-            message: $setup.form.errors.phone_number
-          }, null, 8
-          /* PROPS */
-          , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Textarea"], {
-            value: $setup.props.user.details.address,
-            id: "inpAddress",
-            placeholder: "Address",
-            "class": "rounded placeholder:text-slate-700",
-            onOnChange: _cache[4] || (_cache[4] = function (_ref5) {
-              var value = _ref5.value;
-              return $setup.form.address = value;
-            })
-          }, null, 8
-          /* PROPS */
-          , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
-            message: $setup.form.errors.address,
-            onOnClose: _cache[5] || (_cache[5] = function ($event) {
-              return $setup.form.errors.address = null;
-            })
-          }, null, 8
-          /* PROPS */
-          , ["message"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
-            onOnClose: _cache[6] || (_cache[6] = function ($event) {
-              return _ctx.$page.props.flash.message = null;
-            }),
-            type: "success",
-            message: _ctx.$page.props.flash.message
-          }, null, 8
-          /* PROPS */
-          , ["message"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
-            type: "submit",
-            "class": "px-2 py-1 rounded"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_12];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ButtonLink"], {
-            href: _ctx.route('/'),
-            "class": "px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_13];
             }),
             _: 1
             /* STABLE */
@@ -39363,7 +39090,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 
 var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "text-lg font-semibold"
-}, "EDIT CUSTOMER", -1
+}, "ADD NEW CUSTOMER", -1
 /* HOISTED */
 );
 
@@ -39371,13 +39098,13 @@ var _hoisted_4 = {
   "class": "grid grid-cols-1 gap-4 lg:grid-cols-2"
 };
 var _hoisted_5 = {
-  "class": "lg:col-span-1"
+  "class": "space-y-1 lg:col-span-1"
 };
 var _hoisted_6 = {
-  "class": "lg:col-span-1"
+  "class": "space-y-1 lg:col-span-1"
 };
 var _hoisted_7 = {
-  "class": "lg:col-span-2"
+  "class": "space-y-1 lg:col-span-2"
 };
 var _hoisted_8 = {
   "class": "my-4 space-x-1"
@@ -39402,7 +39129,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], null, {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
-            "class": "fas fa-bag-shopping"
+            "class": "fas fa-user-circle"
           }), _hoisted_3];
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -39417,12 +39144,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[1] || (_cache[1] = function ($event) {
+              return $setup.form.errors.name = null;
+            }),
             message: $setup.form.errors.name
           }, null, 8
           /* PROPS */
           , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Input"], {
             value: $setup.form.phone_number,
-            onOnInput: _cache[1] || (_cache[1] = function (_ref2) {
+            onOnInput: _cache[2] || (_cache[2] = function (_ref2) {
               var value = _ref2.value;
               return $setup.form.phone_number = value;
             }),
@@ -39431,12 +39161,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[3] || (_cache[3] = function ($event) {
+              return $setup.form.errors.phone_number = null;
+            }),
             message: $setup.form.errors.phone_number
           }, null, 8
           /* PROPS */
           , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Textarea"], {
             value: $setup.form.address,
-            onOnChange: _cache[2] || (_cache[2] = function (_ref3) {
+            onOnChange: _cache[4] || (_cache[4] = function (_ref3) {
               var value = _ref3.value;
               return $setup.form.address = value;
             }),
@@ -39445,12 +39178,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[5] || (_cache[5] = function ($event) {
+              return $setup.form.errors.address = null;
+            }),
             message: $setup.form.errors.address
           }, null, 8
           /* PROPS */
           , ["message"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
-            onOnClick: _cache[3] || (_cache[3] = function ($event) {
-              return $setup.form.post(_ctx.route("customers.store", _ctx.props.customer.id));
+            onOnClick: _cache[6] || (_cache[6] = function ($event) {
+              return $setup.form.post(_ctx.route("customers.store"));
             }),
             "class": "px-2 py-1 rounded"
           }, {
@@ -39461,7 +39197,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* STABLE */
 
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
-            onOnClick: _cache[4] || (_cache[4] = function ($event) {
+            onOnClick: _cache[7] || (_cache[7] = function ($event) {
               return $setup.form.reset();
             }),
             "class": "px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25"
@@ -39524,13 +39260,13 @@ var _hoisted_4 = {
   "class": "grid grid-cols-1 gap-4 lg:grid-cols-2"
 };
 var _hoisted_5 = {
-  "class": "lg:col-span-1"
+  "class": "space-y-1 lg:col-span-1"
 };
 var _hoisted_6 = {
-  "class": "lg:col-span-1"
+  "class": "space-y-1 lg:col-span-1"
 };
 var _hoisted_7 = {
-  "class": "lg:col-span-2"
+  "class": "space-y-1 lg:col-span-2"
 };
 var _hoisted_8 = {
   "class": "my-4 space-x-1"
@@ -39538,7 +39274,7 @@ var _hoisted_8 = {
 
 var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("SAVE");
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("CLEAR");
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("RESET");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
@@ -39555,7 +39291,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], null, {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
-            "class": "fas fa-bag-shopping"
+            "class": "fas fa-user-circle"
           }), _hoisted_3];
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -39754,7 +39490,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], null, {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
-            "class": "fas fa-bag-shopping"
+            "class": "fas fa-user-circle"
           }), _hoisted_3];
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -40067,7 +39803,7 @@ var _hoisted_9 = {
   "class": "px-4 py-4 text-gray-900 border border-slate-500 whitespace-nowrap"
 };
 var _hoisted_10 = {
-  "class": "font-semibold text-slate-700 text-lg"
+  "class": "text-lg font-semibold text-slate-700"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
@@ -40084,7 +39820,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], null, {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
-            icon: "fas fa-shield"
+            icon: "fas fa-key"
           }), _hoisted_3];
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -40260,6 +39996,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* STABLE */
 
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[2] || (_cache[2] = function ($event) {
+              return $setup.form.errors.image = null;
+            }),
             message: $setup.form.errors.image
           }, null, 8
           /* PROPS */
@@ -40267,7 +40006,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.barcode,
             id: "inpBarcode",
             placeholder: "Barcode",
-            onOnInput: _cache[2] || (_cache[2] = function (_ref3) {
+            onOnInput: _cache[3] || (_cache[3] = function (_ref3) {
               var value = _ref3.value;
               return $setup.form.barcode = value;
             }),
@@ -40275,6 +40014,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[4] || (_cache[4] = function ($event) {
+              return $setup.form.errors.barcode = null;
+            }),
             message: $setup.form.errors.barcode
           }, null, 8
           /* PROPS */
@@ -40282,7 +40024,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.stock,
             id: "inpStock",
             placeholder: "Stocks",
-            onOnInput: _cache[3] || (_cache[3] = function (_ref4) {
+            onOnInput: _cache[5] || (_cache[5] = function (_ref4) {
               var value = _ref4.value;
               return $setup.form.stock = value;
             }),
@@ -40290,6 +40032,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[6] || (_cache[6] = function ($event) {
+              return $setup.form.errors.stock = null;
+            }),
             message: $setup.form.errors.stock
           }, null, 8
           /* PROPS */
@@ -40297,7 +40042,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.name,
             id: "inpProdName",
             placeholder: "Product Name",
-            onOnInput: _cache[4] || (_cache[4] = function (_ref5) {
+            onOnInput: _cache[7] || (_cache[7] = function (_ref5) {
               var value = _ref5.value;
               return $setup.form.name = value;
             }),
@@ -40305,6 +40050,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[8] || (_cache[8] = function ($event) {
+              return $setup.form.errors.name = null;
+            }),
             message: $setup.form.errors.name
           }, null, 8
           /* PROPS */
@@ -40312,7 +40060,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.description,
             id: "inpDescription",
             placeholder: "Description",
-            onOnInput: _cache[5] || (_cache[5] = function (_ref6) {
+            onOnInput: _cache[9] || (_cache[9] = function (_ref6) {
               var value = _ref6.value;
               return $setup.form.description = value;
             }),
@@ -40320,6 +40068,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[10] || (_cache[10] = function ($event) {
+              return $setup.form.errors.description = null;
+            }),
             message: $setup.form.errors.description
           }, null, 8
           /* PROPS */
@@ -40327,7 +40078,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.gross_price,
             id: "inpBuyPrice",
             placeholder: "Gross Price",
-            onOnInput: _cache[6] || (_cache[6] = function (_ref7) {
+            onOnInput: _cache[11] || (_cache[11] = function (_ref7) {
               var value = _ref7.value;
               return $setup.form.gross_price = value;
             }),
@@ -40335,6 +40086,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[12] || (_cache[12] = function ($event) {
+              return $setup.form.errors.gross_price = null;
+            }),
             message: $setup.form.errors.gross_price
           }, null, 8
           /* PROPS */
@@ -40342,7 +40096,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.net_price,
             id: "inpSellPrice",
             placeholder: "Net Price",
-            onOnInput: _cache[7] || (_cache[7] = function (_ref8) {
+            onOnInput: _cache[13] || (_cache[13] = function (_ref8) {
               var value = _ref8.value;
               return $setup.form.net_price = value;
             }),
@@ -40350,11 +40104,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[14] || (_cache[14] = function ($event) {
+              return $setup.form.errors.net_price = null;
+            }),
             message: $setup.form.errors.net_price
           }, null, 8
           /* PROPS */
           , ["message"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
-            onOnClick: _cache[8] || (_cache[8] = function ($event) {
+            onOnClick: _cache[15] || (_cache[15] = function ($event) {
               return $setup.form.transform(function (data) {
                 return _objectSpread(_objectSpread({}, data), {}, {
                   profit: (parseFloat(data.net_price) - parseFloat(data.gross_price)).toFixed(2)
@@ -40372,6 +40129,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* STABLE */
 
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
+            onOnClick: _cache[16] || (_cache[16] = function ($event) {
+              return $setup.form.reset();
+            }),
             "class": "px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25"
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -40474,7 +40234,7 @@ var _hoisted_14 = {
 
 var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("UPDATE");
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("CLEAR");
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("RESET");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
@@ -40517,6 +40277,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, 8
           /* PROPS */
           , ["previewImgURL"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[2] || (_cache[2] = function ($event) {
+              return $setup.form.errors.image = null;
+            }),
             message: $setup.form.errors.image
           }, null, 8
           /* PROPS */
@@ -40524,7 +40287,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.barcode,
             id: "inpBarcode",
             placeholder: "Barcode",
-            onOnInput: _cache[2] || (_cache[2] = function (_ref3) {
+            onOnInput: _cache[3] || (_cache[3] = function (_ref3) {
               var value = _ref3.value;
               return $setup.form.barcode = value;
             }),
@@ -40532,6 +40295,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[4] || (_cache[4] = function ($event) {
+              return $setup.form.errors.barcode = null;
+            }),
             message: $setup.form.errors.barcode
           }, null, 8
           /* PROPS */
@@ -40539,7 +40305,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.stock,
             id: "inpStock",
             placeholder: "Stocks",
-            onOnInput: _cache[3] || (_cache[3] = function (_ref4) {
+            onOnInput: _cache[5] || (_cache[5] = function (_ref4) {
               var value = _ref4.value;
               return $setup.form.stock = value;
             }),
@@ -40547,6 +40313,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[6] || (_cache[6] = function ($event) {
+              return $setup.form.errors.stock = null;
+            }),
             message: $setup.form.errors.stock
           }, null, 8
           /* PROPS */
@@ -40554,7 +40323,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.name,
             id: "inpProdName",
             placeholder: "Product Name",
-            onOnInput: _cache[4] || (_cache[4] = function (_ref5) {
+            onOnInput: _cache[7] || (_cache[7] = function (_ref5) {
               var value = _ref5.value;
               return $setup.form.name = value;
             }),
@@ -40562,6 +40331,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[8] || (_cache[8] = function ($event) {
+              return $setup.form.errors.name = null;
+            }),
             message: $setup.form.errors.name
           }, null, 8
           /* PROPS */
@@ -40569,7 +40341,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.description,
             id: "inpDescription",
             placeholder: "Description",
-            onOnInput: _cache[5] || (_cache[5] = function (_ref6) {
+            onOnInput: _cache[9] || (_cache[9] = function (_ref6) {
               var value = _ref6.value;
               return $setup.form.description = value;
             }),
@@ -40577,6 +40349,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[10] || (_cache[10] = function ($event) {
+              return $setup.form.errors.description = null;
+            }),
             message: $setup.form.errors.description
           }, null, 8
           /* PROPS */
@@ -40584,7 +40359,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.gross_price,
             id: "inpBuyPrice",
             placeholder: "Gross Price",
-            onOnInput: _cache[6] || (_cache[6] = function (_ref7) {
+            onOnInput: _cache[11] || (_cache[11] = function (_ref7) {
               var value = _ref7.value;
               return $setup.form.gross_price = value;
             }),
@@ -40592,6 +40367,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[12] || (_cache[12] = function ($event) {
+              return $setup.form.errors.gross_price = null;
+            }),
             message: $setup.form.errors.gross_price
           }, null, 8
           /* PROPS */
@@ -40599,7 +40377,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.form.net_price,
             id: "inpSellPrice",
             placeholder: "Net Price",
-            onOnInput: _cache[7] || (_cache[7] = function (_ref8) {
+            onOnInput: _cache[13] || (_cache[13] = function (_ref8) {
               var value = _ref8.value;
               return $setup.form.net_price = value;
             }),
@@ -40607,11 +40385,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[14] || (_cache[14] = function ($event) {
+              return $setup.form.errors.net_price = null;
+            }),
             message: $setup.form.errors.net_price
           }, null, 8
           /* PROPS */
           , ["message"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
-            onOnClick: _cache[8] || (_cache[8] = function ($event) {
+            onOnClick: _cache[15] || (_cache[15] = function ($event) {
               return $setup.form.transform(function (data) {
                 return _objectSpread(_objectSpread({}, data), {}, {
                   profit: (parseFloat(data.net_price) - parseFloat(data.gross_price)).toFixed(2)
@@ -40629,6 +40410,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* STABLE */
 
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
+            onOnClick: _cache[16] || (_cache[16] = function ($event) {
+              return $setup.form.reset();
+            }),
             "class": "px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25"
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -41214,7 +40998,7 @@ var _hoisted_11 = {
 
 var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("SAVE");
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("CLEAR");
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("RESET");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
@@ -42610,7 +42394,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-            onSubmit: _cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+            onSubmit: _cache[17] || (_cache[17] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
               return $setup.form.post(_ctx.route("users.store"), {
                 forceFormData: true
               });
@@ -42635,6 +42419,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* STABLE */
 
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[2] || (_cache[2] = function ($event) {
+              return $setup.form.errors.avatar = null;
+            }),
             message: $setup.form.errors.avatar
           }, null, 8
           /* PROPS */
@@ -42642,23 +42429,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             id: "inpFullname",
             placeholder: "Fullname",
             "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[2] || (_cache[2] = function (_ref3) {
+            onOnInput: _cache[3] || (_cache[3] = function (_ref3) {
               var value = _ref3.value;
               return $setup.form.name = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[4] || (_cache[4] = function ($event) {
+              return $setup.form.errors.name = null;
+            }),
             message: $setup.form.errors.name
           }, null, 8
           /* PROPS */
           , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Input"], {
             id: "inpEmail",
             placeholder: "Email",
-            onOnInput: _cache[3] || (_cache[3] = function (_ref4) {
+            onOnInput: _cache[5] || (_cache[5] = function (_ref4) {
               var value = _ref4.value;
               return $setup.form.email = value;
             }),
             "class": "rounded placeholder:text-slate-700"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[6] || (_cache[6] = function ($event) {
+              return $setup.form.errors.email = null;
+            }),
             message: $setup.form.errors.email
           }, null, 8
           /* PROPS */
@@ -42666,11 +42459,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             id: "inpPhoneNum",
             placeholder: "Phone Number (62XXXXxxxxXXXX)",
             "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[4] || (_cache[4] = function (_ref5) {
+            onOnInput: _cache[7] || (_cache[7] = function (_ref5) {
               var value = _ref5.value;
               return $setup.form.phone_number = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[8] || (_cache[8] = function ($event) {
+              return $setup.form.errors.phone_number = null;
+            }),
             message: $setup.form.errors.phone_number
           }, null, 8
           /* PROPS */
@@ -42678,11 +42474,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             id: "inpAddress",
             placeholder: "Address",
             "class": "rounded placeholder:text-slate-700",
-            onOnChange: _cache[5] || (_cache[5] = function (_ref6) {
+            onOnChange: _cache[9] || (_cache[9] = function (_ref6) {
               var value = _ref6.value;
               return $setup.form.address = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[10] || (_cache[10] = function ($event) {
+              return $setup.form.errors.address = null;
+            }),
             message: $setup.form.errors.address
           }, null, 8
           /* PROPS */
@@ -42691,11 +42490,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             type: "password",
             placeholder: "Password",
             "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[6] || (_cache[6] = function (_ref7) {
+            onOnInput: _cache[11] || (_cache[11] = function (_ref7) {
               var value = _ref7.value;
               return $setup.form.password = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[12] || (_cache[12] = function ($event) {
+              return $setup.form.errors.password = null;
+            }),
             message: $setup.form.errors.password
           }, null, 8
           /* PROPS */
@@ -42704,15 +42506,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             placeholder: "Confirm Password",
             type: "password",
             "class": "rounded placeholder:text-slate-700 lg:col-span-1",
-            onOnInput: _cache[7] || (_cache[7] = function (_ref8) {
+            onOnInput: _cache[13] || (_cache[13] = function (_ref8) {
               var value = _ref8.value;
               return $setup.form.confirm_password = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[14] || (_cache[14] = function ($event) {
+              return $setup.form.errors.confirm_password = null;
+            }),
             message: $setup.form.errors.confirm_password
           }, null, 8
           /* PROPS */
           , ["message"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[15] || (_cache[15] = function ($event) {
+              return $setup.form.errors.role = null;
+            }),
             message: $setup.form.errors.role
           }, null, 8
           /* PROPS */
@@ -42747,6 +42555,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* STABLE */
 
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
+            onOnClick: _cache[16] || (_cache[16] = function ($event) {
+              return $setup.form.reset();
+            }),
             type: "button",
             "class": "px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25"
           }, {
@@ -42876,7 +42687,7 @@ var _hoisted_23 = {
 
 var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("UPDATE");
 
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("CLEAR");
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("RESET");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_font_awesome_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("font-awesome-icon");
@@ -42898,7 +42709,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-            onSubmit: _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+            onSubmit: _cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
               return $setup.form.post(_ctx.route("users.update", $setup.props.user.id), {
                 forceFormData: true
               });
@@ -42926,6 +42737,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, 8
           /* PROPS */
           , ["previewImgURL"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[2] || (_cache[2] = function ($event) {
+              return $setup.form.errors.avatar = null;
+            }),
             message: $setup.form.errors.avatar
           }, null, 8
           /* PROPS */
@@ -42934,13 +42748,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             id: "inpFullname",
             placeholder: "Fullname",
             "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[2] || (_cache[2] = function (_ref3) {
+            onOnInput: _cache[3] || (_cache[3] = function (_ref3) {
               var value = _ref3.value;
               return $setup.form.name = value;
             })
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[4] || (_cache[4] = function ($event) {
+              return $setup.form.errors.name = null;
+            }),
             message: $setup.form.errors.name
           }, null, 8
           /* PROPS */
@@ -42948,7 +42765,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             value: $setup.props.user.email,
             id: "inpEmail",
             placeholder: "Email",
-            onOnInput: _cache[3] || (_cache[3] = function (_ref4) {
+            onOnInput: _cache[5] || (_cache[5] = function (_ref4) {
               var value = _ref4.value;
               return $setup.form.email = value;
             }),
@@ -42956,6 +42773,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[6] || (_cache[6] = function ($event) {
+              return $setup.form.errors.email = null;
+            }),
             message: $setup.form.errors.email
           }, null, 8
           /* PROPS */
@@ -42964,13 +42784,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             id: "inpPhoneNum",
             placeholder: "Phone Number (62XXXXxxxxXXXX)",
             "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[4] || (_cache[4] = function (_ref5) {
+            onOnInput: _cache[7] || (_cache[7] = function (_ref5) {
               var value = _ref5.value;
               return $setup.form.phone_number = value;
             })
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[8] || (_cache[8] = function ($event) {
+              return $setup.form.errors.phone_number = null;
+            }),
             message: $setup.form.errors.phone_number
           }, null, 8
           /* PROPS */
@@ -42979,13 +42802,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             id: "inpAddress",
             placeholder: "Address",
             "class": "rounded placeholder:text-slate-700",
-            onOnChange: _cache[5] || (_cache[5] = function (_ref6) {
+            onOnChange: _cache[9] || (_cache[9] = function (_ref6) {
               var value = _ref6.value;
               return $setup.form.address = value;
             })
           }, null, 8
           /* PROPS */
           , ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[10] || (_cache[10] = function ($event) {
+              return $setup.form.errors.address = null;
+            }),
             message: $setup.form.errors.address
           }, null, 8
           /* PROPS */
@@ -42993,7 +42819,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             id: "showPwEdit",
             type: "checkbox",
             checked: $setup.showPasswordEdit,
-            onChange: _cache[6] || (_cache[6] = function ($event) {
+            onChange: _cache[11] || (_cache[11] = function ($event) {
               return $setup.showPasswordEdit = !$setup.showPasswordEdit;
             })
           }, null, 40
@@ -43003,11 +42829,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             type: "password",
             placeholder: "Password",
             "class": "rounded placeholder:text-slate-700",
-            onOnInput: _cache[7] || (_cache[7] = function (_ref7) {
+            onOnInput: _cache[12] || (_cache[12] = function (_ref7) {
               var value = _ref7.value;
               return $setup.form.password = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[13] || (_cache[13] = function ($event) {
+              return $setup.form.errors.password = null;
+            }),
             message: $setup.form.errors.password
           }, null, 8
           /* PROPS */
@@ -43016,15 +42845,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             placeholder: "Confirm Password",
             type: "password",
             "class": "rounded placeholder:text-slate-700 lg:col-span-1",
-            onOnInput: _cache[8] || (_cache[8] = function (_ref8) {
+            onOnInput: _cache[14] || (_cache[14] = function (_ref8) {
               var value = _ref8.value;
               return $setup.form.confirm_password = value;
             })
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[15] || (_cache[15] = function ($event) {
+              return $setup.form.errors.confirm_password = null;
+            }),
             message: $setup.form.errors.confirm_password
           }, null, 8
           /* PROPS */
           , ["message"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Alert"], {
+            onOnClose: _cache[16] || (_cache[16] = function ($event) {
+              return $setup.form.errors.role = null;
+            }),
             message: $setup.form.errors.role
           }, null, 8
           /* PROPS */
@@ -43059,6 +42894,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             /* STABLE */
 
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Button"], {
+            onOnClick: _cache[17] || (_cache[17] = function ($event) {
+              return $setup.form.reset();
+            }),
             type: "button",
             "class": "px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25"
           }, {
@@ -74489,27 +74327,9 @@ if (false) {}
 /*!*************************************************!*\
   !*** ./resources/js/Pages/Auth/ProfileEdit.vue ***!
   \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _ProfileEdit_vue_vue_type_template_id_6e31b4f5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfileEdit.vue?vue&type=template&id=6e31b4f5 */ "./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=template&id=6e31b4f5");
-/* harmony import */ var _ProfileEdit_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfileEdit.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var D_LARAVEL_PROJECT_cashierfan_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/***/ (() => {
 
 
-
-
-;
-const __exports__ = /*#__PURE__*/(0,D_LARAVEL_PROJECT_cashierfan_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ProfileEdit_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ProfileEdit_vue_vue_type_template_id_6e31b4f5__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/Auth/ProfileEdit.vue"]])
-/* hot reload */
-if (false) {}
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
 
 /***/ }),
 
@@ -75397,22 +75217,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=script&setup=true&lang=js":
-/*!************************************************************************************!*\
-  !*** ./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=script&setup=true&lang=js ***!
-  \************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ProfileEdit_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ProfileEdit_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ProfileEdit.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=script&setup=true&lang=js");
- 
-
-/***/ }),
-
 /***/ "./resources/js/Pages/Auth/Verify.vue?vue&type=script&setup=true&lang=js":
 /*!*******************************************************************************!*\
   !*** ./resources/js/Pages/Auth/Verify.vue?vue&type=script&setup=true&lang=js ***!
@@ -76065,22 +75869,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PasswordEdit_vue_vue_type_template_id_41a907da__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PasswordEdit_vue_vue_type_template_id_41a907da__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./PasswordEdit.vue?vue&type=template&id=41a907da */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Auth/PasswordEdit.vue?vue&type=template&id=41a907da");
-
-
-/***/ }),
-
-/***/ "./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=template&id=6e31b4f5":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=template&id=6e31b4f5 ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ProfileEdit_vue_vue_type_template_id_6e31b4f5__WEBPACK_IMPORTED_MODULE_0__.render)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ProfileEdit_vue_vue_type_template_id_6e31b4f5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ProfileEdit.vue?vue&type=template&id=6e31b4f5 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Auth/ProfileEdit.vue?vue&type=template&id=6e31b4f5");
 
 
 /***/ }),

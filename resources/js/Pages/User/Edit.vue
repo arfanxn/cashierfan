@@ -25,7 +25,7 @@
                             <h1>ADD AVATAR</h1>
                         </div>
                     </InputImage>
-                    <Alert :message="form.errors.avatar" />
+                    <Alert @onClose="form.errors.avatar = null" :message="form.errors.avatar" />
                 </div>
 
 
@@ -33,7 +33,7 @@
                     <div class="flex flex-col space-y-1 lg:col-span-2">
                         <Input :value="props.user.name" id="inpFullname" placeholder="Fullname"
                             class="rounded placeholder:text-slate-700 " @onInput="({ value }) => (form.name = value)" />
-                        <Alert :message="form.errors.name" />
+                        <Alert @onClose="form.errors.name = null" :message="form.errors.name" />
                     </div>
 
 
@@ -41,21 +41,21 @@
                         <Input :value="props.user.email" id="inpEmail" placeholder="Email"
                             @onInput="({ value }) => (form.email = value)"
                             class="rounded placeholder:text-slate-700 " />
-                        <Alert :message="form.errors.email" />
+                        <Alert @onClose="form.errors.email = null" :message="form.errors.email" />
                     </div>
 
                     <div class="flex flex-col space-y-1 lg:col-span-1">
                         <Input :value="props.user.details.phone_number" id="inpPhoneNum"
                             placeholder="Phone Number (62XXXXxxxxXXXX)" class="rounded placeholder:text-slate-700 "
                             @onInput="({ value }) => (form.phone_number = value)" />
-                        <Alert :message="form.errors.phone_number" />
+                        <Alert @onClose="form.errors.phone_number = null" :message="form.errors.phone_number" />
                     </div>
 
                     <div class="flex flex-col space-y-1 lg:col-span-2">
                         <Textarea :value="props.user.details.address" id="inpAddress" placeholder="Address"
                             class="rounded placeholder:text-slate-700"
                             @onChange="({ value }) => (form.address = value)" />
-                        <Alert :message="form.errors.address" />
+                        <Alert @onClose="form.errors.address = null" :message="form.errors.address" />
                     </div>
 
                     <div class="space-x-1 col-span-full">
@@ -68,14 +68,15 @@
                             <Input id="inpPassword" type="password" placeholder="Password"
                                 class="rounded placeholder:text-slate-700"
                                 @onInput="({ value }) => (form.password = value)" />
-                            <Alert :message="form.errors.password" />
+                            <Alert @onClose="form.errors.password = null" :message="form.errors.password" />
                         </div>
 
                         <div class="flex flex-col space-y-1 lg:col-span-1">
                             <Input id="inpConfirmPassword" placeholder="Confirm Password" type="password"
                                 class="rounded placeholder:text-slate-700 lg:col-span-1 "
                                 @onInput="({ value }) => (form.confirm_password = value)" />
-                            <Alert :message="form.errors.confirm_password" />
+                            <Alert @onClose="form.errors.confirm_password = null"
+                                :message="form.errors.confirm_password" />
                         </div>
                     </div>
 
@@ -84,7 +85,7 @@
                 <div class="grid items-start grid-cols-1 col-span-full ">
                     <div class="flex flex-col space-y-1 ">
                         <h2 class="text-lg font-semibold text-slate-700">Roles</h2>
-                        <Alert :message="form.errors.role" />
+                        <Alert @onClose="form.errors.role = null" :message="form.errors.role" />
                     </div>
                     <ul class="grid grid-cols-12 overflow-y-auto max-h-52 md:max-h-96 lg:max-h-full">
                         <li class="flex items-center col-span-6 space-x-1 lg:col-span-2 md:col-span-4"
@@ -98,8 +99,8 @@
 
                 <div class="my-4 space-x-1 col-span-full">
                     <Button type="submit" class="px-2 py-1 rounded">UPDATE</Button>
-                    <Button type="button"
-                        class="px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25">CLEAR</Button>
+                    <Button @onClick="form.reset()" type="button"
+                        class="px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25">RESET</Button>
                 </div>
             </form>
 

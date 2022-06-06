@@ -26,7 +26,7 @@
                                 <h1>ADD AVATAR</h1>
                             </div>
                         </InputImage>
-                        <Alert :message="form.errors.avatar" />
+                        <Alert @onClose="form.errors.avatar = null" :message="form.errors.avatar" />
                     </div>
 
 
@@ -35,21 +35,22 @@
                             <Input :value="props.user.name" id="inpFullname" placeholder="Fullname"
                                 class="rounded placeholder:text-slate-700 "
                                 @onInput="({ value }) => (form.name = value)" />
-                            <Alert :message="form.errors.name" />
+                            <Alert @onClose="form.errors.name = null" :message="form.errors.name" />
                         </div>
 
                         <div class="flex flex-col space-y-1 lg:col-span-1">
                             <Input :value="props.user.details.phone_number" id="inpPhoneNum"
                                 placeholder="Phone Number (62XXXXxxxxXXXX)" class="rounded placeholder:text-slate-700 "
                                 @onInput="({ value }) => (form.phone_number = value)" />
-                            <Alert :message="form.errors.phone_number" />
+                            <Alert @onClose="form.errors.phone_number = null" :message="form.errors.phone_number" />
                         </div>
 
                         <div class="flex flex-col space-y-1 lg:col-span-2">
                             <Textarea :value="props.user.details.address" id="inpAddress" placeholder="Address"
                                 class="rounded placeholder:text-slate-700"
                                 @onChange="({ value }) => (form.address = value)" />
-                            <Alert :message="form.errors.address" @onClose="form.errors.address = null" />
+                            <Alert @onClose="form.errors.address = null" :message="form.errors.address"
+                                @onClose="form.errors.address = null" />
                             <Alert @onClose="$page.props.flash.message = null" type="success"
                                 :message="$page.props.flash.message" />
                         </div>

@@ -23,8 +23,9 @@
                             <Input :value="form.email" id="inpEmail" type="text" placeholder="example@example.com"
                                 class="rounded placeholder:text-slate-700"
                                 @onInput="({ value }) => (form.email = value)" />
-                            <Alert :message="form.errors.email" />
-                            <Alert type="success" :message="$page.props.flash.message" />
+                            <Alert @onClose="form.errors.email = null" :message="form.errors.email" />
+                            <Alert @onClose="$page.props.flash.message = null" type="success"
+                                :message="$page.props.flash.message" />
                         </div>
 
                         <div class="space-y-1">

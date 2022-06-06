@@ -8,7 +8,7 @@
     <AuthLayout>
         <Card>
             <template v-slot:title>
-                <font-awesome-icon class=" fas fa-bag-shopping" />
+                <font-awesome-icon class=" fas fa-user-circle" />
                 <h1 class="text-lg font-semibold">CUSTOMERS</h1>
             </template>
 

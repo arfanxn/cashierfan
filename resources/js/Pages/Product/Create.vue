@@ -22,7 +22,7 @@
                             <h1>ADD PRODUCT IMAGE</h1>
                         </div>
                     </InputImage>
-                    <Alert :message="form.errors.image" />
+                    <Alert @onClose="form.errors.image = null" :message="form.errors.image" />
                 </div>
 
 
@@ -31,40 +31,40 @@
                         <Input :value="form.barcode" id="inpBarcode" placeholder="Barcode"
                             @onInput="({ value }) => (form.barcode = value)"
                             class="rounded placeholder:text-slate-700" />
-                        <Alert :message="form.errors.barcode" />
+                        <Alert @onClose="form.errors.barcode = null" :message="form.errors.barcode" />
                     </div>
 
                     <div class="space-y-1 lg:col-span-1 ">
                         <Input :value="form.stock" id="inpStock" placeholder="Stocks"
                             @onInput="({ value }) => (form.stock = value)" class="rounded placeholder:text-slate-700" />
-                        <Alert :message="form.errors.stock" />
+                        <Alert @onClose="form.errors.stock = null" :message="form.errors.stock" />
                     </div>
 
                     <div class="space-y-1 lg:col-span-2 ">
                         <Input :value="form.name" id="inpProdName" placeholder="Product Name"
                             @onInput="({ value }) => (form.name = value)" class="rounded placeholder:text-slate-700" />
-                        <Alert :message="form.errors.name" />
+                        <Alert @onClose="form.errors.name = null" :message="form.errors.name" />
                     </div>
 
                     <div class="space-y-1 lg:col-span-2 ">
                         <Textarea :value="form.description" id="inpDescription" placeholder="Description"
                             @onInput="({ value }) => (form.description = value)"
                             class="rounded placeholder:text-slate-700 " />
-                        <Alert :message="form.errors.description" />
+                        <Alert @onClose="form.errors.description = null" :message="form.errors.description" />
                     </div>
 
                     <div class="space-y-1 lg:col-span-1 ">
                         <Input :value="form.gross_price" id="inpBuyPrice" placeholder="Gross Price"
                             @onInput="({ value }) => (form.gross_price = value)"
                             class="rounded placeholder:text-slate-700 " />
-                        <Alert :message="form.errors.gross_price" />
+                        <Alert @onClose="form.errors.gross_price = null" :message="form.errors.gross_price" />
                     </div>
 
                     <div class="space-y-1 lg:col-span-1 ">
                         <Input :value="form.net_price" id="inpSellPrice" placeholder="Net Price"
                             @onInput="({ value }) => (form.net_price = value)"
                             class="rounded placeholder:text-slate-700 " />
-                        <Alert :message="form.errors.net_price" />
+                        <Alert @onClose="form.errors.net_price = null" :message="form.errors.net_price" />
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
                 })).post(route(`products.store`), {
                     forceFormData: true,
                 })" class="px-2 py-1 rounded">UPDATE</Button>
-                <Button
+                <Button @onClick="form.reset()"
                     class="px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25">CLEAR</Button>
             </div>
         </Card>

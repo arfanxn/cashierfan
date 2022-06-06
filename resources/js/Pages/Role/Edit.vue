@@ -40,7 +40,7 @@
                 <Button @onClick="form.patch(route(`roles.update`, props.role.id))"
                     class="px-2 py-1 rounded">SAVE</Button>
                 <Button @onClick="form.reset()"
-                    class="px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25">CLEAR</Button>
+                    class="px-2 py-1 text-white bg-yellow-500 rounded focus:bg-yellow-500/90 hover:bg-yellow-500/90 focus:ring-4 focus:ring-yellow-500/25">RESET</Button>
             </div>
         </Card>
     </AuthLayout>

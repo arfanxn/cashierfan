@@ -33,7 +33,7 @@
                             <Input id="inpPassword" type="password" placeholder="********"
                                 class="rounded placeholder:text-slate-700"
                                 @onInput="({ value }) => (form.password = value)" />
-                            <Alert :message="form.errors.password" />
+                            <Alert @onClose="form.errors.password = null" :message="form.errors.password" />
                         </div>
 
                         <div class="flex flex-col space-y-1">
@@ -41,7 +41,8 @@
                             <Input id="inpConfirmPassword" placeholder="********" type="password"
                                 class="rounded placeholder:text-slate-700"
                                 @onInput="({ value }) => (form.confirm_password = value)" />
-                            <Alert :message="form.errors.confirm_password" />
+                            <Alert @onClose="form.errors.confirm_password = null"
+                                :message="form.errors.confirm_password" />
                         </div>
                     </div>
 
