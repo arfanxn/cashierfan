@@ -21,7 +21,7 @@
                     <Input @onInput="({ value }) => (products.keyword = value)" :value="products.keyword"
                         @keyup.enter="searchProduct()" @blur="searchProduct()"
                         placeholder="Search products by barcode, or name." type="text" class="placeholder:italic" />
-                    <Button class="flex px-2 rounded-r">
+                    <Button class="flex px-2 rounded-r" @onCLick="searchProduct()">
                         <font-awesome-icon icon="fas fa-magnifying-glass" class="self-center"></font-awesome-icon>
                     </Button>
                 </div>
