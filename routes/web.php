@@ -47,7 +47,8 @@ Route::prefix("users")->middleware(["guest"])->name("users.")->group(function ()
 Route::middleware("auth")->group(function () {
     Route::get("/", [DashboardController::class, "index"])->name("/");
 
-    Route::resource("products", ProductController::class);
+    Route::resource("products", ProductController::class)->except(['update']);
+    Route::post("products/{product:id}/update", [ProductController::class, "update"])->name("products.update");
     Route::resource("customers", CustomerController::class);
 
     Route::resource("sales", SaleController::class);
