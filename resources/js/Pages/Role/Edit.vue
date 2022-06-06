@@ -14,13 +14,13 @@
 
             <main class="grid items-start grid-cols-1 gap-4 lg:grid-cols-4">
 
-                <div class="lg:col-span-1 space-y-1">
+                <div class="space-y-1 lg:col-span-1">
                     <Input :value="form.name" @onInput="({ value }) => (form.name = value)" placeholder="Role Name"
-                        class="rounded placeholder:text-slate-700  " />
+                        class="rounded placeholder:text-slate-700 " />
                     <Alert @onClose="form.errors.name = null" :message="form.errors.name" />
                 </div>
 
-                <div class="grid grid-cols-1 lg:col-span-3 space-y-1">
+                <div class="grid grid-cols-1 space-y-1 lg:col-span-3">
                     <h2 class="block w-full text-lg font-semibold">Permissions</h2>
                     <ul class="grid grid-cols-12 overflow-y-auto max-h-52 md:max-h-96 lg:max-h-full">
                         <li class="flex items-center col-span-12 space-x-1 lg:col-span-4 md:col-span-6 "
