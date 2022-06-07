@@ -463,6 +463,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .z-10 {
   z-index: 10;
 }
+.z-30 {
+  z-index: 30;
+}
 .col-span-full {
   grid-column: 1 / -1;
 }
@@ -497,12 +500,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .mt-4 {
   margin-top: 1rem;
-}
-.mt-3 {
-  margin-top: 0.75rem;
-}
-.mt-6 {
-  margin-top: 1.5rem;
 }
 .block {
   display: block;
@@ -605,6 +602,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 .appearance-none {
   -webkit-appearance: none;
@@ -765,6 +765,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-border-opacity: 1;
   border-color: rgb(100 116 139 / var(--tw-border-opacity));
 }
+.border-indigo-900 {
+  --tw-border-opacity: 1;
+  border-color: rgb(49 46 129 / var(--tw-border-opacity));
+}
+.border-indigo-900\/5 {
+  border-color: rgb(49 46 129 / 0.05);
+}
+.border-indigo-900\/50 {
+  border-color: rgb(49 46 129 / 0.5);
+}
 .bg-green-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(187 247 208 / var(--tw-bg-opacity));
@@ -845,6 +855,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-red-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+.bg-indigo-900\/75 {
+  background-color: rgb(49 46 129 / 0.75);
 }
 .bg-cover {
   background-size: cover;
@@ -1160,11 +1173,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
-.before\:bg-indigo-900::before {
-  content: var(--tw-content);
-  --tw-bg-opacity: 1;
-  background-color: rgb(49 46 129 / var(--tw-bg-opacity));
-}
 .before\:pt-2::before {
   content: var(--tw-content);
   padding-top: 0.5rem;
@@ -1224,14 +1232,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:bg-red-600\/90:hover {
   background-color: rgb(220 38 38 / 0.9);
 }
-.hover\:bg-indigo-900\/75:hover {
-  background-color: rgb(49 46 129 / 0.75);
-}
 .hover\:bg-green-700\/90:hover {
   background-color: rgb(21 128 61 / 0.9);
 }
 .hover\:bg-red-700\/90:hover {
   background-color: rgb(185 28 28 / 0.9);
+}
+.hover\:bg-indigo-900\/75:hover {
+  background-color: rgb(49 46 129 / 0.75);
 }
 .hover\:text-white:hover {
   --tw-text-opacity: 1;

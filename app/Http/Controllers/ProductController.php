@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\StoreProductImageAction;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Responses\ProductIndexResponse;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -47,9 +48,9 @@ class ProductController extends Controller
             });
         }
 
-        $products = $products->orderBy("updated_at", "DESC")->simplePaginate(10);
+        $products = $products->orderBy("updated_at", "DESC")->orderBy("id", "ASC")->simplePaginate(10);
 
-        return Inertia::render('Product/Index', compact('products'));
+        return ProductIndexResponse::make(compact('products'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Responses\CustomerIndexResponse;
 use App\Models\Customer;
 use App\Rules\PhoneNumberRule;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class CustomerController extends Controller
                 return $query->where(
                     "name",
                     "ILIKE",
-                    "$keyword%"
+                    "%$keyword%"
                 )->orWhere(
                     "phone_number",
                     "ILIKE",
@@ -46,9 +47,9 @@ class CustomerController extends Controller
             });
         }
 
-        $customers = $customers->orderBy("updated_at", "DESC")->simplePaginate(10);
+        $customers = $customers->orderBy("updated_at", "DESC")->orderBy("id", "ASC")->simplePaginate(10);
 
-        return Inertia::render('Customer/Index', compact("customers"));
+        return CustomerIndexResponse::make(compact("customers"));
     }
 
     /**
