@@ -56,3 +56,16 @@ export function setURIQueryString(uri, key, value) {
         return uri + separator + key + "=" + value;
     }
 }
+
+export function toIDR (amount) {
+    // console.log(amount);
+    // amount = amount.replace(/[A-Za-z,.]+/ig , "") ;
+    // console.log(amount);
+
+    if (parseFloat(amount) === NaN) 
+        amount = 0.00  ;
+
+    return new Intl.NumberFormat('id-ID', {
+                        style: 'currency', currency: 'IDR'
+                    }).format(amount)
+}
