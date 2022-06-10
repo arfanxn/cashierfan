@@ -19,9 +19,12 @@ return new class extends Migration
             $table->string("name", 100);
             $table->text("description")->nullable();
             $table->string("image");
+            $table->unsignedTinyInteger("tax_percentage")->default(0);
+            $table->decimal("tax", 10)->default(0);
+            $table->unsignedTinyInteger("profit_percentage")->default(0);
+            $table->decimal("profit", 10);
             $table->decimal("gross_price", 10);
             $table->decimal("net_price", 10);
-            $table->decimal("profit", 10);
             $table->unsignedInteger("stock");
             $table->timestampsTz();
         });

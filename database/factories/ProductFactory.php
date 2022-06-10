@@ -19,22 +19,27 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        /*  
-            $table->id();
-            $table->string("code", 100);
-            $table->string("name", 100);
-            $table->text("description")->nullable();
-            $table->string("image")->nullable();
-            $table->decimal("gross_price", 10);
-            $table->decimal("net_price", 10);
-            $table->decimal("profit", 10);
-            $table->string("stock");
-            $table->timestamp("created_at");
-        */
+        // $table->id();
+        // $table->string("barcode", 100)->unique();
+        // $table->string("name", 100);
+        // $table->text("description")->nullable();
+        // $table->string("image");
+        // $table->unsignedTinyInteger("tax_percentage")->default(0);
+        // $table->decimal("tax", 10)->default(0);
+        // $table->unsignedTinyInteger("profit_percentage")->default(0);
+        // $table->decimal("profit", 10);
+        // $table->decimal("gross_price", 10);
+        // $table->decimal("net_price", 10);
+        // $table->unsignedInteger("stock");
+        // $table->timestampsTz();
+
         $images = Storage::disk("public")->allFiles('products/images');
 
         $grossPrice = rand(1000 * 100, 1000 * 1000);
-        $profit = rand(1000 * 20, 1000 * 200);
+        $taxPercentage = 3;
+        $tax = ($grossPrice / 100) * $taxPercentage;
+        $profitPercentage = 5;
+        $profit = ($grossPrice / 100) * $profitPercentage;
 
         $productName = ucwords($this->faker->words(rand(1, 4), true));
 
@@ -43,9 +48,12 @@ class ProductFactory extends Factory
             "name" => $productName,
             "description" => $this->faker->sentences(2, true),
             "image" => "/storage/" . $images[rand(0, count($images) - 1)],
-            "gross_price" => $grossPrice,
-            "net_price" =>  $grossPrice  + $profit,
+            "tax_percentage" => $taxPercentage,
+            "tax" => $tax,
+            "profit_percentage" => $profitPercentage,
             "profit" => $profit,
+            "gross_price" => $grossPrice,
+            "net_price" =>  $grossPrice  + $profit + $tax,
             "stock" => rand(1, 100),
         ];
     }

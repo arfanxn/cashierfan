@@ -17,30 +17,29 @@ class SaleFactory extends Factory
      */
     public function definition()
     {
-        /*  $table->id();
-        $table->string('invoice', 100);
-        $table->foreignId('cashier_id')->constrained("users", "id");
-        $table->foreignId('customer_id')->constrained("customers", "id");
-        $table->decimal('customer_pay_money', 10);
-        $table->decimal('customer_change_money', 10);
-        $table->decimal('discount', 10)->default(0);
-        $table->decimal('tax', 10)->default(0);
-        $table->decimal('sum_gross_price', 10);
-        $table->decimal('sum_net_price', 10);
-        $table->decimal('sum_profit', 10);
-        $table->timestamp("created_at");
-        */
+        // $table->id();
+        // $table->string('invoice', 100)->unique();
+        // $table->foreignId('cashier_id')->constrained("users", "id");
+        // $table->foreignId('customer_id')->constrained("customers", "id");
+        // $table->decimal('customer_pay_money', 10);
+        // $table->decimal('customer_change_money', 10);
+        // $table->decimal('discount', 10)->default(0);
+        // $table->decimal('sum_tax', 10)->default(0);
+        // $table->decimal('sum_profit', 10);
+        // $table->decimal('sum_gross_price', 10);
+        // $table->decimal('sum_net_price', 10);
+        // $table->timestampTz("created_at");
 
         $sumGrossPrice = rand(1000 * 1000, 1000 * 10000);
-        $tax = ($sumGrossPrice / 100) * 5; // get 5 percent of sumGrossPrice
-        $sumProfit = rand(1000 * 200, 1000 * 2000);
-        $discount = rand(0, 1) ? 0 : rand(1000 * 10, 1000 * 20);
+        $sumTax = ($sumGrossPrice / 100) * 3; // get 3 percent of sumGrossPrice
+        $sumProfit = ($sumGrossPrice / 100) * 5;
+        $discount = rand(0, 1) ? 0 : rand(1000 * 10, 1000 * 100);
 
-        // (sumGrossPrice + profit + tax) and then subtract the result with discount to calculate the sumNetPrice 
-        $sumNetPrice = ($sumGrossPrice +  $sumProfit + $tax) - $discount;
+        // (sumGrossPrice + profit + sum_tax) and then subtract the result with discount to calculate the sumNetPrice 
+        $sumNetPrice = ($sumGrossPrice +  $sumProfit + $sumTax) - $discount;
 
         $customerPayMoney = rand(0, 1) ? $sumNetPrice : ($sumNetPrice + rand(1000 * 1, 1000 * 100)/**/);
-        $customerChangeMoney = $customerPayMoney > $sumNetPrice ?  0  : ($customerPayMoney - $sumNetPrice);
+        $customerChangeMoney = $customerPayMoney > $sumNetPrice ? ($customerPayMoney - $sumNetPrice) : 0;
 
         return [
             "invoice" => Str::random(),
@@ -49,10 +48,10 @@ class SaleFactory extends Factory
             "customer_pay_money" => $customerPayMoney,
             "customer_change_money" => $customerChangeMoney,
             "discount" => $discount,
-            "tax" => $tax,
+            "sum_tax" => $sumTax,
+            "sum_profit" => $sumProfit,
             "sum_gross_price" => $sumGrossPrice,
             "sum_net_price" => $sumNetPrice,
-            "sum_profit" => $sumProfit,
             "created_at" => now(),
         ];
     }

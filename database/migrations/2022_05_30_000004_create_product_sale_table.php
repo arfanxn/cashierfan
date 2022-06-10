@@ -17,13 +17,19 @@ return new class extends Migration
             $table->id();
             $table->foreignId("sale_id")->constrained("sales", "id")->onDelete("cascade");
             $table->foreignId("product_id")->constrained("products", "id")->onDelete("cascade");
-            $table->decimal('gross_price', 10);
-            $table->decimal('net_price', 10);
-            $table->decimal('profit', 10);
+
+            $table->unsignedTinyInteger("tax_percentage")->default(0);
+            $table->decimal("tax", 10)->default(0);
+            $table->unsignedTinyInteger("profit_percentage")->default(0);
+            $table->decimal("profit", 10);
+            $table->decimal("gross_price", 10);
+            $table->decimal("net_price", 10);
+
             $table->unsignedInteger("quantity")->default(1);
+            $table->decimal('sum_tax', 10)->default(0);
+            $table->decimal('sum_profit', 10);
             $table->decimal('sum_gross_price', 10);
             $table->decimal('sum_net_price', 10);
-            $table->decimal('sum_profit', 10);
         });
     }
 
