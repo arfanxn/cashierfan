@@ -57,15 +57,44 @@ export function setURIQueryString(uri, key, value) {
     }
 }
 
-export function toIDR (amount) {
-    // console.log(amount);
-    // amount = amount.replace(/[A-Za-z,.]+/ig , "") ;
-    // console.log(amount);
 
-    if (parseFloat(amount) === NaN) 
-        amount = 0.00  ;
+export function toCurrency (input, locale = "id-ID", currency = "IDR" ) {
 
-    return new Intl.NumberFormat('id-ID', {
-                        style: 'currency', currency: 'IDR'
-                    }).format(amount)
+    let fmt = String(input)
+        .replace(/(?<=\d)[.,](?!\d+$)/g, "")
+        .replace(",", ".");
+    const pts = fmt.split(".");
+    if (pts.length > 1) {
+        if (+pts[0] === 0) fmt = pts.join(".");
+        else if (pts[1].length === 3) fmt = pts.join("");
+    }
+    
+    // format the input string to different formats
+    const number = Number(fmt);
+    const string = number.toFixed(2);
+    // detect if the number is valid  
+    const isValid = isFinite(number);
+
+    // regex pattern
+    const exceptNumericNCommaNDot = /[^0-9,.]/ig;
+
+    // format to currency
+    let output = new Intl.NumberFormat(locale, {style: 'currency', currency}).format(number);
+
+    // get the currency symbol from "output" string
+    const symbol = String(output).match(exceptNumericNCommaNDot).join("").replace(/\s/ ,"");
+
+    // remove the currency symbol  
+    const withoutSymbol = String(output).replace(exceptNumericNCommaNDot,'');
+
+    return {
+        input,
+        isValid,
+        string,
+        number,
+        currency, 
+        output,
+        withoutSymbol , 
+        symbol
+    } ;
 }
