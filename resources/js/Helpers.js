@@ -36,11 +36,14 @@ export function imgValidation(filenameOrFilepath){
 
 export function isset(accessor , fallback = null , report = false){
     try {
-        return accessor()
-    } catch (err) {
-        if (report) console.error(err);
+        const accessed = accessor() ;
+        if (typeof accessed ===  "undefined") throw new Error("Accessor returning undefined") ;
 
-        if (typeof fallback === 'function')  return fallback(accessor) ; 
+        return accessed ;
+    } catch (err) {
+        if (report === true) console.error(err);
+
+        if (typeof fallback === 'function')  return fallback(); 
 
         return fallback ? fallback : null; 
     }
