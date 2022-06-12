@@ -52,7 +52,7 @@ class SaleFactory extends Factory
             "sum_profit" => $sumProfit,
             "sum_gross_price" => $sumGrossPrice,
             "sum_net_price" => $sumNetPrice,
-            "created_at" => now(),
+            "created_at" => now()->subDays(rand(1, 10)),
         ];
     }
 }

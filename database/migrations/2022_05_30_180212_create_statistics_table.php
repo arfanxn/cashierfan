@@ -15,11 +15,9 @@ return new class extends Migration
     {
         Schema::create('statistics', function (Blueprint $table) {
             $table->id();
-            $table->string("statisticable_id");
-            $table->string("name", 100);
+            $table->morphs("statisticable");
             $table->string("key", 100);
             $table->string("value", 100);
-            $table->string("value2", 100);
             $table->timestampsTz();
         });
     }

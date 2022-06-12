@@ -626,6 +626,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .grid-cols-12 {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
+.flex-row {
+  flex-direction: row;
+}
 .flex-row-reverse {
   flex-direction: row-reverse;
 }
@@ -683,6 +686,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+.space-x-10 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .space-y-3 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -1544,6 +1552,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .lg\:basis-3\/12 {
     flex-basis: 25%;
+  }
+
+  .lg\:basis-auto {
+    flex-basis: auto;
   }
 
   .lg\:grid-cols-4 {
