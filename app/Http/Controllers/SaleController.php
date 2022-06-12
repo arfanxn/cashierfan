@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\MakeSaleAction;
 use App\Http\Requests\StoreSaleRequest;
 use App\Models\Sale;
+use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -50,7 +53,15 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
-        return dd($request->all());
+        $make = MakeSaleAction::exec(
+            $request->cashier,
+            $request->customer ?? null,
+            $request->customer_pay_money,
+            $request->discount ?: 0.00,
+            $request->products,
+        );
+
+        return dd($make);
     }
 
     /**
