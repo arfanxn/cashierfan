@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSaleRequest;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SaleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role_has_permission:sales.index|sales.create|sales.edit|sales.delete', ['only' => ['index']]);
+        $this->middleware('role_has_permission:sales.create', ['only' => ['create', 'store']]);
+        $this->middleware('role_has_permission:sales.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('role_has_permission:sales.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,9 +48,9 @@ class SaleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSaleRequest $request)
     {
-        //
+        return dd($request->all());
     }
 
     /**

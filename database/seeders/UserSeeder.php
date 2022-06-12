@@ -28,9 +28,10 @@ class UserSeeder extends Seeder
             VerificationCodeService::make($user->email)->fresh();
 
             $user->assignRole("Admin");
-            $user->syncPermissions(Permission::all("name")->pluck("name"));
+
             \App\Models\UserDetail::factory()->create([
                 "user_id" => $user->id,
+                "avatar" => '/storage/users/avatars/avatar4.jpg'
             ]);
         });
 
