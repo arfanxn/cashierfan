@@ -17,11 +17,11 @@ class Sale extends Model
         'customer_id',
         'customer_pay_money',
         'customer_change_money',
-        'total_gross_price',
-        'total_net_price',
-        'total_discount',
-        'total_profit',
-        'tax',
+        "discount",
+        'sum_tax',
+        'sum_profit',
+        'sum_gross_price',
+        'sum_net_price',
         "created_at",
     ];
 }
