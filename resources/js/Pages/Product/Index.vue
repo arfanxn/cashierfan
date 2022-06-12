@@ -92,16 +92,10 @@
                                         {{ product.description || "No Description" }}</p>
                                 </td>
                                 <td class="px-4 py-4 align-top border border-slate-500">
-                                    <span>{{ new Intl.NumberFormat('id-ID', {
-                                            style: 'currency', currency: 'IDR'
-                                        }).format(product.gross_price)
-                                    }}</span>
+                                    <span>{{ toCurrency(product.gross_price).output }}</span>
                                 </td>
                                 <td class="px-4 py-4 align-top border border-slate-500">
-                                    <span>{{ new Intl.NumberFormat('id-ID', {
-                                            style: 'currency', currency: 'IDR'
-                                        }).format(product.net_price)
-                                    }}</span>
+                                    <span>{{ toCurrency(product.net_price).output }}</span>
                                 </td>
                                 <td class="px-4 py-4 align-top border border-slate-500">
                                     <span>{{ product.stock }}</span>
@@ -143,7 +137,7 @@ import ButtonPagination from "../../Components/ButtonPagination.vue";
 import ButtonLink from "../../Components/ButtonLink.vue";
 import Input from "../../Components/Input.vue";
 import { Link, Head } from '@inertiajs/inertia-vue3'
-import { randInt, tap } from "../../Helpers";
+import { randInt, tap, toCurrency } from "../../Helpers";
 import { reactive, defineProps, onMounted } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import { SwalTailwind } from "../../Mixins/Swal";
