@@ -14,9 +14,12 @@ class Product extends Model
         "name",
         "description",
         "image",
+        "tax_percentage",
+        "tax",
+        "profit_percentage",
+        "profit",
         "gross_price",
         "net_price",
-        "profit",
         "stock",
     ];
 
