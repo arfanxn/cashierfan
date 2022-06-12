@@ -14,12 +14,16 @@ class ProductSale extends Pivot
     protected $fillable = [
         "sale_id",
         "product_id",
+        "tax_percentage",
+        "tax",
+        "profit_percentage",
+        "profit",
+        "quantity",
         'gross_price',
         'net_price',
-        "quantity",
-        'profit',
+        "sum_tax",
+        'sum_profit',
         'sum_gross_price',
         'sum_net_price',
-        'sum_profit',
     ];
 }
