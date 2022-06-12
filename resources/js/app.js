@@ -1,6 +1,11 @@
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/inertia-vue3";
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+// pinia 
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 // fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core' ; 
@@ -21,7 +26,8 @@ createInertiaApp({
     resolve: (name) => require(`./Pages/${name}`),
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
-            .use(plugin).use(createPinia())
+            .use(plugin)
+            .use(pinia)
             .component("font-awesome-icon", FontAwesomeIcon)
             .mixin({
                 methods: {
