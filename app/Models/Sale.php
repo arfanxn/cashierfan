@@ -24,4 +24,9 @@ class Sale extends Model
         'sum_net_price',
         "created_at",
     ];
+
+    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(ProductSale::class, "product_sale");
+    }
 }
