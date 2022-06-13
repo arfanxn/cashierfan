@@ -1,8 +1,7 @@
 <template>
-    <div
-        id="invoice"
-        class="absolute h-auto p-8 text-xs text-black bg-white w-96 top-5 left-5"
-    >
+    <Head :title="`INV - ` + $page.props.sale.invoice" />
+
+    <div id="invoice" class="h-auto p-4 text-xs text-black bg-white w-96">
         <header class="px-2 text-center">
             <h1 class="text-sm font-bold">Cashierfan</h1>
             <p>
@@ -174,13 +173,14 @@
 </template>
 
 <script>
+import { Head } from '@inertiajs/inertia-vue3';
 import print from 'vue3-print-nb';
 import Button from '../../Components/Button.vue';
 import { toCurrency, tap } from '../../Helpers';
 import { onMounted, ref } from 'vue';
 
 export default {
-    components: { Button },
+    components: { Button, Head },
     directives: {
         print
     },
