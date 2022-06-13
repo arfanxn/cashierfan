@@ -36,7 +36,7 @@ class StoreSaleRequest extends FormRequest
             "products" => ["required", "array"],
             "products.*.id" => ['required', "exists:products,id"],
             "products.*.stock" => ['required', "numeric"],
-            "products.*.quantity" => ['required', "numeric", "gt:1", "lte:products.*.quantity"],
+            "products.*.quantity" => ['required', "numeric", "gte:1", "lte:products.*.quantity"],
         ]);
     }
 }
