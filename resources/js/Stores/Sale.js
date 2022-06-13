@@ -54,8 +54,6 @@ export const useSale = defineStore('sale', {
     },
     actions: {
         addProduct(product) {
-            console.log(product);
-
             this.products.$patch((productsState) => {
                 const indexOfProduct = productsState.datasets
                     .map((p) => p.id)
