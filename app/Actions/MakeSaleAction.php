@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Exceptions\Product\OutOfStockException as OutOfStockProductException;
 use App\Helpers\Redirect;
 use App\Helpers\Str;
 use App\Models\Customer;
@@ -38,8 +39,10 @@ class MakeSaleAction
                 $sumGrossPrice += ($product['gross_price'] * $product['quantity']);
 
                 // update the product stocks
-                Product::query()->where("id", $product['id'])
-                    ->decrement("stock", $product['quantity']);
+                $prodQuery = Product::query()->where("id", $product['id']);
+                if ($prodQuery->first()->stock ?? 0  >= $product['quantity'])
+                    $prodQuery->decrement("stock", $product['quantity']);
+                else throw new OutOfStockProductException();
 
                 array_push(
                     $product_sale,
