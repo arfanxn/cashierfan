@@ -63,6 +63,13 @@ class SaleController extends Controller
         );
 
         $signedURL = URL::temporarySignedRoute("sales.invoice", now()->addMinutes(10), ['sale' => $sale["invoice"]]);
+
+        if ($request->expectsJson() || $request->wantsJson())
+            return response()->json([
+                "message" => "Sale created successfully",
+                'redirect' => $signedURL
+            ]);
+
         return redirect($signedURL);
     }
 
@@ -76,7 +83,7 @@ class SaleController extends Controller
                 'quantity',
             ]),
         ]);
-        // dd($sale);
+
         return Inertia::render("Sale/Invoice", compact("sale"));
     }
 

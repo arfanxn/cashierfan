@@ -54,6 +54,7 @@ import Button from '../../Button.vue';
 import InputCurrency from '../../InputCurrency.vue';
 import { reactive } from 'vue';
 import { toCurrency } from '../../../Helpers';
+import { fetchAsJSON } from '../../../Mixins/Fetch';
 import { useSale } from '../../../Stores/Sale.js';
 import { SwalTailwind } from '../../../Mixins/Swal.js';
 import { Inertia } from '@inertiajs/inertia';
@@ -99,10 +100,33 @@ function pay() {
         confirmButtonText: 'Continue'
     }).then((r) => {
         if (r.isConfirmed) {
-            Inertia.post(route('sales.store'), {
-                // data or body
-                ...SaleStore.$state,
-                products: SaleStore.products.datasets
+            fetchAsJSON(route('sales.store'), {
+                body: {
+                    ...SaleStore.$state,
+                    products: SaleStore.products.datasets
+                }
+            }).then(({ response, json }) => {
+                if (!response.ok)
+                    return SwalTailwind.fire({
+                        title: json.error_message,
+                        icon: 'error',
+                        showConfirmButton: false
+                    });
+
+                SwalTailwind.fire({
+                    title: json.message,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((r) => {
+                    if (r.dismiss || r.isConfirmed || r.isDenied) {
+                        SaleStore.$reset();
+                        SaleStore.products.$reset();
+                        window.open(json.redirect, '_blank').focus();
+                    }
+                });
+
+                //
             });
         }
     });

@@ -19,49 +19,57 @@ class MakeSaleAction
         float $discount = 0,
         array $products = []
     ) {
-        // if customer is null get the "general" customer  (just buyer with no name) 
-        $customer = $customer ? $customer : Customer::where("id", 1)->first();
-
-        $sumTax = 0;
-        $sumProfit = 0;
-        $sumGrossPrice = 0;
-        $sumNetPrice = 0;
-
-        $product_sale = [];
-        foreach ($products as $product) {
-            $sumTax += ($product['tax'] * $product['quantity']);
-            $sumProfit += ($product['profit'] * $product['quantity']);
-            $sumGrossPrice += ($product['gross_price'] * $product['quantity']);
-
-            array_push(
-                $product_sale,
-                collect($product)->only([
-                    "tax_percentage",
-                    "tax",
-                    "profit_percentage",
-                    "profit",
-                    "quantity",
-                    "gross_price",
-                    "net_price",
-                ])->merge([
-                    "product_id" => $product['id'],
-                    "sum_tax" => ($product['tax'] * $product['quantity']),
-                    "sum_profit" => ($product['profit'] * $product['quantity']),
-                    "sum_gross_price" => ($product['gross_price'] * $product['quantity']),
-                    "sum_net_price" => ($product['net_price'] * $product['quantity']),
-                ])->toArray()
-            );
-        }
-
-        // if discount available -> subtract the net_price by discount 
-        $sumNetPrice = $discount > 0 ? ($sumTax + $sumProfit + $sumGrossPrice) - $discount
-            : ($sumTax + $sumProfit + $sumGrossPrice);
-
-        // get the customer pay money change (get customer cash change)
-        $customerChangeMoney = $customerPayMoney - $sumNetPrice;
-
         try {
             DB::beginTransaction();
+
+            // if customer is null get the "general" customer  (just buyer with no name) 
+            $customer = $customer ? $customer : Customer::where("id", 1)->first();
+
+            $sumTax = 0;
+            $sumProfit = 0;
+            $sumGrossPrice = 0;
+            $sumNetPrice = 0;
+
+            $product_sale = [];
+            foreach ($products as $product) {
+                // get summery for tax,profit, and grossprice
+                $sumTax += ($product['tax'] * $product['quantity']);
+                $sumProfit += ($product['profit'] * $product['quantity']);
+                $sumGrossPrice += ($product['gross_price'] * $product['quantity']);
+
+                // update the product stocks
+                Product::query()->where("id", $product['id'])
+                    ->decrement("stock", $product['quantity']);
+
+                array_push(
+                    $product_sale,
+                    collect($product)->only([
+                        "tax_percentage",
+                        "tax",
+                        "profit_percentage",
+                        "profit",
+                        "quantity",
+                        "gross_price",
+                        "net_price",
+                    ])->merge([
+                        "product_id" => $product['id'],
+                        "sum_tax" => ($product['tax'] * $product['quantity']),
+                        "sum_profit" => ($product['profit'] * $product['quantity']),
+                        "sum_gross_price" => ($product['gross_price'] * $product['quantity']),
+                        "sum_net_price" => ($product['net_price'] * $product['quantity']),
+                    ])->toArray()
+                );
+            }
+
+            // get the summery of netPrice
+            $sumNetPrice = $discount > 0 ?
+                // if discount available -> subtract the net_price by discount 
+                ($sumTax + $sumProfit + $sumGrossPrice) - $discount
+                // otherwise
+                : ($sumTax + $sumProfit + $sumGrossPrice);
+
+            // get the customer pay_change_money (get customer change)
+            $customerChangeMoney = $customerPayMoney - $sumNetPrice;
 
             // create the sale
             $insertedSaleID = Sale::insertGetId([
@@ -79,7 +87,7 @@ class MakeSaleAction
             ]);
             $sale = Sale::where("id", $insertedSaleID)->first();
 
-            // create the relation products at sale;
+            // attach the relation products at sale;
             $product_sale = collect($product_sale)->map(
                 fn ($product) => collect($product)->merge(['sale_id' => $insertedSaleID])
             );
@@ -91,14 +99,27 @@ class MakeSaleAction
             return  $sale;
         } catch (\Throwable $th) {
             DB::rollBack();
+
+            if (request()->expectsJson()  || request()->wantsJson())
+                return response()
+                    ->json(['error_message' => $th->getMessage()], 500)
+                    ->throwResponse();
+
             return Redirect::now(
-                redirect()->back()->withErrors(['sales.store' => $th->getMessage()])
+                redirect()->back()->withErrors(['error_message' => $th->getMessage()])
             );
         } catch (\Exception $e) {
             DB::rollBack();
-            return Redirect::now(redirect()->back()->withErrors(
-                ['sales.store' => "Something went wrong"]
-            ));
+
+            $data = [
+                "error_message" => app()->environment(['local', 'debug'])
+                    ? $e->getMessage() : "Something went wrong",
+            ];
+
+            if (request()->expectsJson()  || request()->wantsJson())
+                return response()->json($data, 500)->throwResponse();
+
+            return Redirect::now(redirect()->back()->withErrors($data));
         }
     }
 }
