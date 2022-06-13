@@ -16,53 +16,49 @@ class MakeSaleAction
         $cashier,
         $customer = null,
         float $customerPayMoney,
-        float $discount = 0.00,
+        float $discount = 0,
         array $products = []
     ) {
         // if customer is null get the "general" customer  (just buyer with no name) 
         $customer = $customer ? $customer : Customer::where("id", 1)->first();
 
-        $sumTax = 0.00;
-        $sumProfit = 0.00;
-        $sumGrossPrice = 0.00;
-        $sumNetPrice = 0.00;
+        $sumTax = 0;
+        $sumProfit = 0;
+        $sumGrossPrice = 0;
+        $sumNetPrice = 0;
 
-        $product_sale = array_map(function ($product) use (
-            $sumTax,
-            $sumProfit,
-            $sumGrossPrice,
-        ) {
-            $sumTax = $sumTax + ($product['tax'] * $product['quantity']);
-            $sumProfit = $sumProfit + ($product['profit'] * $product['quantity']);
-            $sumGrossPrice = $sumGrossPrice + ($product['gross_price'] * $product['quantity']);
+        $product_sale = [];
+        foreach ($products as $product) {
+            $sumTax += ($product['tax'] * $product['quantity']);
+            $sumProfit += ($product['profit'] * $product['quantity']);
+            $sumGrossPrice += ($product['gross_price'] * $product['quantity']);
 
-            return collect($product)->only([
-                "tax_percentage",
-                "tax",
-                "profit_percentage",
-                "profit",
-                "quantity",
-                "gross_price",
-                "net_price",
-            ])->merge([
-                "product_id" => $product['id'],
-                "sum_tax" => ($product['tax'] * $product['quantity']),
-                "sum_profit" => ($product['profit'] * $product['quantity']),
-                "sum_gross_price" => ($product['gross_price'] * $product['quantity']),
-                "sum_net_price" => ($product['net_price'] * $product['quantity']),
-            ])->toArray();
-        }, $products);
-
-        // if discount set -> net_price subract by discount 
-        if ($discount > 0) {
-            $sumNetPrice = ($sumTax + $sumProfit + $sumGrossPrice) - $discount;
-        } else { //otherwise 
-            $sumNetPrice = ($sumTax + $sumProfit + $sumGrossPrice);
+            array_push(
+                $product_sale,
+                collect($product)->only([
+                    "tax_percentage",
+                    "tax",
+                    "profit_percentage",
+                    "profit",
+                    "quantity",
+                    "gross_price",
+                    "net_price",
+                ])->merge([
+                    "product_id" => $product['id'],
+                    "sum_tax" => ($product['tax'] * $product['quantity']),
+                    "sum_profit" => ($product['profit'] * $product['quantity']),
+                    "sum_gross_price" => ($product['gross_price'] * $product['quantity']),
+                    "sum_net_price" => ($product['net_price'] * $product['quantity']),
+                ])->toArray()
+            );
         }
 
-        // get the customer pay money change 
-        $customerChangeMoney = $customerPayMoney - $sumNetPrice;
+        // if discount available -> subtract the net_price by discount 
+        $sumNetPrice = $discount > 0 ? ($sumTax + $sumProfit + $sumGrossPrice) - $discount
+            : ($sumTax + $sumProfit + $sumGrossPrice);
 
+        // get the customer pay money change (get customer cash change)
+        $customerChangeMoney = $customerPayMoney - $sumNetPrice;
 
         try {
             DB::beginTransaction();
@@ -84,23 +80,19 @@ class MakeSaleAction
             $sale = Sale::where("id", $insertedSaleID)->first();
 
             // create the relation products at sale;
-            $product_sale = array_map(
-                fn ($product) => array_merge($product, ['sale_id' => $insertedSaleID]),
-                $product_sale
+            $product_sale = collect($product_sale)->map(
+                fn ($product) => collect($product)->merge(['sale_id' => $insertedSaleID])
             );
-
-            $products = $sale->products()->insert($product_sale);
+            $sale->products()->attach($product_sale);
 
             DB::commit();
 
-            return [
-                "sale" => $sale,
-                "products" => $products,
-            ];
+            $sale = collect($sale)->merge(['products' => $product_sale]);
+            return  $sale;
         } catch (\Throwable $th) {
             DB::rollBack();
             return Redirect::now(
-                redirect()->back()->withErrors(['sales.store' => $th])
+                redirect()->back()->withErrors(['sales.store' => $th->getMessage()])
             );
         } catch (\Exception $e) {
             DB::rollBack();

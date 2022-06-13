@@ -8,6 +8,7 @@ use App\Models\Sale;
 use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
 
 class SaleController extends Controller
@@ -53,7 +54,7 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request)
     {
-        $make = MakeSaleAction::exec(
+        $sale = MakeSaleAction::exec(
             $request->cashier,
             $request->customer ?? null,
             $request->customer_pay_money,
@@ -61,7 +62,22 @@ class SaleController extends Controller
             $request->products,
         );
 
-        return dd($make);
+        $signedURL = URL::temporarySignedRoute("sales.invoice", now()->addMinutes(10), ['sale' => $sale["invoice"]]);
+        return redirect($signedURL);
+    }
+
+    public function invoice(Request $request, Sale $sale)
+    {
+        if (!$request->hasValidSignature()) abort(403);
+
+        $sale = $sale->load([
+            "cashier", "customer",
+            "products" => fn ($q) => $q->withPivot([
+                'quantity',
+            ]),
+        ]);
+        // dd($sale);
+        return Inertia::render("Sale/Invoice", compact("sale"));
     }
 
     /**
