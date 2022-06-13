@@ -10,6 +10,8 @@ class Statistic extends MorphPivot
     private $name = "statisticable";
 
     protected $fillable = [
+        "statisticable_type",
+        "statisticable_id",
         "key",
         "value",
     ];
