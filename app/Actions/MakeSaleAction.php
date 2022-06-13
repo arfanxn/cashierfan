@@ -40,9 +40,9 @@ class MakeSaleAction
 
                 // update the product stocks
                 $prodQuery = Product::query()->where("id", $product['id']);
-                if ($prodQuery->first()->stock ?? 0  >= $product['quantity'])
+                if ($product['quantity'] <= $prodQuery->first()->stock)
                     $prodQuery->decrement("stock", $product['quantity']);
-                else throw new OutOfStockProductException();
+                else throw new OutOfStockProductException("Out of stock product.");
 
                 array_push(
                     $product_sale,
