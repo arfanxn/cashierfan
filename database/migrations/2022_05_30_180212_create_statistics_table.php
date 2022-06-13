@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('statistics', function (Blueprint $table) {
             $table->id();
-            $table->morphs("statisticable");
+            $table->string("statisticable_type", 255);
+            $table->unsignedBigInteger("statisticable_id")->nullable();
             $table->string("key", 100);
             $table->string("value", 100);
             $table->timestampsTz();

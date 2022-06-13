@@ -26,10 +26,10 @@ return new class extends Migration
             $table->decimal("net_price", 10);
 
             $table->unsignedInteger("quantity")->default(1);
-            $table->decimal('sum_tax', 10)->default(0);
-            $table->decimal('sum_profit', 10);
-            $table->decimal('sum_gross_price', 10);
-            $table->decimal('sum_net_price', 10);
+            $table->decimal('sum_tax', 16)->default(0);
+            $table->decimal('sum_profit', 16);
+            $table->decimal('sum_gross_price', 16);
+            $table->decimal('sum_net_price', 16);
         });
     }
 
