@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\EmailController as AuthEmailController;
 use App\Http\Controllers\Auth\PasswordController as AuthPasswordController;
 use App\Http\Controllers\Auth\VerificationCodeController;
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\Statisticable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,7 @@ Route::middleware("auth")->group(function () {
     Route::resource("customers", CustomerController::class);
 
     Route::resource("sales", SaleController::class);
+    Route::get("sales/{sale:invoice}/invoice", [SaleController::class, "invoice"])->name("sales.invoice");
     Route::get("/sale-profits", [SaleController::class, "profitIndex"])->name("sale-profits.index");
 
     Route::resource("users", UserController::class)->except(['update']);
@@ -87,11 +89,7 @@ Route::middleware("auth")->group(function () {
 Route::get("/test", function (Request $request) {
 
     dd(
-        Product::find(1)->bestSellings()
-            ->create([
-                "key" => "best_selling_products",
-                "value" => rand(1, 100),
-            ])
+        Sale::find(88)->first()->products
     );
 
     // return inertia()->render('Test');
