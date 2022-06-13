@@ -32,4 +32,9 @@ class Product extends Model
     {
         return 'id';
     }
+
+    public function sales()
+    {
+        return $this->belongsToMany(Sale::class);
+    }
 }

@@ -25,8 +25,17 @@ class Sale extends Model
         "created_at",
     ];
 
+    public function cashier()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(ProductSale::class, "product_sale");
+        return $this->belongsToMany(Product::class)->withPivot("quantity");
     }
 }
