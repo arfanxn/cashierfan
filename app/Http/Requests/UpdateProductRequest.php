@@ -34,8 +34,8 @@ class UpdateProductRequest extends FormRequest
             ] : ["nullable"],
             "name" => ["required", "string", "min:2", "max:100", "unique:products,name," . $this->product->name],
             "description" => ["nullable", "string", "max:255"],
-            "tax_percentage" => ["required", "numeric", "digits_between:0,50"],
-            "profit_percentage" => ["required", "numeric", "digits_between:0,50"],
+            "tax_percentage" => ["required", "numeric", "min:0" , "max:50"],
+            "profit_percentage" => ["required", "numeric", "min:0" , "max:50"],
             "gross_price" => ["required", "numeric"],
             "stock" => ["required", "numeric"],
         ];
