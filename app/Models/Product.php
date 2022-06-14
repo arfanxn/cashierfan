@@ -22,6 +22,7 @@ class Product extends Model
         "gross_price",
         "net_price",
         "stock",
+        "deleted_at"
     ];
 
     /**

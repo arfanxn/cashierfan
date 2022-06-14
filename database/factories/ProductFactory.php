@@ -44,7 +44,7 @@ class ProductFactory extends Factory
         $productName = ucwords($this->faker->words(rand(1, 4), true));
 
         return [
-            "barcode" => Str::random(),
+            "barcode" => strtoupper(Str::random()),
             "name" => $productName,
             "description" => $this->faker->sentences(2, true),
             "image" => "/storage/" . $images[rand(0, count($images) - 1)],
@@ -55,6 +55,7 @@ class ProductFactory extends Factory
             "gross_price" => $grossPrice,
             "net_price" =>  $grossPrice  + $profit + $tax,
             "stock" => rand(1, 100),
+            "deleted_at" => rand(0, 1) ? null : now(),
         ];
     }
 }
