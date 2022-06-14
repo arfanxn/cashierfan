@@ -27,7 +27,7 @@ return new class extends Migration
             $table->decimal("net_price", 10);
             $table->unsignedInteger("stock");
             $table->timestampsTz();
-            $table->timestampTz("deleted_at");
+            $table->timestampTz("deleted_at")->nullable();
         });
     }
 
