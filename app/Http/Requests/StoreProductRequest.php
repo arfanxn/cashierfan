@@ -32,9 +32,9 @@ class StoreProductRequest extends FormRequest
             ],
             "name" => ["required", "string", "min:2", "max:100", "unique:products,name"],
             "description" => ["nullable", "string", "max:255"],
-            "tax_percentage" => ["required", "numeric", "min:0" , "max:50"],
-            "profit_percentage" => ["required", "numeric", "min:0" , "max:50"],
-            "gross_price" => ["required", "numeric"],
+            "tax_percentage" => ["required", "numeric", "min:0", "max:50"],
+            "profit_percentage" => ["required", "numeric", "min:0", "max:50"],
+            "gross_price" => ["required", "numeric", "min:1"],
             "stock" => ["required", "numeric"],
         ];
     }
