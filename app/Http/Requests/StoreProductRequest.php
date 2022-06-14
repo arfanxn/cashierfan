@@ -25,16 +25,16 @@ class StoreProductRequest extends FormRequest
     {
         return [
             "barcode" => [
-                "required", "string", "min:4", "max:50", "unique:products,barcode"
+                "required", "string", "min:6", "max:16", "unique:products,barcode"
             ],
             "image" => [
                 "required", "image", "mimes:jpg,jpeg,png,svg,gif,jfif", "max:10240"
             ],
             "name" => ["required", "string", "min:2", "max:100", "unique:products,name"],
             "description" => ["nullable", "string", "max:255"],
+            "tax_percentage" => ["required", "numeric", "digits_between:0,50", "lt:gross_price"],
+            "profit_percentage" => ["required", "numeric", "digits_between:0,50", "lt:gross_price"],
             "gross_price" => ["required", "numeric"],
-            "net_price" => ["required", "numeric", "gt:gross_price"],
-            "profit" => ["required", "numeric"],
             "stock" => ["required", "numeric"],
         ];
     }
