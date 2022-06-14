@@ -475,6 +475,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+.col-span-1 {
+  grid-column: span 1 / span 1;
+}
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
 .m-0 {
   margin: 0px;
 }
@@ -549,11 +558,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-auto {
   height: auto;
 }
-.h-24 {
-  height: 6rem;
-}
 .h-16 {
   height: 4rem;
+}
+.h-36 {
+  height: 9rem;
+}
+.h-24 {
+  height: 6rem;
 }
 .max-h-52 {
   max-height: 13rem;
@@ -608,8 +620,17 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-28 {
   width: 7rem;
 }
+.w-36 {
+  width: 9rem;
+}
 .basis-full {
   flex-basis: 100%;
+}
+.basis-8\/12 {
+  flex-basis: 66.666667%;
+}
+.basis-4\/12 {
+  flex-basis: 33.333333%;
 }
 .basis-5\/12 {
   flex-basis: 41.666667%;
@@ -643,6 +664,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .grid-cols-12 {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
 .flex-row-reverse {
   flex-direction: row-reverse;
 }
@@ -675,6 +702,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .gap-4 {
   gap: 1rem;
+}
+.gap-1 {
+  gap: 0.25rem;
 }
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -770,6 +800,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .rounded-b-xl {
   border-bottom-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
+}
+.rounded-r-none {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.rounded-l-none {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 .border {
   border-width: 1px;
@@ -1427,6 +1465,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .disabled\:bg-indigo-900\/75:disabled {
   background-color: rgb(49 46 129 / 0.75);
 }
+.disabled\:bg-gray-100:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
 .disabled\:text-gray-800:disabled {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
@@ -1457,8 +1499,16 @@ Ensure the default browser behavior of the `hidden` attribute.
     display: none;
   }
 
-  .md\:h-52 {
-    height: 13rem;
+  .md\:h-full {
+    height: 100%;
+  }
+
+  .md\:h-32 {
+    height: 8rem;
+  }
+
+  .md\:h-24 {
+    height: 6rem;
   }
 
   .md\:max-h-96 {
@@ -1469,8 +1519,8 @@ Ensure the default browser behavior of the `hidden` attribute.
     width: 33.333333%;
   }
 
-  .md\:w-52 {
-    width: 13rem;
+  .md\:w-32 {
+    width: 8rem;
   }
 
   .md\:flex-row {

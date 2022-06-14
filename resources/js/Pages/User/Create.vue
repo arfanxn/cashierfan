@@ -9,7 +9,7 @@
         <Card>
             <template v-slot:title>
                 <font-awesome-icon class="fas fa-user" />
-                <h1 class="text-lg font-semibold">Add New USER</h1>
+                <h1 class="text-lg font-semibold">ADD NEW USER</h1>
             </template>
 
             <form @submit.prevent="form.post(route(`users.store`), {
