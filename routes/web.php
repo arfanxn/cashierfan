@@ -13,10 +13,11 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\Auth\EmailController as AuthEmailController;
 use App\Http\Controllers\Auth\PasswordController as AuthPasswordController;
 use App\Http\Controllers\Auth\VerificationCodeController;
-use App\Models\Product;
 use App\Models\Sale;
+use App\Models\Statistic;
 use App\Models\Statisticable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
@@ -54,7 +55,8 @@ Route::middleware("auth")->group(function () {
     Route::resource("customers", CustomerController::class);
 
     Route::resource("sales", SaleController::class);
-    Route::get("sales/{sale:invoice}/invoice", [SaleController::class, "invoice"])->name("sales.invoice");
+    Route::get("sales/{sale:invoice}/invoice", [SaleController::class, "invoice"])
+        ->withoutMiddleware("auth")->name("sales.invoice");
     Route::get("/sale-profits", [SaleController::class, "profitIndex"])->name("sale-profits.index");
 
     Route::resource("users", UserController::class)->except(['update']);
@@ -88,11 +90,7 @@ Route::middleware("auth")->group(function () {
 // for testing purposes
 Route::get("/test", function (Request $request) {
 
-    dd(
-        Sale::find(88)->first()->products
-    );
 
-    // return inertia()->render('Test');
 });
 Route::post("/test", function (Request $request) {
     return response(["hello" => "world"]);

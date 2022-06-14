@@ -62,7 +62,7 @@ class SaleController extends Controller
             $request->products,
         );
 
-        $signedURL = URL::temporarySignedRoute("sales.invoice", now()->addMinutes(10), ['sale' => $sale["invoice"]]);
+        $signedURL = URL::temporarySignedRoute("sales.invoice", now()->addDays(2), ['sale' => $sale["invoice"]]);
 
         if ($request->expectsJson() || $request->wantsJson())
             return response()->json([
