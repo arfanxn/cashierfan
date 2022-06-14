@@ -20,11 +20,11 @@ return new class extends Migration
             $table->text("description")->nullable();
             $table->string("image");
             $table->unsignedTinyInteger("tax_percentage")->default(0);
-            $table->decimal("tax", 10)->default(0);
+            $table->decimal("tax", 16)->default(0);
             $table->unsignedTinyInteger("profit_percentage");
-            $table->decimal("profit", 10);
-            $table->decimal("gross_price", 10);
-            $table->decimal("net_price", 10);
+            $table->decimal("profit", 16);
+            $table->decimal("gross_price", 16);
+            $table->decimal("net_price", 16);
             $table->unsignedInteger("stock");
             $table->timestampsTz();
             $table->timestampTz("deleted_at")->nullable();
