@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
@@ -32,7 +33,9 @@ class UpdateProductRequest extends FormRequest
             "image" => $this->hasFile("image") ? [
                 "image", "mimes:jpg,jpeg,png,svg,gif,jfif", "max:10240"
             ] : ["nullable"],
-            "name" => ["required", "string", "min:2", "max:100", "unique:products,name," . $this->product->name],
+            "name" => [
+                "required", "string", "min:2", "max:100", "unique:products,name," . $this->product->id
+            ],
             "description" => ["nullable", "string", "max:255"],
             "tax_percentage" => ["required", "numeric", "min:0", "max:50"],
             "profit_percentage" => ["required", "numeric", "min:0", "max:50"],
