@@ -27,7 +27,7 @@
                                     return SaleStore.$state.cashier.name;
                                 })
                             "
-                            class="rounded disabled:bg-gray-200 disabled:text-gray-800"
+                            class="rounded disabled:bg-gray-100 disabled:text-gray-800"
                         />
                     </div>
 
