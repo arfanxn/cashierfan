@@ -8,6 +8,7 @@ use App\Helpers\Str;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\Statistic;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -33,16 +34,19 @@ class MakeSaleAction
 
             $product_sale = [];
             foreach ($products as $product) {
-                // get summery for tax,profit, and grossprice
+                // get summary of tax,profit, and grossprice
                 $sumTax += ($product['tax'] * $product['quantity']);
                 $sumProfit += ($product['profit'] * $product['quantity']);
                 $sumGrossPrice += ($product['gross_price'] * $product['quantity']);
 
                 // update the product stocks
                 $prodQuery = Product::query()->where("id", $product['id']);
-                if ($product['quantity'] <= $prodQuery->first()->stock)
+                if ($product['quantity'] <= $prodQuery->first(['stock'])->stock)
                     $prodQuery->decrement("stock", $product['quantity']);
                 else throw new OutOfStockProductException("Out of stock product.");
+
+                // write each product sold by statistic (best_selling_products statistics)
+                Statistic::write(Product::class, $product['id'], "best_selling_products", $product['quantity']);
 
                 array_push(
                     $product_sale,
@@ -64,14 +68,14 @@ class MakeSaleAction
                 );
             }
 
-            // get the summery of netPrice
+            // get the summary of netPrice
             $sumNetPrice = $discount > 0 ?
                 // if discount available -> subtract the net_price by discount 
                 ($sumTax + $sumProfit + $sumGrossPrice) - $discount
                 // otherwise
                 : ($sumTax + $sumProfit + $sumGrossPrice);
 
-            // get the customer pay_change_money (get customer change)
+            // get the customer change money (get customer change)
             $customerChangeMoney = $customerPayMoney - $sumNetPrice;
 
             // create the sale
@@ -88,10 +92,18 @@ class MakeSaleAction
                 'sum_net_price' => $sumNetPrice,
                 "created_at" => now(),
             ]);
-            $sale = Sale::where("id", $insertedSaleID)->first();
+            $sale = Sale::query()->where("id", $insertedSaleID)->first();
+
+            // write today sale statistics
+            $today = now()->format("Y-m-d");
+            Statistic::write(Sale::class, null, "sum_sales_gross_price_at_date_" . $today, $sale->sum_gross_price);
+            Statistic::write(Sale::class, null, "sum_sales_profit_at_date_" . $today, $sale->sum_profit);
+            Statistic::write(Sale::class, null, "sum_sales_tax_at_date_" . $today, $sale->sum_tax);
+            // end of write today sale statistics
 
             // attach the relation products at sale;
             $product_sale = collect($product_sale)->map(
+                // make sure each product_sale have "sale_id" 
                 fn ($product) => collect($product)->merge(['sale_id' => $insertedSaleID])
             );
             $sale->products()->attach($product_sale);
@@ -100,7 +112,7 @@ class MakeSaleAction
 
             $sale = collect($sale)->merge(['products' => $product_sale]);
             return  $sale;
-        } catch (\Throwable $th) {
+        } catch (OutOfStockProductException $th) {
             DB::rollBack();
 
             if (request()->expectsJson()  || request()->wantsJson())
