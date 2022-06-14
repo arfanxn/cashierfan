@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\StoreProductImageAction;
+use App\Actions\CreateOrUpdateProductAction;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Responses\ProductIndexResponse;
@@ -71,17 +71,17 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $product = new Product($request->only([
-            "barcode",
-            "name",
-            "description",
-            "gross_price",
-            "net_price",
-            "profit",
-            "stock",
-        ]));
-
-        StoreProductImageAction::exec($product, $request->file("image"));
+        CreateOrUpdateProductAction::exec(
+            null,
+            $request->barcode,
+            $request->name,
+            $request->description,
+            $request->file("image"),
+            $request->tax_percentage,
+            $request->profit_percentage,
+            $request->gross_price,
+            $request->stock
+        );
 
         return redirect()->route("products.index")->with(['message' => "Product created successfully"]);
     }
@@ -117,22 +117,22 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $isDuplicate = Product::query()->where("barcode", $request->get("barcode"))->whereNot("id", $product->id)
-            ->count();
+        $isDuplicate = Product::query()->where("barcode", strtoupper($request->get("barcode"))/**/)
+            ->whereNot("id", $product->id)->count();
         if ($isDuplicate)
             return redirect()->back()->withErrors(['barcode' => "The specified barcode already inserted"]);
 
-        $product->update($request->only([
-            "barcode",
-            "name",
-            "description",
-            "gross_price",
-            "net_price",
-            "profit",
-            "stock",
-        ]));
-
-        StoreProductImageAction::exec($product, $request->file("image"));
+        CreateOrUpdateProductAction::exec(
+            $product->id,
+            $request->barcode,
+            $request->name,
+            $request->description,
+            $request->file("image"),
+            $request->tax_percentage,
+            $request->profit_percentage,
+            $request->gross_price,
+            $request->stock
+        );
 
         return redirect()->route("products.index")->with(['message' => "Product updated successfully"]);
     }
