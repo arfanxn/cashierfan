@@ -117,11 +117,6 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $isDuplicate = Product::query()->where("barcode", strtoupper($request->get("barcode"))/**/)
-            ->whereNot("id", $product->id)->count();
-        if ($isDuplicate)
-            return redirect()->back()->withErrors(['barcode' => "The specified barcode already inserted"]);
-
         CreateOrUpdateProductAction::exec(
             $product->id,
             $request->barcode,
