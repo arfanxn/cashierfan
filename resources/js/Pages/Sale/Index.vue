@@ -168,7 +168,7 @@
                                 class="border-b even:bg-gray-100 odd:bg-white hover:bg-slate-300"
                             >
                                 <td
-                                    class="px-4 py-4 text-gray-900 border border-slate-500 whitespace-nowrap"
+                                    class="px-4 py-4 text-gray-900 align-top border border-slate-500 whitespace-nowrap"
                                 >
                                     <span class="font-semibold">{{
                                         tap(
@@ -180,7 +180,7 @@
                                     }}</span>
                                 </td>
                                 <td
-                                    class="px-4 py-4 font-medium text-gray-900 border border-slate-500"
+                                    class="px-4 py-4 font-medium text-gray-900 align-top border border-slate-500"
                                 >
                                     <span class="font-semibold">
                                         {{
@@ -189,25 +189,25 @@
                                     >
                                 </td>
                                 <td
-                                    class="px-4 py-4 border border-slate-500 whitespace-nowrap"
+                                    class="px-4 py-4 align-top border border-slate-500 whitespace-nowrap"
                                 >
                                     {{ sale.cashier.name }}
                                 </td>
                                 <td
-                                    class="px-4 py-4 border border-slate-500 whitespace-nowrap"
+                                    class="px-4 py-4 align-top border border-slate-500 whitespace-nowrap"
                                 >
                                     {{ sale.customer.name }}
                                 </td>
                                 <td
-                                    class="px-4 py-4 border border-slate-500 whitespace-nowrap"
+                                    class="px-4 py-4 align-top border border-slate-500 whitespace-nowrap"
                                 >
                                     {{ toCurrency(sale.sum_net_price).output }}
                                 </td>
                                 <td
-                                    class="py-4 px-2 space-x-1 border lg:space-x-1.5 border-slate-500 text-center whitespace-nowrap"
+                                    class="py-4 px-2 align-top space-x-1 border lg:space-x-1.5 border-slate-500 text-center whitespace-nowrap"
                                 >
                                     <ButtonLink
-                                        :href="route(`sales.show`, 1)"
+                                        :href="route(`sales.show`, sale.id)"
                                         class="px-2 py-1 space-x-1 text-white transition duration-300 rounded"
                                     >
                                         <font-awesome-icon

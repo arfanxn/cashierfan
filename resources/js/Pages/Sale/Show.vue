@@ -1,67 +1,19 @@
 <template>
     <Head>
-        <title>Sale Profits</title>
-        <meta name="Sale Profits" content="Sale Profits" />
+        <title>Sale Details</title>
+        <meta name="sale" content="sale details" />
     </Head>
 
     <AuthLayout>
         <Card>
             <template v-slot:title>
-                <font-awesome-icon class="fas fa-chart-line" />
-                <h1 class="text-lg font-semibold">Sale Profits</h1>
+                <font-awesome-icon class="fas fa-info-circle" />
+                <h1 class="text-lg font-semibold">SALE DETAILS</h1>
             </template>
 
-            <main
-                class="grid items-start grid-cols-1 gap-4 py-2 lg:grid-cols-12"
-            >
-                <div class="items-center space-y-1 lg:space-y-2 lg:col-span-5">
-                    <label
-                        for="inputReportSaleStartDate"
-                        class="text-base font-semibold uppercase text-slate-700"
-                        >START DATE</label
-                    >
-                    <Input
-                        :value="form.start_date"
-                        @onInput="({ value }) => (form.start_date = value)"
-                        id="inputReportSaleStartDate"
-                        type="date"
-                        class="rounded placeholder:text-slate-700"
-                    />
-                    <Alert
-                        @onClose="$page.props.errors.start_date = null"
-                        :message="$page.props.errors.start_date"
-                    ></Alert>
-                </div>
-
-                <div class="items-center space-y-1 lg:space-y-2 lg:col-span-5">
-                    <label
-                        for="inputReportSaleEndDate"
-                        class="text-base font-semibold uppercase text-slate-700"
-                        >END DATE</label
-                    >
-                    <Input
-                        :value="form.end_date"
-                        @onInput="({ value }) => (form.end_date = value)"
-                        id="inputReportSaleEndDate"
-                        type="date"
-                        class="rounded placeholder:text-slate-700"
-                    />
-                    <Alert
-                        @onClose="$page.props.errors.end_date = null"
-                        :message="$page.props.errors.end_date"
-                    ></Alert>
-                </div>
-
-                <Button
-                    @click="form.get(route(`sale-profits.index`))"
-                    class="flex items-center self-end justify-center py-1 space-x-1 rounded lg:col-span-2"
-                >
-                    <font-awesome-icon icon="fas fa-filter"></font-awesome-icon>
-                    <span class="uppercase">Filter</span>
-                </Button>
-
+            <main class="py-2 space-y-1 md:space-y-2 lg:space-y-3">
                 <div
-                    class="flex justify-end pt-4 mt-2 space-x-1 border-t-2 lg:col-span-12 lg:space-x-3 lg:mt-4"
+                    class="flex justify-end space-x-1 lg:col-span-12 lg:space-x-3"
                 >
                     <Button
                         class="flex items-center justify-center px-2 py-1 space-x-1 bg-green-700 rounded lg:px-4 lg:col-span-2 hover:bg-green-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-700/25 focus:bg-green-700/90"
@@ -85,6 +37,192 @@
                     class="relative mt-4 overflow-x-auto shadow lg:col-span-12"
                 >
                     <table
+                        class="w-full text-sm text-left text-black border border-collapse border-gray-500"
+                    >
+                        <thead
+                            class="text-xs text-white uppercase bg-indigo-900"
+                        >
+                            <tr>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Datetime
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Invoice
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Cashier
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Customer
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Sum Tax
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Sum Profit
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Sum Gross Price
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Sum Net Price
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Cash
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
+                                    Change
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                class="border-b even:bg-gray-100 odd:bg-white hover:bg-slate-300"
+                            >
+                                <td
+                                    class="px-4 py-4 text-gray-900 align-top border border-slate-500 whitespace-nowrap"
+                                >
+                                    <span class="font-semibold">
+                                        {{
+                                            tap(
+                                                new Date(props.sale.created_at),
+                                                (crdat) =>
+                                                    `${crdat.getDate()}-${crdat.getMonth()}-${crdat.getFullYear()}
+                                    ${crdat.getHours()}:${crdat.getMinutes()}:${crdat.getSeconds()}`
+                                            )
+                                        }}</span
+                                    >
+                                </td>
+                                <td
+                                    class="px-4 py-4 font-medium text-gray-900 align-top border border-slate-500"
+                                >
+                                    <span class="font-semibold">
+                                        {{
+                                            String(
+                                                props.sale.invoice
+                                            ).toUpperCase()
+                                        }}</span
+                                    >
+                                </td>
+                                <td
+                                    class="px-4 py-4 align-top border border-slate-500 whitespace-nowrap"
+                                >
+                                    <div class="flex flex-col">
+                                        <span class="font-semibold">{{
+                                            props.sale.cashier?.name
+                                        }}</span>
+                                        <span>{{
+                                            props.sale.cashier?.details
+                                                ?.phone_number
+                                        }}</span>
+                                        <span>{{
+                                            props.sale.cashier?.email
+                                        }}</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-4 py-4 align-top border border-slate-500 whitespace-nowrap"
+                                >
+                                    <div class="flex flex-col">
+                                        <span class="font-semibold">{{
+                                            props.sale.customer?.name
+                                        }}</span>
+                                        <span>{{
+                                            props.sale.customer?.phone_number
+                                        }}</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-4 py-4 align-top border border-slate-500"
+                                >
+                                    <div class="flex space-x-1">
+                                        <span>{{
+                                            toCurrency(props.sale.sum_tax)
+                                                .output
+                                        }}</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-4 py-4 align-top border border-slate-500"
+                                >
+                                    <div class="flex space-x-1">
+                                        <span>{{
+                                            toCurrency(props.sale.sum_profit)
+                                                .output
+                                        }}</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-4 py-4 align-top border border-slate-500"
+                                >
+                                    <span>{{
+                                        toCurrency(props.sale.sum_gross_price)
+                                            .output
+                                    }}</span>
+                                </td>
+                                <td
+                                    class="px-4 py-4 align-top border border-slate-500"
+                                >
+                                    <span>{{
+                                        toCurrency(props.sale.sum_net_price)
+                                            .output
+                                    }}</span>
+                                </td>
+                                <td
+                                    class="px-4 py-4 align-top border border-slate-500"
+                                >
+                                    <span>{{
+                                        toCurrency(
+                                            props.sale.customer_pay_money
+                                        ).output
+                                    }}</span>
+                                </td>
+                                <td
+                                    class="px-4 py-4 align-top border border-slate-500"
+                                >
+                                    <span>{{
+                                        toCurrency(
+                                            props.sale.customer_change_money
+                                        ).output
+                                    }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="relative mt-4 overflow-x-auto shadow">
+                    <table
                         class="text-sm text-left text-black border border-collapse border-gray-500"
                     >
                         <thead
@@ -104,23 +242,21 @@
                                     <div
                                         class="flex items-center space-x-1"
                                         :class="{
-                                            'justify-center':
-                                                !products.showDescription,
-                                            'w-64 lg:w-96':
-                                                products.showDescription
+                                            'justify-center': !showDescription,
+                                            'w-64 lg:w-96': showDescription
                                         }"
                                     >
                                         <input
                                             @change="
-                                                products.showDescription =
-                                                    !products.showDescription
+                                                showDescription =
+                                                    !showDescription
                                             "
                                             type="checkbox"
                                             id="radioShowProdDesc"
                                             class="default:ring-4"
                                         />
                                         <label
-                                            v-show="products.showDescription"
+                                            v-show="showDescription"
                                             for="radioShowProdDesc"
                                             >Description</label
                                         >
@@ -184,8 +320,7 @@
                         </thead>
                         <tbody>
                             <tr
-                                v-for="(product, index) in props.products
-                                    .data || props.products"
+                                v-for="(product, index) in props.sale.products"
                                 :key="index"
                                 class="border-b even:bg-gray-100 odd:bg-white hover:bg-slate-300"
                             >
@@ -224,7 +359,7 @@
                                     class="px-4 py-4 font-medium text-gray-900 align-top border border-slate-500"
                                 >
                                     <p
-                                        v-show="products.showDescription"
+                                        v-show="showDescription"
                                         class="break-words"
                                     >
                                         {{
@@ -314,13 +449,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                <div class="flex flex-row-reverse w-full mt-4 lg:col-span-12">
-                    <ButtonPagination
-                        class="basis-full lg:basis-3/12"
-                        :currentPage="products.currentPage"
-                    />
-                </div>
             </main>
         </Card>
     </AuthLayout>
@@ -329,29 +457,19 @@
 <script setup>
 import AuthLayout from '../../Layouts/AuthLayout.vue';
 import JsBarcode from 'jsbarcode';
+import { Link, Head } from '@inertiajs/inertia-vue3';
+import { toCurrency, tap } from '../../Helpers.js';
+import { ref, defineProps, onMounted } from 'vue';
 import Alert from '../../Components/Alert.vue';
 import Card from '../../Components/Card.vue';
 import Button from '../../Components/Button.vue';
-import ButtonLink from '../../Components/ButtonLink.vue';
 import ButtonPagination from '../../Components/ButtonPagination.vue';
+import ButtonLink from '../../Components/ButtonLink.vue';
 import Input from '../../Components/Input.vue';
-import { toCurrency, tap } from '../../Helpers';
-import { Head, useForm } from '@inertiajs/inertia-vue3';
-import { computed, defineProps, reactive, onMounted } from 'vue';
 
-const props = defineProps(['products']);
+const props = defineProps(['sale']);
 
-const url = computed(() => new URL(window.location.href));
-
-const form = useForm({
-    start_date: url.value.searchParams.get(`start_date`),
-    end_date: url.value.searchParams.get(`end_date`)
-});
-
-const products = reactive({
-    currentPage: parseInt(url.value.searchParams.get(`page`) || 1),
-    showDescription: false
-});
+const showDescription = ref(false);
 
 onMounted(() => {
     JsBarcode('.barcode').init();
