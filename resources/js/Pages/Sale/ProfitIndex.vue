@@ -8,7 +8,7 @@
         <Card>
             <template v-slot:title>
                 <font-awesome-icon class="fas fa-chart-line" />
-                <h1 class="text-lg font-semibold">Sale Profits</h1>
+                <h1 class="text-lg font-semibold">SALE PROFITS</h1>
             </template>
 
             <main

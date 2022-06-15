@@ -8,7 +8,7 @@
         <Card>
             <template v-slot:title>
                 <font-awesome-icon class="fas fa-chart-simple" />
-                <h1 class="text-lg font-semibold">Sales</h1>
+                <h1 class="text-lg font-semibold">SALES</h1>
             </template>
 
             <main
