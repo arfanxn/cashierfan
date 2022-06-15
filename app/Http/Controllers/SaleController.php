@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Actions\MakeSaleAction;
 use App\Http\Requests\StoreSaleRequest;
 use App\Models\Sale;
-use App\Models\User;
-use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
 
@@ -26,14 +25,65 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Sale/Index');
+        $request->validate([
+            'keyword' => 'nullable|string',
+            "start_date" => "nullable|date",
+            "end_date" => "nullable|date|after_or_equal:start_date",
+        ]);
+
+        $keyword = strtolower($request->get('keyword'));
+
+        $sales = Sale::with([
+            // with relation select only specific fields/columns
+            "cashier" => fn ($q) => $q->select(["id", 'name']),
+            "customer" => fn ($q) => $q->select(["id", 'name']),
+        ])->when($keyword, function ($query) use ($keyword) {
+            return $query->where(function ($query) use ($keyword) {
+                $query->where(
+                    "invoice",
+                    "ILIKE",
+                    "$keyword%"
+                )->orWhereHas(
+                    "cashier",
+                    function ($query) use ($keyword) {
+                        return $query->where("name", "ILIKE", "%$keyword%");
+                    }
+                )->orWhereHas(
+                    "customer",
+                    function ($query) use ($keyword) {
+                        return $query->where("name", "ILIKE", "%$keyword%");
+                    }
+                );
+            });
+        })->when($request->start_date, fn ($q) => $q->whereDate("created_at",  ">=", $request->start_date))
+            ->when($request->end_date, fn ($q) => $q->whereDate("created_at",  "<=", $request->end_date))
+            ->orderBy("created_at", "DESC")
+            ->simplePaginate(20);
+
+        return Inertia::render('Sale/Index', compact("sales"));
     }
 
-    public function profitIndex()
+    public function profitIndex(Request $request)
     {
-        return Inertia::render('Sale/ProfitIndex');
+        $request->validate([
+            "start_date" => "nullable|date",
+            "end_date" => "nullable|date|after_or_equal:start_date",
+        ]);
+
+        $perPage = 5;
+        $currentPage = $request->query("page", 1);
+        $offset = ($currentPage * $perPage) - $perPage;
+
+        $sales = Sale::with(["products" => fn ($q) => $q->select("*")])
+            ->when($request->start_date, fn ($q) => $q->where("created_at", ">=", $request->start_date))
+            ->when($request->end_date, fn ($q) => $q->where("created_at", "<=", $request->end_date))
+            ->offset($offset)->limit($perPage)
+            ->orderBy("created_at", "DESC")->get(['id']);
+        $products  = Arr::flatten(collect($sales)->map(fn ($sale) => $sale->products));
+
+        return Inertia::render('Sale/ProfitIndex', compact("products"));
     }
 
     /**
@@ -79,9 +129,7 @@ class SaleController extends Controller
 
         $sale = $sale->load([
             "cashier", "customer",
-            "products" => fn ($q) => $q->withPivot([
-                'quantity',
-            ]),
+            "products",
         ]);
 
         return Inertia::render("Sale/Invoice", compact("sale"));
@@ -95,7 +143,9 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
+        $sale = $sale->load(["cashier.details", "customer", 'products' => fn ($q) => $q->select("*")]);
+        // dd($sale->toArray());
+        return Inertia::render("Sale/Show", compact('sale'));
     }
 
     /**
