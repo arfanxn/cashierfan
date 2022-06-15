@@ -143,7 +143,9 @@
                                             />
                                         </div>
                                         <div class="space-y-1">
-                                            <span>{{ product.name }}</span>
+                                            <span class="text-lg">{{
+                                                product.name
+                                            }}</span>
                                             <svg
                                                 class="p-0 m-0 barcode"
                                                 jsbarcode-format="CODE39"
