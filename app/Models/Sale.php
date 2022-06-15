@@ -36,6 +36,6 @@ class Sale extends Model
 
     public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Product::class)->withPivot("quantity");
+        return $this->belongsToMany(Product::class);
     }
 }
