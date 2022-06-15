@@ -25,15 +25,15 @@
                     <Input
                         @onInput="({ value }) => (products.keyword = value)"
                         :value="products.keyword"
-                        @keyup.enter="searchProduct()"
-                        @blur="searchProduct()"
+                        @keyup.enter="searchProducts()"
+                        @blur="searchProducts()"
                         placeholder="Search products by barcode, or name."
                         type="text"
                         class="placeholder:italic"
                     />
                     <Button
                         class="flex px-2 rounded-r"
-                        @onCLick="searchProduct()"
+                        @onCLick="searchProducts()"
                     >
                         <font-awesome-icon
                             icon="fas fa-magnifying-glass"
@@ -56,19 +56,7 @@
                                     scope="col"
                                     class="px-4 py-3 border border-gray-500"
                                 >
-                                    Barcode/ID
-                                </th>
-                                <th
-                                    scope="col"
-                                    class="px-4 py-3 border border-gray-500"
-                                >
-                                    Image
-                                </th>
-                                <th
-                                    scope="col"
-                                    class="px-4 py-3 border border-gray-500"
-                                >
-                                    Name
+                                    Product
                                 </th>
                                 <th
                                     scope="col"
@@ -146,33 +134,31 @@
                                 <td
                                     class="font-semibold text-gray-900 align-top border border-slate-500 whitespace-nowrap"
                                 >
-                                    <div class="flex justify-center">
-                                        <svg
-                                            class="p-0 m-0 h-36 barcode w-36"
-                                            jsbarcode-format="CODE39"
-                                            jsbarcode-width="1"
-                                            :jsbarcode-value="
-                                                product.barcode.toUpperCase() ||
-                                                product.id
-                                            "
-                                            jsbarcode-textmargin="0"
-                                            jsbarcode-fontoptions="bold"
-                                        ></svg>
+                                    <div class="flex space-x-2">
+                                        <div class="w-28 h-28 md:h-36 md:w-36">
+                                            <img
+                                                class="block w-full h-full bg-center bg-no-repeat bg-cover"
+                                                :src="product.image"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div class="space-y-1">
+                                            <span>{{ product.name }}</span>
+                                            <svg
+                                                class="p-0 m-0 barcode"
+                                                jsbarcode-format="CODE39"
+                                                jsbarcode-width="1"
+                                                jsbarcode-height="30"
+                                                jsbarcode-margin="5"
+                                                :jsbarcode-value="
+                                                    product.barcode.toUpperCase() ||
+                                                    product.id
+                                                "
+                                                jsbarcode-textmargin="0"
+                                                jsbarcode-fontoptions="bold"
+                                            ></svg>
+                                        </div>
                                     </div>
-                                </td>
-                                <td
-                                    class="w-24 h-24 font-medium text-gray-900 align-top border border-slate-500 md:w-32 md:h-32"
-                                >
-                                    <img
-                                        class="w-full h-full bg-center bg-no-repeat bg-cover"
-                                        :src="product.image"
-                                        alt=""
-                                    />
-                                </td>
-                                <td
-                                    class="px-4 py-4 font-medium text-gray-900 align-top border border-slate-500"
-                                >
-                                    <span>{{ product.name }}</span>
                                 </td>
                                 <td
                                     class="px-4 py-4 font-medium text-gray-900 align-top border border-slate-500"
@@ -303,7 +289,7 @@ onMounted(() => {
 });
 
 // functions //
-function searchProduct() {
+function searchProducts() {
     Inertia.get(route('products.index'), {
         keyword: products.keyword
     });
