@@ -48,7 +48,7 @@ Route::prefix("users")->middleware(["guest"])->name("users.")->group(function ()
 });
 
 Route::middleware("auth")->group(function () {
-    Route::get("/", [DashboardController::class, "index"])->name("/");
+    Route::get("/", DashboardController::class)->name("/");
 
     Route::resource("products", ProductController::class)->except(['update']);
     Route::post("products/{product:id}/update", [ProductController::class, "update"])->name("products.update");
@@ -89,8 +89,7 @@ Route::middleware("auth")->group(function () {
 
 // for testing purposes
 Route::get("/test", function (Request $request) {
-
-
+    // dd();
 });
 Route::post("/test", function (Request $request) {
     return response(["hello" => "world"]);

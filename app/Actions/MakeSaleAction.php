@@ -8,7 +8,7 @@ use App\Helpers\Str;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
-use App\Models\Statistic;
+use App\Repositories\StatisticRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -46,7 +46,12 @@ class MakeSaleAction
                 else throw new OutOfStockProductException("Out of stock product.");
 
                 // write each product sold by statistic (best_selling_products statistics)
-                Statistic::write(Product::class, $product['id'], "best_selling_products", $product['quantity']);
+                StatisticRepository::write([
+                    "type" => Product::class,
+                    "id" => $product['id'],
+                    "key" => "best_selling_products",
+                    "value" =>  $product['quantity'],
+                ]);
 
                 array_push(
                     $product_sale,
@@ -95,10 +100,32 @@ class MakeSaleAction
             $sale = Sale::query()->where("id", $insertedSaleID)->first();
 
             // write today sale statistics
-            $today = now()->format("Y-m-d");
-            Statistic::write(Sale::class, null, "sum_sales_gross_price_at_date_" . $today, $sale->sum_gross_price);
-            Statistic::write(Sale::class, null, "sum_sales_profit_at_date_" . $today, $sale->sum_profit);
-            Statistic::write(Sale::class, null, "sum_sales_tax_at_date_" . $today, $sale->sum_tax);
+            $today = today()->format("Y-m-d");
+            StatisticRepository::write([
+                "type" => Sale::class,
+                "key" => "sales_happening_count",
+                "value" =>  1,
+                "date" => $today
+            ]);
+
+            StatisticRepository::write([
+                "type" => Sale::class,
+                "key" => "sales_grosses",
+                "value" =>  $sale->sum_gross_price,
+                "date" => $today
+            ]);
+            StatisticRepository::write([
+                "type" => Sale::class,
+                "key" => "sales_profits",
+                "value" =>  $sale->sum_profit,
+                "date" => $today
+            ]);
+            StatisticRepository::write([
+                "type" => Sale::class,
+                "key" => "sales_taxes",
+                "value" =>  $sale->sum_tax,
+                "date" => $today
+            ]);
             // end of write today sale statistics
 
             // attach the relation products at sale;

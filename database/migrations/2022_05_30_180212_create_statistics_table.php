@@ -19,6 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger("statisticable_id")->nullable();
             $table->string("statisticable_key", 100);
             $table->decimal("value", 50)->default(0.00);
+            $table->date("date")->nullable();
+            $table->time("time")->nullable();
             $table->timestampsTz();
         });
     }
