@@ -54,7 +54,7 @@ class ProductFactory extends Factory
             "profit" => $profit,
             "gross_price" => $grossPrice,
             "net_price" =>  $grossPrice  + $profit + $tax,
-            "stock" => rand(1, 100),
+            "stock" => rand(200, 1000),
             "deleted_at" => rand(0, 1) ? null : now(),
         ];
     }
