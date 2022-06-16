@@ -44,6 +44,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $guard_name = 'web';
+    public function guardName()
+    {
+        return "web";
+    }
+
     public function details()
     {
         return $this->hasOne(UserDetail::class);

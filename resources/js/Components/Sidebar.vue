@@ -109,8 +109,12 @@
 
                 <div
                     v-if="
-                        $page.props?.auth?.user?.permissions?.includes(
-                            `sales.index`
+                        tap(
+                            $page.props?.auth?.user?.permissions || [],
+                            (perm) =>
+                                perm.includes(`sales.index`) ||
+                                perm.includes(`sales.profit_index`) ||
+                                perm.includes(`sales.profits_index`)
                         )
                     "
                     class="mt-2.5"
@@ -118,6 +122,11 @@
                     <h1 class="px-4 py-2.5">Reports</h1>
 
                     <Link
+                        v-if="
+                            $page.props?.auth?.user?.permissions?.includes(
+                                `sales.index`
+                            )
+                        "
                         :href="route('sales.index')"
                         :class="{
                             'bg-slate-800/50':
@@ -131,6 +140,14 @@
                     </Link>
 
                     <Link
+                        v-if="
+                            tap(
+                                $page.props?.auth?.user?.permissions || [],
+                                (perm) =>
+                                    perm.includes(`sales.profit_index`) ||
+                                    perm.includes(`sales.profits_index`)
+                            )
+                        "
                         :href="route('sale-profits.index')"
                         :class="{
                             'bg-slate-800/50':

@@ -154,6 +154,11 @@
                                     Summary
                                 </th>
                                 <th
+                                    v-if="
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `sales.show`
+                                        )
+                                    "
                                     scope="col"
                                     class="px-4 py-3 border border-gray-500"
                                 >
@@ -204,6 +209,11 @@
                                     {{ toCurrency(sale.sum_net_price).output }}
                                 </td>
                                 <td
+                                    v-if="
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `sales.show`
+                                        )
+                                    "
                                     class="py-4 px-2 align-top space-x-1 border lg:space-x-1.5 border-slate-500 text-center whitespace-nowrap"
                                 >
                                     <ButtonLink

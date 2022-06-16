@@ -34,6 +34,7 @@ class RoleController extends Controller
         $roles = Role::with([
             "permissions" => fn ($q) => $q->select("name")->orderBy("name", "ASC")
         ])->when($keyword, fn ($q) => $q->where("name", "ILIKE", "$keyword%"))
+            ->where("name",  "!=", "ROOT") //* dont get ROOT role information
             ->offset($offset)->limit($perPage)
             ->orderBy('updated_at', 'DESC')->get();
 
@@ -86,6 +87,9 @@ class RoleController extends Controller
 
     public function edit(Request $request, Role $role)
     {
+        // prevent edit role named "ROOT"
+        if ($role->name == "ROOT") abort(403);
+
         $permissions = Permission::orderBy("name", "ASC")->get("name")->pluck("name");
         $role = $role->load(["permissions" => fn ($q) => $q->select('name')]);
         $role = collect($role)->merge([
@@ -97,6 +101,9 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
+        // prevent update role named "ROOT"
+        if ($role->name == "ROOT") abort(403);
+
         $permissions = Permission::get("name")->pluck("name")->toArray();
 
         $request->validate([
@@ -123,6 +130,9 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
+        // prevent delete role named "ROOT"
+        if ($role->name == "ROOT") abort(403);
+
         $role->delete();
         return redirect()->route('roles.index')
             ->with('message', 'Role deleted successfully');

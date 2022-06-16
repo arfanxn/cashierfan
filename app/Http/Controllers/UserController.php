@@ -60,6 +60,11 @@ class UserController extends Controller
             });
         }
 
+        // * dont get user where has role "ROOT"
+        $users->whereHas("roles", function ($query) {
+            return $query->where("name", "!=", "ROOT");
+        });
+
         $users = $users->orderBy("updated_at", "DESC")->simplePaginate(10);
 
 
@@ -73,7 +78,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::query()->whereNot('name', "Root")->orderBy("name", "ASC")->get(['name'])->pluck('name');
+        $roles = Role::query()->whereNot('name', "ROOT")->orderBy("name", "ASC")->get(['name'])->pluck('name');
 
         return Inertia::render('User/Create', compact("roles"));
     }
@@ -125,6 +130,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        // prevent editing user where has role "ROOT" 
+        if ($user->roles[0] === 'ROOT') abort(403);
+
         Gate::denyIf(
             auth()->id() == $user->id,
             "Cannot edit your own account, go to \"Account Settings\" to edit your account",
@@ -135,7 +143,7 @@ class UserController extends Controller
 
         $user = collect($user)->merge(["role" => $user->getRoleNames()->first()]);
 
-        $roles = Role::query()->whereNot('name', "Root")->orderBy("name", "ASC")->get(['name'])->pluck('name');
+        $roles = Role::query()->whereNot('name', "ROOT")->orderBy("name", "ASC")->get(['name'])->pluck('name');
 
         return Inertia::render('User/Edit', compact("user", "roles"));
     }
@@ -149,6 +157,9 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        // prevent updating user where has role "ROOT" 
+        if ($user->roles[0] === 'ROOT') abort(403);
+
         Gate::denyIf(
             auth()->id() == $user->id,
             "Cannot edit your own account, go to \"Account Settings\" to edit your account",
@@ -185,6 +196,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        // prevent deleting user where has role "ROOT" 
+        if ($user->roles[0] === 'ROOT') abort(403);
+
         Gate::denyIf(auth()->id() == $user->id, "Cannot delete your own account", 403);
 
         $user->delete(); // delete the user from database ;
