@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Helpers\Redirect;
 use App\Helpers\Str;
+use App\Models\User;
+use App\Notifications\VerificationCodeNotification;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +18,7 @@ class VerificationCodeService
 {
     private string $dbTable = "verification_codes";
     public string $verifiable, $code;
+    public \Carbon\Carbon $expiredAt;
 
     private function __construct($verifiable)
     {
@@ -31,22 +34,37 @@ class VerificationCodeService
     {
         $this->code = Str::random(6, "0123456789");
 
+        $this->expiredAt = now()->addMinutes($expireInMinutes);
+
         DB::table($this->dbTable)->updateOrInsert([
             "verifiable" => $this->verifiable,
         ], [
             "verifiable" => $this->verifiable,
             "code" => $this->code,
-            "expired_at" => now()->addMinutes($expireInMinutes),
+            "expired_at" => $this->expiredAt,
         ]);
 
         return $this;
     }
 
-    public function send()
+    public function send(User|string|null $notifiable = null)
     {
         $this->code = $this->code ?? $this->fresh()->code;
 
-        // Notification::send(); // do something with notification
+        if (is_null($notifiable))
+            $notifiable = $this->verifiable;
+
+        if ($notifiable instanceof User)
+            Notification::sendNow(
+                $notifiable,
+                new VerificationCodeNotification($this->code, $this->expiredAt)
+            );
+        else  if (is_string($notifiable))
+            Notification::route("mail", $notifiable)->notify(
+                new VerificationCodeNotification($this->code, $this->expiredAt)
+            );
+
+
         Log::info("||| Verification Code for " . $this->verifiable . " is " . $this->code .  " |||");
 
         return $this;

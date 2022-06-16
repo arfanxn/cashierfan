@@ -13,6 +13,8 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\Auth\EmailController as AuthEmailController;
 use App\Http\Controllers\Auth\PasswordController as AuthPasswordController;
 use App\Http\Controllers\Auth\VerificationCodeController;
+use App\Models\User;
+use App\Notifications\VerificationCodeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -87,6 +89,8 @@ Route::middleware("auth")->group(function () {
 
 // for testing purposes
 Route::get("/test", function (Request $request) {
+    \App\Services\VerificationCodeService::make("arfan2173@gmail.com")->send();
+    // return (new VerificationCodeNotification("121212", now()->addMinutes(30)))->toMail(User::first());
     return Inertia::render("Test");
 });
 Route::post("/test", function (Request $request) {
