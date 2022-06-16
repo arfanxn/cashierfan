@@ -33,14 +33,14 @@ class ProductSaleFactory extends Factory
         // $table->decimal('sum_gross_price', 10);
         // $table->decimal('sum_net_price', 10);
 
-        $grossPrice = rand(1000 * 100, 1000 * 1000);
-        
-        $taxPercentage = 3;
+        $grossPrice = rand(1000 * 50, 1000 * 1000000);
+
+        $taxPercentage = rand(1, 5);
         $tax = ($grossPrice / 100) * $taxPercentage;
-        $profitPercentage = 5;
+        $profitPercentage = rand(5, 10);
         $profit = ($grossPrice / 100) * $profitPercentage;
 
-        $quantity = rand(1, 90);
+        $quantity = rand(1, 99);
 
         $sumTax = $tax * $quantity;
         $sumProfit = $profit * $quantity;

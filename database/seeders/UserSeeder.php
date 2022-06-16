@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             ]);
         });
 
-        \App\Models\User::factory(20)->create()->each(function (User $user) {
+        \App\Models\User::factory(50)->create()->each(function (User $user) {
             VerificationCodeService::make($user->email)->fresh();
 
             $user->assignRole('Employee');
