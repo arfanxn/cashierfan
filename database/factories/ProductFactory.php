@@ -36,9 +36,9 @@ class ProductFactory extends Factory
         $images = Storage::disk("public")->allFiles('products/images');
 
         $grossPrice = rand(1000 * 100, 1000 * 1000);
-        $taxPercentage = 3;
+        $taxPercentage = rand(1, 5);
         $tax = ($grossPrice / 100) * $taxPercentage;
-        $profitPercentage = 5;
+        $profitPercentage = rand(5, 10);
         $profit = ($grossPrice / 100) * $profitPercentage;
 
         $productName = ucwords($this->faker->words(rand(1, 4), true));
