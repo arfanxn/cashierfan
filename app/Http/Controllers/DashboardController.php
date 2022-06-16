@@ -12,6 +12,11 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("role_has_permission:dashboard");
+    }
+
     public function __invoke(Request $request)
     {
         $products = Product::query()->select(["id", "barcode", "name", "image", 'stock'])

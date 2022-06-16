@@ -41,19 +41,21 @@ class HandleInertiaRequests extends Middleware
             "csrf_token" => csrf_token(),
             "auth" => function () {
                 if (Auth::check()) {
-                    $user = Auth::user();
+                    $user = Auth::user()->load([
+                        "roles" => fn ($q) => $q->select("name"),
+                        "details",
+                    ]);
                     return ([
-                        "user" => collect(
-                            collect($user->load([
-                                "roles" => fn ($q) => $q->select("name"),
-                                "details", //=> fn ($q) => $q->only("avatar"),
-                            ])/**/)->map(function ($value, $key) {
-                                if ($key === "roles") {
-                                    return collect($value)->pluck("name");
-                                }
-                                return $value;
-                            })
-                        )->merge(['permissions' => $user->getPermissionNames()])
+                        "user" => collect($user)->map(function ($value, $key) {
+                            if ($key === "roles")
+                                return collect($value)->pluck("name");
+
+                            return $value;
+                        })
+                            ->merge([
+                                'permissions' =>  //$user->roles[0]->getPermissionNames()
+                                \Spatie\Permission\Models\Role::where("name", $user->roles[0]['name'])->first()->getPermissionNames()
+                            ])
                     ]);
                 }
                 return false;

@@ -14,7 +14,10 @@ class SaleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role_has_permission:sales.index|sales.create|sales.edit|sales.delete', ['only' => ['index']]);
+        $this->middleware(
+            'role_has_permission:sales.index|sales.create|sales.edit|sales.delete',
+            ['only' => ['index', "profitIndex"]]
+        );
         $this->middleware('role_has_permission:sales.create', ['only' => ['create', 'store']]);
         $this->middleware('role_has_permission:sales.edit', ['only' => ['edit', 'update']]);
         $this->middleware('role_has_permission:sales.delete', ['only' => ['destroy']]);

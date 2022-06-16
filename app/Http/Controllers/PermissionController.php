@@ -10,10 +10,7 @@ class PermissionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role_has_permission:permissions.index|permissions.create|permissions.edit|permissions.delete', ['only' => ['index']]);
-        $this->middleware('role_has_permission:permissions.create', ['only' => ['create', 'store']]);
-        $this->middleware('role_has_permission:permissions.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('role_has_permission:permissions.delete', ['only' => ['destroy']]);
+        $this->middleware('role_has_permission:permissions.index', ['only' => ['__invoke']]);
     }
 
     public  function __invoke(Request $request)
