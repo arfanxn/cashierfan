@@ -34,15 +34,6 @@ const chart = reactive({
         labels: stat_dates.value,
         datasets: [
             {
-                label: 'Taxes',
-                data: stat_dates.value.map(
-                    (date) => props.stats[date]['sales_taxes']['value']
-                ),
-                backgroundColor: 'rgba(234, 179, 8, 0.8)',
-                borderColor: 'rgb(234, 179, 8)',
-                borderWidth: 1
-            },
-            {
                 label: 'Grosses',
                 data: stat_dates.value.map(
                     (date) => props.stats[date]['sales_grosses']['value']
@@ -58,6 +49,15 @@ const chart = reactive({
                 ),
                 backgroundColor: 'rgba(34 ,197, 94, 0.8)',
                 borderColor: 'rgb(34, 197, 94)',
+                borderWidth: 1
+            },
+            {
+                label: 'Taxes',
+                data: stat_dates.value.map(
+                    (date) => props.stats[date]['sales_taxes']['value']
+                ),
+                backgroundColor: 'rgba(234, 179, 8, 0.8)',
+                borderColor: 'rgb(234, 179, 8)',
                 borderWidth: 1
             }
         ]

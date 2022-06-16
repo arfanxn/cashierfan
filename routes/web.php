@@ -13,13 +13,11 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\Auth\EmailController as AuthEmailController;
 use App\Http\Controllers\Auth\PasswordController as AuthPasswordController;
 use App\Http\Controllers\Auth\VerificationCodeController;
-use App\Models\Sale;
-use App\Models\Statistic;
-use App\Models\Statisticable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,7 +87,7 @@ Route::middleware("auth")->group(function () {
 
 // for testing purposes
 Route::get("/test", function (Request $request) {
-    // dd();
+    return Inertia::render("Test");
 });
 Route::post("/test", function (Request $request) {
     return response(["hello" => "world"]);

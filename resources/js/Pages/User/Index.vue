@@ -14,6 +14,11 @@
             <main class="py-2 space-y-1 md:space-y-2 lg:space-y-3">
                 <div class="flex">
                     <ButtonLink
+                        v-if="
+                            $page.props?.auth?.user?.permissions?.includes(
+                                `users.create`
+                            )
+                        "
                         :href="route(`users.create`)"
                         class="flex items-center px-2 space-x-1 rounded-l"
                     >
@@ -23,6 +28,12 @@
                         <span class="hidden lg:inline-block">NEW</span>
                     </ButtonLink>
                     <Input
+                        :class="{
+                            'rounded-l':
+                                !$page.props?.auth?.user?.permissions?.includes(
+                                    `users.create`
+                                )
+                        }"
                         @onInput="({ value }) => (searchUserKeyword = value)"
                         :value="searchUserKeyword"
                         @keyup.enter="searchUser()"
@@ -104,9 +115,17 @@
                                     scope="col"
                                     class="px-4 py-3 border border-gray-500"
                                 >
-                                    Roles
+                                    Role
                                 </th>
                                 <th
+                                    v-if="
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `users.edit`
+                                        ) ||
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `users.delete`
+                                        )
+                                    "
                                     scope="col"
                                     class="px-4 py-3 border border-gray-500"
                                 >
@@ -185,6 +204,14 @@
                                     {{ user.roles[0]['name'] }}
                                 </td>
                                 <td
+                                    v-if="
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `users.edit`
+                                        ) ||
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `users.delete`
+                                        )
+                                    "
                                     class="py-4 px-2 border lg:space-x-1.5 border-slate-500 text-center whitespace-nowrap align-top"
                                 >
                                     <div
@@ -206,6 +233,11 @@
                                     </div>
                                     <div v-else class="space-x-1">
                                         <ButtonLink
+                                            v-if="
+                                                $page.props?.auth?.user?.permissions?.includes(
+                                                    `users.edit`
+                                                )
+                                            "
                                             :href="route(`users.edit`, user.id)"
                                             class="px-2 py-1 space-x-1 text-white transition duration-300 bg-blue-600 rounded hover:bg-blue-600/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-600/25 focus:bg-blue-600/90"
                                         >
@@ -217,6 +249,11 @@
                                             >
                                         </ButtonLink>
                                         <Button
+                                            v-if="
+                                                $page.props?.auth?.user?.permissions?.includes(
+                                                    `users.delete`
+                                                )
+                                            "
                                             @click="deleteUser(user)"
                                             class="px-2 py-1 space-x-1 text-white transition duration-300 bg-red-600 rounded hover:bg-red-600/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-600/25 focus:bg-red-600/90"
                                         >

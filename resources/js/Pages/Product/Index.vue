@@ -14,6 +14,11 @@
             <main class="py-2 space-y-1 md:space-y-2 lg:space-y-3">
                 <div class="flex">
                     <ButtonLink
+                        v-if="
+                            $page.props?.auth?.user?.permissions?.includes(
+                                `products.create`
+                            )
+                        "
                         :href="route(`products.create`)"
                         class="flex items-center px-2 space-x-1 rounded-l"
                     >
@@ -23,6 +28,12 @@
                         <span class="hidden lg:inline-block">NEW</span>
                     </ButtonLink>
                     <Input
+                        :class="{
+                            'rounded-l':
+                                !$page.props?.auth?.user?.permissions?.includes(
+                                    `products.create`
+                                )
+                        }"
                         @onInput="({ value }) => (products.keyword = value)"
                         :value="products.keyword"
                         @keyup.enter="searchProducts()"
@@ -118,6 +129,14 @@
                                     Stocks
                                 </th>
                                 <th
+                                    v-if="
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `products.edit`
+                                        ) ||
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `products.delete`
+                                        )
+                                    "
                                     scope="col"
                                     class="px-4 py-3 border border-gray-500"
                                 >
@@ -219,9 +238,22 @@
                                     <span>{{ product.stock }}</span>
                                 </td>
                                 <td
+                                    v-if="
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `products.edit`
+                                        ) ||
+                                        $page.props?.auth?.user?.permissions?.includes(
+                                            `products.delete`
+                                        )
+                                    "
                                     class="align-top py-4 px-2 space-x-1 border lg:space-x-1.5 border-slate-500 text-center whitespace-nowrap"
                                 >
                                     <Link
+                                        v-if="
+                                            $page.props?.auth?.user?.permissions?.includes(
+                                                `products.edit`
+                                            )
+                                        "
                                         :href="
                                             route(`products.edit`, product.id)
                                         "
@@ -235,6 +267,11 @@
                                         >
                                     </Link>
                                     <Button
+                                        v-if="
+                                            $page.props?.auth?.user?.permissions?.includes(
+                                                `products.delete`
+                                            )
+                                        "
                                         @onClick="deleteProduct(product)"
                                         class="px-2 py-1 space-x-1 text-white transition duration-300 bg-red-600 rounded hover:bg-red-600/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-600/25 focus:bg-red-600/90"
                                     >
