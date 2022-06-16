@@ -15,14 +15,30 @@
                 <div
                     class="flex justify-end space-x-1 lg:col-span-12 lg:space-x-3"
                 >
-                    <Button
-                        class="flex items-center justify-center px-2 py-1 space-x-1 bg-green-700 rounded lg:px-4 lg:col-span-2 hover:bg-green-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-700/25 focus:bg-green-700/90"
+                    <JSONExcel
+                        :header="`sale-inv-${props.sale.invoice
+                            .toString()
+                            .toUpperCase()}`"
+                        :name="`sale-inv-${props.sale.invoice
+                            .toString()
+                            .toUpperCase()}`"
+                        :data="[
+                            {
+                                ...props.sale,
+                                cashier: JSON.stringify(props.sale.cashier),
+                                customer: JSON.stringify(props.sale.customer),
+                                cashier_name: props.sale.cashier.name,
+                                customer_name: props.sale.customer.name,
+                                products: JSON.stringify(props.sale.products)
+                            }
+                        ]"
+                        class="flex items-center justify-center px-2 py-1 space-x-1 bg-green-700 rounded lg:px-4 lg:col-span-2 text-white pointer hover:bg-green-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-700/25 focus:bg-green-700/90"
                     >
                         <font-awesome-icon
                             icon="fas fa-file-excel"
                         ></font-awesome-icon>
                         <span class="uppercase">EXCEL</span>
-                    </Button>
+                    </JSONExcel>
                     <Button
                         class="flex items-center justify-center px-2 py-1 space-x-1 bg-red-700 rounded lg:px-4 lg:col-span-2 hover:bg-red-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-700/25 focus:bg-red-700/90"
                     >
@@ -460,6 +476,7 @@ import JsBarcode from 'jsbarcode';
 import { Link, Head } from '@inertiajs/inertia-vue3';
 import { toCurrency, tap } from '../../Helpers.js';
 import { ref, defineProps, onMounted } from 'vue';
+import JSONExcel from 'vue-json-excel3';
 import Alert from '../../Components/Alert.vue';
 import Card from '../../Components/Card.vue';
 import Button from '../../Components/Button.vue';

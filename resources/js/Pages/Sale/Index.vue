@@ -95,14 +95,25 @@
                 <div
                     class="flex justify-end pt-4 mt-2 space-x-1 border-t-2 lg:col-span-12 lg:space-x-3 lg:mt-4"
                 >
-                    <Button
-                        class="flex items-center justify-center px-2 py-1 space-x-1 bg-green-700 rounded lg:px-4 lg:col-span-2 hover:bg-green-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-700/25 focus:bg-green-700/90"
+                    <JSONExcel
+                        :header="title"
+                        :name="title"
+                        :data="
+                            props.sales.data.map((sale) => ({
+                                ...sale,
+                                cashier: JSON.stringify(sale.cashier),
+                                customer: JSON.stringify(sale.customer),
+                                cashier_name: sale.cashier.name,
+                                customer_name: sale.customer.name
+                            }))
+                        "
+                        class="flex items-center justify-center px-2 py-1 space-x-1 bg-green-700 rounded lg:px-4 lg:col-span-2 text-white pointer hover:bg-green-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-700/25 focus:bg-green-700/90"
                     >
                         <font-awesome-icon
                             icon="fas fa-file-excel"
                         ></font-awesome-icon>
                         <span class="uppercase">EXCEL</span>
-                    </Button>
+                    </JSONExcel>
                     <Button
                         class="flex items-center justify-center px-2 py-1 space-x-1 bg-red-700 rounded lg:px-4 lg:col-span-2 hover:bg-red-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-700/25 focus:bg-red-700/90"
                     >
@@ -253,9 +264,11 @@ import ButtonLink from '../../Components/ButtonLink.vue';
 import ButtonPagination from '../../Components/ButtonPagination.vue';
 import Textarea from '../../Components/Textarea.vue';
 import Input from '../../Components/Input.vue';
-import { randInt, tap, toCurrency } from '../../Helpers';
+import JSONExcel from 'vue-json-excel3';
+// from "vue-json-excel3";
+import { tap, toCurrency } from '../../Helpers';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
-import { defineProps, computed } from 'vue';
+import { defineProps, computed, onMounted } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps(['sales']);
@@ -268,7 +281,16 @@ const form = useForm({
     end_date: url.value.searchParams.get(`end_date`)
 });
 
-function filter() {
-    form.get(route('sales.index'));
-}
+const title = computed(() => {
+    const sales = props.sales.data;
+    return (
+        `sales-report-between-${String(sales[0]['created_at']).replace(
+            /T.*/gi,
+            ''
+        )}-and-${String(sales[sales.length - 1]['created_at']).replace(
+            /T.*/gi,
+            ''
+        )}` + '.xls'
+    );
+});
 </script>

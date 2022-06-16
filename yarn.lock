@@ -2687,6 +2687,11 @@ dotenv@^10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
+downloadjs@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/downloadjs/-/downloadjs-1.4.7.tgz#f69f96f940e0d0553dac291139865a3cd0101e3c"
+  integrity sha512-LN1gO7+u9xjU5oEScGFKvXhYf7Y/empUIIEAGBs1LzUq/rg5duiDrkuH5A2lQGd5jfMOb9X9usDa2oVXwJ0U/Q==
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -5371,6 +5376,13 @@ vue-demi@*, vue-demi@^0.12.0:
   version "0.12.5"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.12.5.tgz#8eeed566a7d86eb090209a11723f887d28aeb2d1"
   integrity sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q==
+
+vue-json-excel3@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/vue-json-excel3/-/vue-json-excel3-0.0.3.tgz#496a269d297a08e3077b2d0535638e3fa825f1b3"
+  integrity sha512-3WLRR+BtZOZh/jMtbAyd/ApjL9+q412vdyNo56ZE275zo8lyHa4Iuyn8JtMt4ZRlGZ1usvs2+2S9gOXNV8Q1ag==
+  dependencies:
+    downloadjs "^1.4.7"
 
 vue-loader@^17.0.0:
   version "17.0.0"

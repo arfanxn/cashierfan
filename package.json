@@ -37,6 +37,7 @@
         "tailwind-scrollbar-hide": "^1.1.7",
         "vue": "^3.2.33",
         "vue-chartjs": "^4.1.0",
+        "vue-json-excel3": "^0.0.3",
         "vue3-print-nb": "^0.1.4",
         "ziggy-js": "tightenco/ziggy"
     }

@@ -63,14 +63,22 @@
                 <div
                     class="flex justify-end pt-4 mt-2 space-x-1 border-t-2 lg:col-span-12 lg:space-x-3 lg:mt-4"
                 >
-                    <Button
-                        class="flex items-center justify-center px-2 py-1 space-x-1 bg-green-700 rounded lg:px-4 lg:col-span-2 hover:bg-green-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-700/25 focus:bg-green-700/90"
+                    <JSONExcel
+                        :header="title"
+                        :name="title"
+                        :data="
+                            props.products.map((product) => ({
+                                ...product,
+                                pivot: JSON.stringify(product.pivot)
+                            }))
+                        "
+                        class="flex items-center justify-center px-2 py-1 space-x-1 bg-green-700 rounded lg:px-4 lg:col-span-2 text-white pointer hover:bg-green-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-700/25 focus:bg-green-700/90"
                     >
                         <font-awesome-icon
                             icon="fas fa-file-excel"
                         ></font-awesome-icon>
                         <span class="uppercase">EXCEL</span>
-                    </Button>
+                    </JSONExcel>
                     <Button
                         class="flex items-center justify-center px-2 py-1 space-x-1 bg-red-700 rounded lg:px-4 lg:col-span-2 hover:bg-red-700/90 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-700/25 focus:bg-red-700/90"
                     >
@@ -330,6 +338,7 @@
 import AuthLayout from '../../Layouts/AuthLayout.vue';
 import JsBarcode from 'jsbarcode';
 import Alert from '../../Components/Alert.vue';
+import JSONExcel from 'vue-json-excel3';
 import Card from '../../Components/Card.vue';
 import Button from '../../Components/Button.vue';
 import ButtonLink from '../../Components/ButtonLink.vue';
@@ -355,5 +364,16 @@ const products = reactive({
 
 onMounted(() => {
     JsBarcode('.barcode').init();
+});
+
+const title = computed(() => {
+    const saleProfit = props.products;
+    return (
+        `sale-profits-report-between-${String(
+            saleProfit[0]['created_at']
+        ).replace(/T.*/gi, '')}-and-${String(
+            saleProfit[saleProfit.length - 1]['created_at']
+        ).replace(/T.*/gi, '')}` + '.xls'
+    );
 });
 </script>
