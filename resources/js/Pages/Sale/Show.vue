@@ -87,6 +87,12 @@
                                     scope="col"
                                     class="px-4 py-3 border border-gray-500"
                                 >
+                                    Discount
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-4 py-3 border border-gray-500"
+                                >
                                     Sum Tax
                                 </th>
                                 <th
@@ -175,6 +181,16 @@
                                         }}</span>
                                         <span>{{
                                             props.sale.customer?.phone_number
+                                        }}</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-4 py-4 align-top border border-slate-500"
+                                >
+                                    <div class="flex space-x-1">
+                                        <span>{{
+                                            toCurrency(props.sale.discount)
+                                                .output
                                         }}</span>
                                     </div>
                                 </td>
