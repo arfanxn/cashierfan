@@ -344,7 +344,7 @@ import Button from '../../Components/Button.vue';
 import ButtonLink from '../../Components/ButtonLink.vue';
 import ButtonPagination from '../../Components/ButtonPagination.vue';
 import Input from '../../Components/Input.vue';
-import { toCurrency, tap } from '../../Helpers';
+import { toCurrency, tap, isset } from '../../Helpers';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import { computed, defineProps, reactive, onMounted } from 'vue';
 
@@ -368,12 +368,13 @@ onMounted(() => {
 
 const title = computed(() => {
     const saleProfit = props.products;
-    return (
-        `sale-profits-report-between-${String(
-            saleProfit[0]['created_at']
-        ).replace(/T.*/gi, '')}-and-${String(
-            saleProfit[saleProfit.length - 1]['created_at']
-        ).replace(/T.*/gi, '')}` + '.xls'
+    return isset(
+        () =>
+            `sale-profits-report-between-${String(
+                saleProfit[0]['created_at']
+            ).replace(/T.*/gi, '')}-and-${String(
+                saleProfit[saleProfit.length - 1]['created_at']
+            ).replace(/T.*/gi, '')}` + '.xls'
     );
 });
 </script>

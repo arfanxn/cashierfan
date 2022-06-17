@@ -266,7 +266,7 @@ import Textarea from '../../Components/Textarea.vue';
 import Input from '../../Components/Input.vue';
 import JSONExcel from 'vue-json-excel3';
 // from "vue-json-excel3";
-import { tap, toCurrency } from '../../Helpers';
+import { tap, toCurrency, isset } from '../../Helpers';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import { defineProps, computed, onMounted } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
@@ -283,14 +283,19 @@ const form = useForm({
 
 const title = computed(() => {
     const sales = props.sales.data;
-    return (
-        `sales-report-between-${String(sales[0]['created_at']).replace(
-            /T.*/gi,
-            ''
-        )}-and-${String(sales[sales.length - 1]['created_at']).replace(
-            /T.*/gi,
-            ''
-        )}` + '.xls'
+    return isset(
+        () =>
+            `sales-report-between-${String(sales[0]['created_at']).replace(
+                /T.*/gi,
+                ''
+            )}-and-${String(sales[sales.length - 1]['created_at']).replace(
+                /T.*/gi,
+                ''
+            )}` + '.xls'
     );
 });
+
+function filter() {
+    form.get(route(`sales.index`));
+}
 </script>
