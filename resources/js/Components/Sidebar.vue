@@ -130,7 +130,7 @@
                         :href="route('sales.index')"
                         :class="{
                             'bg-slate-800/50':
-                                $page.component === 'Sale/Index' &&
+                                $page.url.toLowerCase().includes('sales') &&
                                 !$page.component.includes('Profit')
                         }"
                         class="flex px-4 items-center py-2.5 space-x-2 hover:bg-slate-800/50 transition duration-200"
