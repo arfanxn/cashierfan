@@ -30,7 +30,7 @@ class SaleFactory extends Factory
         // $table->decimal('sum_net_price', 10);
         // $table->timestampTz("created_at");
 
-        $sumGrossPrice = rand(1000 * 1000, 1000 * 100000);
+        $sumGrossPrice = rand(1000 * 1000, 1000 * 10000000);
         $sumTax = ($sumGrossPrice / 100) * rand(1, 5); // get 3 percent of sumGrossPrice
         $sumProfit = ($sumGrossPrice / 100) * rand(3, 10);
         $discount = rand(0, 1) ? 0 : rand(1000 * 100, 1000 * 1000);

@@ -15,10 +15,11 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 300; $i++) {
+
+        Product::factory()->count(200)->create();
+
+        for ($i = 1; $i <= 50; $i++) {
             Product::factory()->count(1)->create(['name' => "Product $i"]);
         }
-
-        Product::factory()->count(100)->create();
     }
 }

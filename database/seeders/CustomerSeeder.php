@@ -21,10 +21,10 @@ class CustomerSeeder extends Seeder
             "address" => null,
         ]);
 
-        for ($i = 1; $i <= 300; $i++) {
+        Customer::factory()->count(200)->create();
+
+        for ($i = 1; $i <= 50; $i++) {
             Customer::factory()->count(1)->create(['name' => "Customer $i"]);
         }
-
-        Customer::factory()->count(100)->create();
     }
 }

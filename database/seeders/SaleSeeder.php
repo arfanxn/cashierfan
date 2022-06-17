@@ -21,8 +21,8 @@ class SaleSeeder extends Seeder
      */
     public function run()
     {
-        Sale::factory()->count(100)->create()->each(function ($sale) {
-            ProductSale::factory()->count(rand(1, 25))
+        Sale::factory()->count(1000)->create()->each(function ($sale) {
+            ProductSale::factory()->count(rand(1, 100))
                 ->create([
                     "sale_id" => $sale->id,
                 ])->each(function ($productSale) {
@@ -62,24 +62,5 @@ class SaleSeeder extends Seeder
                 "date" => $date
             ]);
         });
-
-        // $cashiers = User::limit(10)->get();
-
-        // $cutomers = Customer::limit(20)->get();
-
-        // $products = Product::limit(50)->get();
-
-        // for ($i = 0; $i < 100; $i++) {
-        //     $cashier  = $cashiers[rand(0, 9)];
-        //     $cutomer  = $cutomers[rand(0, 19)];
-
-        //     $selectedProducts = array_filter($products->toArray(), fn () => rand(0, 1));
-
-        //     $selectedProducts = array_map(function ($product) {
-        //         return array_merge($product, ['quantity' => rand(1, 3)]);
-        //     }, $selectedProducts);
-
-        //     MakeSaleAction::exec($cashier, $cutomer, 99999999999.00, rand(0, 20000), $selectedProducts);
-        // }
     }
 }
