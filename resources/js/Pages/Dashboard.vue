@@ -74,22 +74,7 @@
                             <span>
                                 {{
                                     toCurrency(
-                                        isset(
-                                            () =>
-                                                parseFloat(
-                                                    props.statistics.sale
-                                                        .grosses_today
-                                                ) +
-                                                parseFloat(
-                                                    props.statistics.sale
-                                                        .taxes_today
-                                                ) +
-                                                parseFloat(
-                                                    props.statistics.sale
-                                                        .profits_today
-                                                ),
-                                            0
-                                        )
+                                        props.statistics.sale.netts_today || 0
                                     ).output
                                 }}
                             </span>

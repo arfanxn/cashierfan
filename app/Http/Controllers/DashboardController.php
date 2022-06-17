@@ -39,11 +39,15 @@ class DashboardController extends Controller
         $statistics['sale'] = [
             "total_happen_today" => StatisticRepository::countSalesHappenToday(),
             "grosses_today" =>
-            $statistics['sales'][today()->toDateString()]['sales_grosses']['value'] ?? null,
+            $statistics['sales'][today()->toDateString()]['sales_grosses']['value'] ?? 0,
             "profits_today" =>
-            $statistics['sales'][today()->toDateString()]['sales_profits']['value'] ?? null,
+            $statistics['sales'][today()->toDateString()]['sales_profits']['value'] ?? 0,
             "taxes_today" =>
-            $statistics['sales'][today()->toDateString()]['sales_taxes']['value'] ?? null,
+            $statistics['sales'][today()->toDateString()]['sales_taxes']['value'] ?? 0,
+            "netts_today" =>
+            floatval($statistics['sales'][today()->toDateString()]['sales_grosses']['value'] ?? 0)
+                +  floatval($statistics['sales'][today()->toDateString()]['sales_profits']['value'] ?? 0)
+                +  floatval($statistics['sales'][today()->toDateString()]['sales_taxes']['value'] ?? 0),
         ];
 
         return Inertia::render("Dashboard", compact("statistics", 'products'));
