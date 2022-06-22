@@ -43,7 +43,7 @@ class MakeSaleAction
                 $prodQuery = Product::query()->where("id", $product['id']);
                 if ($product['quantity'] <= $prodQuery->first(['stock'])->stock)
                     $prodQuery->decrement("stock", $product['quantity']);
-                else throw new OutOfStockProductException("Out of stock product.");
+                else throw new OutOfStockProductException("Out of stock product \"" . $product['name'] . '"');
 
                 // write each product sold by statistic (best_selling_products statistics)
                 StatisticRepository::write([
