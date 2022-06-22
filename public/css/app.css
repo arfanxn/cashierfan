@@ -577,6 +577,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-16 {
   height: 4rem;
 }
+.h-24 {
+  height: 6rem;
+}
 .max-h-52 {
   max-height: 13rem;
 }
@@ -623,6 +626,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-3\/4 {
   width: 75%;
+}
+.w-24 {
+  width: 6rem;
 }
 .basis-full {
   flex-basis: 100%;
@@ -694,6 +700,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .gap-1 {
   gap: 0.25rem;
+}
+.gap-2 {
+  gap: 0.5rem;
 }
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -947,6 +956,30 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-transparent {
   background-color: transparent;
 }
+.bg-indigo-900\/25 {
+  background-color: rgb(49 46 129 / 0.25);
+}
+.bg-indigo-900\/10 {
+  background-color: rgb(49 46 129 / 0.1);
+}
+.bg-indigo-900\/5 {
+  background-color: rgb(49 46 129 / 0.05);
+}
+.bg-indigo-900\/20 {
+  background-color: rgb(49 46 129 / 0.2);
+}
+.bg-indigo-900\/\[\.20\] {
+  background-color: rgb(49 46 129 / .20);
+}
+.bg-indigo-900\/\[\.15\] {
+  background-color: rgb(49 46 129 / .15);
+}
+.bg-indigo-900\/\[\.12\.5\] {
+  background-color: rgb(49 46 129 / .12.5);
+}
+.bg-indigo-900\/\[\.125\] {
+  background-color: rgb(49 46 129 / .125);
+}
 .bg-cover {
   background-size: cover;
 }
@@ -967,6 +1000,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .p-4 {
   padding: 1rem;
+}
+.p-8 {
+  padding: 2rem;
+}
+.p-10 {
+  padding: 2.5rem;
+}
+.p-6 {
+  padding: 1.5rem;
 }
 .px-2 {
   padding-left: 0.5rem;
@@ -1144,6 +1186,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-green-600 {
   --tw-text-opacity: 1;
   color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+.text-indigo-700 {
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;
@@ -1506,6 +1552,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     height: 9rem;
   }
 
+  .md\:h-24 {
+    height: 6rem;
+  }
+
   .md\:max-h-96 {
     max-height: 24rem;
   }
@@ -1518,8 +1568,16 @@ Ensure the default browser behavior of the `hidden` attribute.
     width: 9rem;
   }
 
+  .md\:w-24 {
+    width: 6rem;
+  }
+
   .md\:flex-row {
     flex-direction: row;
+  }
+
+  .md\:gap-4 {
+    gap: 1rem;
   }
 
   .md\:space-x-3 > :not([hidden]) ~ :not([hidden]) {
