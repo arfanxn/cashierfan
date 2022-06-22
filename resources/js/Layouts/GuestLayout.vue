@@ -11,7 +11,7 @@
                 alt=""
             />
             <h1 class="text-slate-700 text-xl font-bold lg:text-2xl">
-                Cashierfan
+                {{ $inertia.page.props?.app?.name }}
             </h1>
         </div>
         <slot></slot>

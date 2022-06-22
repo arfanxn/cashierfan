@@ -14,7 +14,7 @@
                 class="flex items-center justify-center bg-indigo-900 py-2.5"
             >
                 <h1 class="text-base font-bold text-white lg:text-xl">
-                    Cashierfan
+                    {{ $inertia.page.props?.app?.name }}
                 </h1>
             </header>
 

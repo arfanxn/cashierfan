@@ -3,7 +3,9 @@
 
     <div id="invoice" class="h-auto p-4 text-xs text-black bg-white w-96">
         <header class="px-2 text-center">
-            <h1 class="text-sm font-bold">Cashierfan</h1>
+            <h1 class="text-sm font-bold">
+                {{ $inertia.page.props?.app?.name }}
+            </h1>
             <p>
                 Address : Lorem ipsum dolor sit amet, consectetur adipisicing
                 elit.
