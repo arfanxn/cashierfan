@@ -121,7 +121,7 @@ class CustomerController extends Controller
         $customer->update($validated);
 
         return redirect()->route("customers.index")
-            ->with(["message" => 'Customer "' . $customer->name . '" updated successfully']);
+            ->with(["message" => 'Customer "' . $customer->name . '" updated successfully']);    
     }
 
     /**
