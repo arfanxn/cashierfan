@@ -21,10 +21,11 @@ class UserDetailFactory extends Factory
         $avatars = Storage::disk("public")->allFiles('users/avatars');
         $hexColor = "#" . Str::random(6, "0123456789ABCDEF");
         $useAvatar = rand(0, 1);
+        $avatar =  $avatars[rand(0, count($avatars) - 1)/**/] ?? null;
 
         return [
             // "user_id" is provided by the paramter 
-            "avatar" => $useAvatar ? "/storage/"  . $avatars[rand(0, count($avatars) - 1)/**/] : $hexColor,
+            "avatar" => $useAvatar && $avatar ? "/storage/"  . $avatar : $hexColor,
             "phone_number" => $this->faker->phoneNumber(),
             "address" => $this->faker->address(),
         ];

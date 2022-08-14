@@ -47,7 +47,7 @@ class ProductFactory extends Factory
             "barcode" => strtoupper(Str::random()),
             "name" => $productName,
             "description" => $this->faker->sentences(2, true),
-            "image" => "/storage/" . $images[rand(0, count($images) - 1)],
+            "image" => "/storage/" . ($images[rand(0, count($images) - 1)] ?? null),
             "tax_percentage" => $taxPercentage,
             "tax" => $tax,
             "profit_percentage" => $profitPercentage,
