@@ -9,7 +9,7 @@ Cashierfan application require Postgresql database data, install the Postgresql
 with docker-compose
 
 ```sh
-docker-compose -f  dockcompose-pgsql.yaml up -d
+docker-compose -f  dockcompose-pgsql.yml up -d
 ```
 
 Install all composer dependencies
