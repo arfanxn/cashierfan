@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Sale;
-use App\Models\Statistic;
 use App\Repositories\StatisticRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -32,7 +29,7 @@ class DashboardController extends Controller
             )->get()->groupBy(["date"])->map(function ($date) {
                 return $date->groupBy("statisticable_key");
             })->map(function ($keyAsDate) {
-                return $keyAsDate->map(fn ($key) => $key[0]);
+                return $keyAsDate->map(fn($key) => $key[0]);
             })->toArray(),
         ];
 
