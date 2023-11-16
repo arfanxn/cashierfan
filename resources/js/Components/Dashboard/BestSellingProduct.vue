@@ -6,8 +6,8 @@
         </template>
 
         <Doughnut
-            :chart-options="chart.options"
-            :chart-data="chart.data"
+            :options="chart.options"
+            :data="chart.data"
             chart-id="best-sell-products-chart"
             dataset-id-key="best-sell-products-chart-key"
             css-classes="overflow-x-auto"

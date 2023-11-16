@@ -7,9 +7,9 @@
 
         <div class="">
             <Bar
+                :options="chart.options"
+                :data="chart.data"
                 class="w-full"
-                :chart-options="chart.options"
-                :chart-data="chart.data"
                 chart-id="sales-chart"
                 dataset-id-key="sales-chart-key"
                 css-classes="overflow-x-auto"
