@@ -21,9 +21,10 @@ class CreateOrUpdateProductAction
         float $gross_price,
         int $stock,
     ) {
-        $product = new Product;
-        if ($id) // if the "id" argument is provided do the query 
+        $product = new Product();
+        if ($id) { // if the "id" argument is provided do the query
             $product = $product->query()->where("id", $id)->first() ?? $product;
+        }
 
         $tax = ($gross_price / 100) * $tax_percentage ??  0;
         $profit = ($gross_price / 100) * $profit_percentage ??  0;
