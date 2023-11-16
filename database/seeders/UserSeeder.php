@@ -7,6 +7,7 @@ use App\Services\VerificationCodeService;
 use Faker\Factory as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -22,7 +23,7 @@ class UserSeeder extends Seeder
         $faker = Faker::create("id_ID");
 
         \App\Models\User::factory()->create([
-            'name' => 'Muhammad Arfan',
+            'name' => 'Arfan',
             'email' => 'arf@gm.com',
             "password" => bcrypt(11112222),
         ])->each(function (User $user) {
@@ -32,12 +33,12 @@ class UserSeeder extends Seeder
 
             \App\Models\UserDetail::factory()->create([
                 "user_id" => $user->id,
-                "avatar" => '/storage/users/avatars/avatar4.jpg'
+                "avatar" => Storage::disk("public")->allFiles("users/avatars"),
             ]);
         });
 
         \App\Models\User::factory(99)->create([
-            'password' => bcrypt('11112222')
+            'password' => bcrypt(11112222)
         ])->each(function (User $user) {
             VerificationCodeService::make($user->email)->fresh();
 

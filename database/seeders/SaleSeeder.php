@@ -2,14 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Actions\MakeSaleAction;
 use App\Models\ProductSale;
 use App\Models\Sale;
-use App\Models\Customer;
 use App\Models\Product;
-use App\Models\User;
 use App\Repositories\StatisticRepository;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SaleSeeder extends Seeder
@@ -21,7 +17,7 @@ class SaleSeeder extends Seeder
      */
     public function run()
     {
-        Sale::factory()->count(1000)->create()->each(function ($sale) {
+        Sale::factory()->count(100)->create()->each(function ($sale) {
             ProductSale::factory()->count(rand(1, 100))
                 ->create([
                     "sale_id" => $sale->id,
