@@ -17,7 +17,7 @@
                         :previewImgURL="form.image"
                         @onInput="({ file }) => (form.image = file)"
                         id="inpProdImg"
-                        class="border rounded h-52"
+                        class="h-64 border rounded"
                         @onError="
                             ({ message }) => (form.errors.image = message)
                         "
