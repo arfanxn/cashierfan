@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
 
             \App\Models\UserDetail::factory()->create([
                 "user_id" => $user->id,
-                "avatar" => Storage::disk("public")->allFiles("users/avatars"),
+                "avatar" => Storage::disk("public")->allFiles("users/avatars")[0],
             ]);
         });
 
